@@ -27,6 +27,7 @@ const Register: React.FC = () => {
     email: '',
     password: '',
     repeatPassword: '',
+    emailSubscription: false,
   };
 
   const [formValues, setFormValues] = useState(formInputs);
@@ -152,7 +153,22 @@ const Register: React.FC = () => {
             }}
           />
 
-          <div className="mt-10 mb-2">
+          <label className="inline-flex items-center mt-3">
+            <input
+              type="checkbox"
+              className="form-checkbox h-5 w-5 text-orange-600 rounded-lg"
+              checked={formValues.emailSubscription}
+              onClick={() =>
+                setFormValues({
+                  ...formValues,
+                  emailSubscription: !formValues.emailSubscription,
+                })
+              }
+            />
+            <span className="ml-2 text-gray-700">Send me email updates</span>
+          </label>
+
+          <div className="mt-2 mb-2">
             <SubmitButton isLoading={isLoading} text="Sign up" />
           </div>
           <Link href="/login">

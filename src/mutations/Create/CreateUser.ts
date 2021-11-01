@@ -14,6 +14,7 @@ type CreateUserProps = {
   lastName: string;
   email: string;
   password: string;
+  emailSubscription: boolean;
 };
 
 const CreateUser = async ({
@@ -22,6 +23,7 @@ const CreateUser = async ({
   lastName,
   email,
   password,
+  emailSubscription,
 }: CreateUserProps): Promise<void> => {
   // generate password hash
   const hashedPassword = await hash(
@@ -40,7 +42,8 @@ email: "${email}",
 password: "${hashedPassword}",
 createdAt: ${new Date().getTime()},
 verified: false,
-authorizationToken: "${authorizationToken}"
+authorizationToken: "${authorizationToken}",
+emailSubscription: ${emailSubscription}
 })`;
 
   await RunCypherQuery(query);

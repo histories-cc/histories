@@ -213,6 +213,7 @@ export default gql`
   input CreateUserInput {
     username: String!
     email: String!
+    emailSubscription: Boolean!
     firstName: String!
     lastName: String!
     password: String!

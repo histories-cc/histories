@@ -305,6 +305,7 @@ const resolvers = {
           firstName: string;
           lastName: string;
           email: string;
+          emailSubscription: boolean;
           password: string;
         };
       }
