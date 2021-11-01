@@ -1,95 +1,89 @@
 import React, { FC, useState } from 'react';
-import { useIsLoggedQuery, useLoginMutation } from '@graphql/user.graphql';
+import { useLoginMutation } from '@graphql/user.graphql';
 import Link from 'next/link';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
 import Router from 'next/router';
 import { useTranslation } from 'react-i18next';
 import Cookie from 'js-cookie';
 import { toast } from 'react-hot-toast';
-import { Button } from '@nextui-org/react';
-import { Navbar } from '@components/Navbar';
 import { Layout } from '@components/Layout';
+import SubmitButton from '@components/LoadingButton/SubmitButton';
 
 const Login: FC = () => {
   const [login] = useLoginMutation();
   const [isLoading, setIsLoading] = useState(false);
   const { t } = useTranslation();
 
+  const formInputs = {
+    username: '',
+    password: '',
+  };
+
+  const [formValues, setFormValues] = useState(formInputs);
+
   return (
     <Layout redirectLogged title={''}>
-      <Formik
-        initialValues={{
-          username: '',
-          password: '',
-        }}
-        onSubmit={async (values) => {
-          setIsLoading(true);
-          try {
-            const result = await login({
-              variables: values,
-            });
-            if (result.data?.login !== 'error') {
-              // login successful
-              Cookie.set('jwt', result.data?.login as string, {
-                sameSite: 'strict',
+      <div className="max-w-[27rem] m-auto p-10">
+        <form
+          onSubmit={async (event) => {
+            event.preventDefault();
+            setIsLoading(true);
+            try {
+              const result = await login({
+                variables: formValues,
               });
-              Router.reload();
+              if (result.data?.login !== 'error') {
+                // login successful
+                Cookie.set('jwt', result.data?.login as string, {
+                  sameSite: 'strict',
+                });
+                Router.reload();
+              }
+            } catch (error) {
+              // @ts-ignore
+              toast.error(error.message);
             }
-          } catch (error) {
-            // @ts-ignore
-            toast.error(error.message);
-          }
-          setIsLoading(false);
-        }}
-      >
-        {() => (
-          <Form>
-            <Input
-              label="Username or email"
-              name="username"
-              type="text"
-              autoComplete="username"
-            />
-            <Input
-              label="Password"
-              name="password"
-              type="password"
-              autoComplete="new-password"
-            />
-            <div className="mt-4 align-center">
-              {isLoading ? (
-                <Button loading loaderType="spinner" />
-              ) : (
-                <Button type="submit">Submit</Button>
-              )}
-              <Link href="/register">
-                <a className="underline pl-2">or create a new account</a>
-              </Link>
-            </div>
-          </Form>
-        )}
-      </Formik>
+            setIsLoading(false);
+          }}
+        >
+          <FormInput
+            placeholder="username or email"
+            type="text"
+            value={formValues.username}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setFormValues({ ...formValues, username: e.target.value });
+            }}
+          />
+
+          <FormInput
+            placeholder="password"
+            type="password"
+            value={formValues.password}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setFormValues({ ...formValues, password: e.target.value });
+            }}
+          />
+
+          <div className="pt-2 mb-2">
+            <SubmitButton isLoading={isLoading} text="Sign up" />
+          </div>
+          <Link href="/register">
+            <a className="underline pl-2">create new account</a>
+          </Link>
+        </form>
+      </div>
     </Layout>
   );
 };
 
-const Input: FC<{
-  type: string;
-  name: string;
-  autoComplete: string;
-  label: string;
-}> = ({ type, name, autoComplete, label }) => {
+const FormInput = (props: any) => {
   return (
-    <div>
-      <label htmlFor={name}>{label}</label>
-      <Field
-        type={type}
-        className="shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-        name={name}
-        autoComplete={autoComplete}
+    <div className="w-full mb-2">
+      <input
+        {...props}
+        className="shadow appearance-none border rounded-lg w-full h-10 px-3 mt-2 mb-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        required={true}
+        type={props.type ?? 'text'}
       />
-      <ErrorMessage name={name} />
-      <br />
     </div>
   );
 };

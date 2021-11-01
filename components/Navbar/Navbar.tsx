@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import useDarkMode from '@lib/hooks/useDarkmode';
 import LogOut from '@lib/functions/LogOut';
-import { Avatar } from '@nextui-org/react';
 import { useIsLoggedQuery } from '@graphql/user.graphql';
-
+import Image from 'next/image';
 import styles from './Navbar.module.scss';
 import transition from './transitions/primary.module.scss';
 import transitionSecondary from './transitions/secondary.module.scss';
@@ -165,12 +164,15 @@ const DropdownMenu: React.FC<{ data: any; setTheme: any; theme: string }> = ({
             <DropdownItem
               link={`/${data.isLogged.username}`}
               leftIcon={
-                <Avatar
-                  size="small"
+                <Image
+                  height={120}
+                  width={120}
                   src={GeneratedProfileUrl(
                     data.isLogged.firstName,
                     data.isLogged.lastName
                   )}
+                  alt="profile picture"
+                  className="rounded-full"
                 />
               }
             >
