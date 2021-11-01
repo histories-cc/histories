@@ -8,6 +8,7 @@ import RunCypherQuery from '@src/database/RunCypherQuery';
  * DELETE user                                                      - delete all matching
  */
 
+// run this query every 12 hours with github action
 const DeleteUnauthorized = async (): Promise<void> => {
   await RunCypherQuery(
     `MATCH (user:User) WHERE user.verified = false AND user.createdAt < ${

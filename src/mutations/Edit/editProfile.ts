@@ -1,5 +1,16 @@
 import RunCypherQuery from '../../database/RunCypherQuery';
-import DbConnector from '../../database/driver';
+
+// QUERY
+/*
+ * MATCH (user:User)
+ * WHERE ID(user) = $id                                                     - match user by id
+ * ${username !== undefined ? `SET user.username = "${username}" ` : ''}    - only add this line to query if variable isn't undefined
+ * ${bio !== undefined ? `SET user.bio = "${bio}" ` : ''}                   - only add this line to query if variable isn't undefined
+ * ${firstName !== undefined ? `SET user.firstName = "${firstName}" ` : ''} - only add this line to query if variable isn't undefined
+ * ${lastName !== undefined ? `SET user.lastName = "${lastName}" ` : ''}    - only add this line to query if variable isn't undefined
+ * ${email !== undefined ? `SET user.email = "${email}" ` : ''}             - only add this line to query if variable isn't undefined
+ * ${password !== undefined ? `SET user.password = "${password}" ` : ''}    - only add this line to query if variable isn't undefined
+ */
 
 const EditProfile = async ({
   id,

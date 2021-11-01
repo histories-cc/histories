@@ -1,5 +1,4 @@
-import DbConnector from '../../database/driver';
-import { UserExists } from '../../validation';
+import RunCypherQuery from '../../database/RunCypherQuery';
 
 const deleteUser = async ({
   username,
@@ -7,16 +6,10 @@ const deleteUser = async ({
 }: {
   username: string;
   password: string;
-}): Promise<string> => {
+}): Promise<void> => {
   const query = `MATCH (n:User {username: "${username}"}) DETACH DELETE n`;
 
-  const driver = DbConnector();
-  const session = driver.session();
-
-  await session.run(query);
-  driver.close();
-
-  return (await UserExists(username)) ? 'user deleted' : 'action failed';
+  await RunCypherQuery(query);
 };
 
 export default deleteUser;

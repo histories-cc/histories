@@ -18,17 +18,29 @@ const FilterPlacesQuery = async ({
   minDate,
   maxDate,
 }: queryInput) => {
-  ValidateQueryInput({
+  // validate coordinates
+  const validateMaxCoordinates = ValidateCoordinates([
     maxLatitude,
-    minLatitude,
     maxLongitude,
+  ]).error;
+  if (validateMaxCoordinates) throw new Error(validateMaxCoordinates);
+  const validateMinCoordinates = ValidateCoordinates([
+    minLatitude,
     minLongitude,
-    minDate,
-    maxDate,
-  });
+  ]).error;
+  if (validateMinCoordinates) throw new Error(validateMinCoordinates);
 
-  const query = `
-MATCH (place:Place)<-[:IS_LOCATED]-(post:Post)<-[:CREATED]-(author:User)
+  // validate date if defined
+  if (minDate) {
+    const validateMinDate = ValidateDate(Number(minDate)).error;
+    if (validateMinDate) throw new Error(validateMinDate);
+  }
+  if (maxDate) {
+    const validateMaxDate = ValidateDate(Number(maxDate)).error;
+    if (validateMaxDate) throw new Error(validateMaxDate);
+  }
+
+  const query = `MATCH (place:Place)<-[:IS_LOCATED]-(post:Post)<-[:CREATED]-(author:User)
 WHERE place.location.latitude >= ${minLatitude} AND place.location.latitude <= ${maxLatitude}
 AND place.location.longitude >= ${minLongitude} AND place.location.longitude <= ${maxLongitude}
 ${minDate ? ` AND post.postDate >= ${minDate} ` : ''}
@@ -45,37 +57,6 @@ RETURN COLLECT(result) AS places`;
       url: post.url,
     })),
   }));
-};
-
-const ValidateQueryInput = ({
-  maxLatitude,
-  minLatitude,
-  maxLongitude,
-  minLongitude,
-  minDate,
-  maxDate,
-}: queryInput) => {
-  // check coordinates
-  const validateMaxCoordinates = ValidateCoordinates([
-    maxLatitude,
-    maxLongitude,
-  ]).error;
-  if (validateMaxCoordinates) throw new Error(validateMaxCoordinates);
-  const validateMinCoordinates = ValidateCoordinates([
-    minLatitude,
-    minLongitude,
-  ]).error;
-  if (validateMinCoordinates) throw new Error(validateMinCoordinates);
-
-  // check date
-  if (minDate) {
-    const validateMinDate = ValidateDate(Number(minDate)).error;
-    if (validateMinDate) throw new Error(validateMinDate);
-  }
-  if (maxDate) {
-    const validateMaxDate = ValidateDate(Number(maxDate)).error;
-    if (validateMaxDate) throw new Error(validateMaxDate);
-  }
 };
 
 export default FilterPlacesQuery;

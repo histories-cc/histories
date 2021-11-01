@@ -109,7 +109,7 @@ const UserQuery = async ({
   if (username === undefined && id === undefined)
     throw new Error('Username or id required');
 
-  // if username is filled in
+  // if username is defined validate username
   if (username) {
     const validateUsername = ValidateUsername(username).error;
     if (validateUsername) throw new Error(validateUsername);
@@ -118,6 +118,8 @@ const UserQuery = async ({
   const query = `WITH ${logged ?? 'null'} AS loggedID
 MATCH (user:User)
 ${
+  // if id is defined match by id
+  // else if only username is defined match by username
   id !== undefined
     ? ` WHERE ID(user) = ${id} `
     : ` WHERE user.username =~ "(?i)${username}" `
