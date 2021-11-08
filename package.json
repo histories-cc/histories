@@ -106,7 +106,7 @@
     "@types/sharp": "^0.29.3",
     "@types/uuid": "^8.3.1",
     "@types/uuidv4": "^5.0.0",
-    "@types/validator": "^13.6.2",
+    "@types/validator": "^13.6.6",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
     "@typescript-eslint/parser": "^4.32.0",
     "autoprefixer": "^10.3.6",
