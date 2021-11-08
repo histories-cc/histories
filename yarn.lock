@@ -1238,10 +1238,10 @@
   resolved "https://registry.yarnpkg.com/@corex/deepmerge/-/deepmerge-2.6.34.tgz#8dd084f2bcc9cf54f6b1210a1aebd25206de2a84"
   integrity sha512-5l3bQRGOoCJ1nYTxEaOW/MRuwNDq32KYatWO5rwOlOzxY4beVCrxDBaDBX5wpDn0PYm0QAul/vAC9GDHShEbTw==
 
-"@deck.gl/core@^8.5.10":
-  version "8.6.0"
-  resolved "https://registry.yarnpkg.com/@deck.gl/core/-/core-8.6.0.tgz#8817b75a50f41844bbcc1a2589f3fc90d522a85b"
-  integrity sha512-ZJ10LT3y7aximvKQ04Ipcl+DjHeyKefoRVzusm0uVyBzmEZKKRAoKD0yxOfevRYVePfzcjLs1VwDpe62RerDbQ==
+"@deck.gl/core@^8.6.3":
+  version "8.6.3"
+  resolved "https://registry.yarnpkg.com/@deck.gl/core/-/core-8.6.3.tgz#c6cfcb5716e9c6f727e9708dcb276c02406cb1d6"
+  integrity sha512-VwCdzOfvSdPk+AMRdgLWJdnmU4fCWZFDyHAYHh4Gg80XThq401MZewWax9Eg+vdlu2Uwh4PUXVe62oRCzDReEQ==
   dependencies:
     "@loaders.gl/core" "^3.0.8"
     "@loaders.gl/images" "^3.0.8"
