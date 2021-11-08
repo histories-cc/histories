@@ -13030,10 +13030,10 @@ use-deep-compare-effect@^1.6.1:
     "@babel/runtime" "^7.12.5"
     dequal "^2.0.2"
 
-use-places-autocomplete@^1.9.4:
-  version "1.9.4"
-  resolved "https://registry.yarnpkg.com/use-places-autocomplete/-/use-places-autocomplete-1.9.4.tgz#e93b8fabeb0208f835ca8cc3a30bc104cdab3c7f"
-  integrity sha512-iifiwYcjGb0G9HATbwyKpeJgOxWuZwBgPnKGzYgsB2pe5LFGq9udGGFeP0opT/wFk4W/dG8xKTqW0PxLJLc+OQ==
+use-places-autocomplete@^1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/use-places-autocomplete/-/use-places-autocomplete-1.10.0.tgz#c3898ee5bb89fc378a883f135d53039f331350e9"
+  integrity sha512-lnBPbP7BA+T0yJTKDbCC6y6b14DGXAyxtQzAcSAqKaJl2l9OLk1aMT/4x662CnEyiqbDFxOK9PAIzYr2Jh1dgg==
 
 use-subscription@1.5.1:
   version "1.5.1"
