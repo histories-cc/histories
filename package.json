@@ -90,7 +90,7 @@
     "uuidv4": "^6.2.12"
   },
   "devDependencies": {
-    "@babel/core": "^7.15.5",
+    "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.15.6",
     "@graphql-codegen/cli": "^2.2.0",
     "@graphql-codegen/import-types-preset": "^2.1.4",
