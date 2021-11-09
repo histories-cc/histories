@@ -12,6 +12,7 @@ import { toast } from 'react-hot-toast';
 import { Search } from '@components/MainPage';
 import { Layout } from '@components/Layout';
 import SubmitButton from '@components/LoadingButton/SubmitButton';
+ 
 import Dropzone, { useDropzone } from 'react-dropzone';
 import { useRouter } from 'next/router';
 
@@ -61,7 +62,7 @@ const DropZoneComponent = ({
       </div>
     </div>
   );
-};
+}; 
 
 const Login: FC = () => {
   // for reading coordinates from query params
@@ -302,7 +303,7 @@ C20.1,15.8,20.2,15.8,20.2,15.7z"
                 type="text"
                 value={newTag}
                 onChange={(e) => setNewTag(e.target.value)}
-              />
+              /> 
               <SubmitButton isLoading={isLoading} text="submit" />
             </Form>
           )}
@@ -311,5 +312,5 @@ C20.1,15.8,20.2,15.8,20.2,15.7z"
     </Layout>
   );
 };
-
+ 
 export default Login;

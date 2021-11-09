@@ -47,7 +47,7 @@ const PersonalizedPostsQuery = async (logged: number | null) => {
           WHERE ((user)-[:FOLLOW]->(author)) OR (user = author)
           RETURN post, author
           ORDER BY post.createdAt DESC
-          SKIP
+          SKIP 0
           LIMIT 100
       }
       RETURN COLLECT(DISTINCT post{.*, id: ID(post)}) AS posts`;

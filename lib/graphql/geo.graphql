@@ -49,5 +49,11 @@ query Place($id: Int!) {
       id
       url
     }
+    nearbyPlaces {
+      id
+      preview
+      name
+      distance
+    }
   }
 }

@@ -31,8 +31,9 @@ const UploadPhoto = async (photo: any): Promise<string> => {
   const buffer = await streamToPromise(stream);
 
   // edit image with sharp
-  const image = await sharp(buffer)
+  const image = await sharp(buffer) 
     .resize(2560, undefined, { withoutEnlargement: true })
+ 
     // convert image format to jpeg
     .jpeg()
     .toBuffer();

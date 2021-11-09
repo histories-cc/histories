@@ -1,6 +1,7 @@
 const express = require('express');
 const next = require('next');
-const { ApplyMidleware } = require('./dist/graphql/apolloServer');
+// path to compiled file
+const { ApplyMidleware } = require('./dist/src/graphql/apolloServer');
 const { GraphQLUpload, graphqlUploadExpress } = require('graphql-upload');
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });

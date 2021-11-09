@@ -52,7 +52,16 @@ export default gql`
     description: String!
     name: String!
     preview: String!
-    posts: [Post!]!
+    posts: [Post]!
+    nearbyPlaces: [NearbyPlaces]!
+  }
+
+  type NearbyPlaces {
+    id: Int!
+    description: String!
+    name: String!
+    preview: String!
+    distance: Float!
   }
 
   type CheckIfLoggedInfo {

@@ -19,7 +19,7 @@ const Report = async ({
   target: number;
 }): Promise<void> => {
   await RunCypherQuery(`MATCH (user:User), (target) WHERE ID(user) = ${logged} AND ID(target) = ${target}
-AND (target:Post OR target:Comment OR target:Hashtag) MERGE (user)-[r:REPORT]-(target) SET r.createdAt = ${new Date().getTime()} r.type = ""`);
+AND (target:Post OR target:Comment OR target:Hashtag) MERGE (user)-[r:REPORT]-(target) SET r.createdAt = ${new Date().getTime()}, r.type = ""`);
 };
 
 export default Report;
