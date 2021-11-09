@@ -124,7 +124,7 @@
     "jest-extended": "^1.1.0",
     "lint-staged": "^11.1.2",
     "next-sitemap": "^1.6.173",
-    "postcss": "^8.3.8",
+    "postcss": "^8.3.11",
     "tailwindcss": "^2.2.19",
     "test-jest": "^1.0.1",
     "ts-jest": "^27.0.5",
