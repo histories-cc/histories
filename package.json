@@ -27,7 +27,7 @@
     "@apollo/client": "^3.4.15",
     "@apollo/react-hooks": "^4.0.0",
     "@deck.gl/core": "^8.6.3",
-    "@graphql-tools/load-files": "^6.5.0",
+    "@graphql-tools/load-files": "^6.5.2",
     "@graphql-tools/merge": "^8.1.2",
     "@headlessui/react": "^1.4.1",
     "@heroicons/react": "^1.0.5",
