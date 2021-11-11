@@ -24,7 +24,7 @@
     "migration": "node ./lib/database/Constraints/migration.js"
   },
   "dependencies": {
-    "@apollo/client": "^3.4.15",
+    "@apollo/client": "^3.4.17",
     "@apollo/react-hooks": "^4.0.0",
     "@deck.gl/core": "^8.6.3",
     "@graphql-tools/load-files": "^6.5.0",
