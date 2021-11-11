@@ -1,8 +1,8 @@
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
-    target-branch: "dependabot"
+  - package-ecosystem: 'npm'
+    directory: '/'
+    target-branch: 'dependabot'
     schedule:
-      interval: "daily"
-    open-pull-requests-limit: 20
+      interval: 'daily'
+    open-pull-requests-limit: 5
