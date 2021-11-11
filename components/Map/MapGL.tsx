@@ -41,6 +41,10 @@ import image from 'next/image';
 import Link from 'next/link';
 import { Viewport } from '@lib/types/viewport';
 import { StringValueNode } from 'graphql';
+import CameraIcon from '@components/Icons/CameraIcon';
+import ShareIcon from '@components/Icons/ShareIcon';
+import MarkerIcon from '@components/Icons/MarkerIcon';
+import ChevronIcon from '@components/Icons/Chevron';
 
 type PlaceProps = {
   id: number;
@@ -88,6 +92,7 @@ const MapGL: FC<MapGLProps> = ({ searchCoordinates, setBounds, oldPoints }) => {
   ]);
   const paths = usePathsQuery();
   const [openPlace, setOpenPlace] = useState<number | null>(null);
+  const [placeMinimized, setPlaceMinimized] = useState<boolean>(false);
 
   const [viewport, setViewport] = useState<Viewport>({
     latitude: 50,
@@ -227,18 +232,29 @@ const MapGL: FC<MapGLProps> = ({ searchCoordinates, setBounds, oldPoints }) => {
     <>
       <div className="w-full h-full flex">
         {openPlace && (
-          <div className="w-[50%]">
+          <div className={`relative ${placeMinimized ? 'w-0' : 'w-[50%]'}`}>
             <PlaceWindow
               id={openPlace}
               setOpenPlace={setOpenPlace}
               setViewport={setViewport}
               viewport={viewport}
             />
+            <button
+              className="absolute -right-6 top-1/2 -translate-y-1/2 z-20 py-4 pl-2 bg-white rounded-l rounded-xl shadow-custom"
+              onClick={() => setPlaceMinimized(!placeMinimized)}
+            >
+              <ChevronIcon
+                className={`h-6 w-6 ${
+                  placeMinimized ? 'rotate-90' : '-rotate-90'
+                }`}
+                stroke="#3C4043"
+              />
+            </button>
           </div>
         )}
         <ReactMapGL
           {...viewport}
-          width={openPlace ? '50%' : '100%'}
+          width={placeMinimized ? '100%' : '50%'}
           height="100%"
           onViewportChange={setViewport}
           mapboxApiAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
@@ -325,7 +341,10 @@ const MapGL: FC<MapGLProps> = ({ searchCoordinates, setBounds, oldPoints }) => {
               <MapPlace
                 key={cluster.id}
                 place={place}
-                onClick={() => setOpenPlace(place.id)}
+                onClick={() => {
+                  setOpenPlace(place.id);
+                  setPlaceMinimized(false);
+                }}
               />
             ) : null;
           })}
@@ -346,88 +365,19 @@ const MapGL: FC<MapGLProps> = ({ searchCoordinates, setBounds, oldPoints }) => {
 const MapPlace = ({ place, onClick }: { place: any; onClick: () => void }) => {
   return (
     <Marker latitude={place.latitude} longitude={place.longitude}>
-      {/* marker appear and disappear animation */}
-      <motion.div
-        initial={{ scale: 0.4, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.4, opacity: 0 }}
-        transition={{
-          ease: 'easeOut',
-          duration: 0.2,
-        }}
+      <div
         onClick={onClick}
+        className="-translate-y-1/2 -translate-x-1/2 cursor-pointer"
       >
         <Image
           src={place.posts[0].url[0]}
           width={60}
           height={60}
-          className="rounded-full w-12 h-12 object-cover"
+          className="rounded-full object-cover"
           alt="Picture on map"
         />
-      </motion.div>
+      </div>
     </Marker>
-  );
-};
-
-type PlaceModalProps = {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  place: any;
-};
-
-const PlaceModal: React.FC<PlaceModalProps> = ({
-  isOpen,
-  setIsOpen,
-  place,
-}) => {
-  const photos = place.posts.map((photo: { url: string[] }) => ({
-    src: photo.url[0],
-    width: 4,
-    height: 3,
-  }));
-  const [detail, setDetail] = useState(false);
-  const [currentImage, setCurrentImage] = useState(0);
-
-  const openLightbox = useCallback((event, { photo, index }) => {
-    setCurrentImage(index);
-    setDetail(true);
-    setIsOpen(false);
-  }, []);
-
-  return (
-    <>
-      <motion.section
-        initial={{ scale: 0.4, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.4, opacity: 0 }}
-        transition={{
-          ease: 'easeOut',
-          duration: 0.2,
-        }}
-      >
-        <Modal
-          open={isOpen}
-          onClose={() => {
-            setDetail(false);
-            setIsOpen(false);
-          }}
-        >
-          <section className="absolute justify-between z-50 top-[50%] left-[50%] bg-white max-h-[600px] max-w-[800px] w-full h-full -translate-y-1/2 -translate-x-1/2 rounded-xl">
-            <Gallery photos={photos} onClick={openLightbox} />
-          </section>
-        </Modal>
-      </motion.section>
-      <DetailModal
-        open={detail}
-        onClose={() => {
-          setIsOpen(true);
-          setDetail(false);
-        }}
-        place={place}
-        currentImage={currentImage}
-        setCurrentImage={setCurrentImage}
-      />{' '}
-    </>
   );
 };
 
@@ -456,89 +406,95 @@ const PlaceWindow: React.FC<PlaceWindowProps> = ({
   console.log(data);
 
   return (
-    <div className="w-full h-full overflow-y-auto">
-      {/* BANNER */}
-      <div className="w-full h-80 bg-green-700">
-        {/* @ts-ignore */}
-        {data.place.posts[0]?.url[0] && (
-          <div className="relative w-full h-full">
-            <Image
-              // BANNER IMAGE
-              src={
-                data.place.preview.length > 0
-                  ? data.place.preview
-                  : data.place.posts[0].url[0]
-              }
-              layout="fill"
-              alt="Place preview"
-              objectFit="cover"
-            />
-          </div>
-        )}
-      </div>
-      {/* HEADER */}
-      <h2 className="font-semibold text-3xl">
-        {data.place.name.length > 0 ? data.place.name : 'Place on map'}
-      </h2>
-      {data.place.preview}
-      {/* DETAILS */}
-      <h3 className="">{data.place.posts.length} posts</h3>
-      {/* SHOW LOCATION ON MAP */}
-      <button
-        onClick={() => {
-          setViewport({
-            ...viewport,
-            longitude: data.place.longitude,
-            latitude: data.place.latitude,
-            zoom: 14,
+    <>
+      <div className="relative z-30 w-full h-full overflow-y-auto">
+        {/* BANNER */}
+        <div className="w-full h-80 bg-green-700">
+          {/* @ts-ignore */}
+          {data.place.posts[0]?.url[0] && (
+            <div className="relative w-full h-full">
+              <Image
+                // BANNER IMAGE
+                src={
+                  data.place.preview.length > 0
+                    ? data.place.preview
+                    : data.place.posts[0].url[0]
+                }
+                layout="fill"
+                alt="Place preview"
+                objectFit="cover"
+              />
+            </div>
+          )}
+        </div>
+        <h2 id="PLACE_NAME" className="font-semibold text-2xl px-2 pt-1">
+          {data.place.name.length > 0 ? data.place.name : 'Place on map'}
+        </h2>
+        <div className="border-b border-[#E6EAEC] px-2 pb-2 pt-1 mb-2">
+          <span
+            id="SHOW_ON_MAP"
+            className="text-sm text-[#1872E9] flex items-center cursor-pointer"
+            onClick={() => {
+              setViewport({
+                ...viewport,
+                longitude: data.place.longitude,
+                latitude: data.place.latitude,
+                zoom: 14,
+                // @ts-ignore
+                transitionDuration: 500,
+                transitionInterpolator: new FlyToInterpolator(),
+              });
+            }}
+          >
+            <MarkerIcon className="h-6 w-6" fill="#1872E9" />
+            Show place on map
+          </span>
+          <h3 id="NUMBER_OF_POSTS" className="text-[#1872E9] px-2">
+            {data.place.posts.length} posts
+          </h3>
+        </div>
+
+        <p id="DESCRIPTION" className="px-2 pb-2">
+          {data.place.description.length > 0
+            ? data.place.description
+            : "This place doesn't have any description yet, if you want to add description please contact admin"}
+        </p>
+        <div className="w-full flex my-2">
+          {/* createPost link with place coordinates in query params */}
+          <Link
+            href={{
+              pathname: 'createPost',
+              query: { lat: data.place.latitude, lng: data.place.longitude },
+            }}
+          >
+            <a className="m-auto py-1 px-3 rounded-full flex border border-[#DADDE1] text-[#3C4043] font-semibold">
+              <CameraIcon className="h-6 w-6 mr-1" stroke="#1872E9" />
+              Add photo of this place
+            </a>
+          </Link>
+        </div>
+        <Carousel
+          // @ts-ignore
+          items={data.place.nearbyPlaces.map((place) => ({
+            ...place,
             // @ts-ignore
-            transitionDuration: 500,
-            transitionInterpolator: new FlyToInterpolator(),
-          });
-        }}
-      >
-        show location on map
-      </button>
-      <br />
-      <button onClick={() => setOpenPlace(null)}>close</button>
-      <br />
-      {/* createPost link with place coordinates in query params */}
-      <Link
-        href={{
-          pathname: 'createPost',
-          query: { lat: data.place.latitude, lng: data.place.longitude },
-        }}
-      >
-        <a className="text-blue-500">add post to this place</a>
-      </Link>
-      <p>
-        {data.place.description.length > 0
-          ? data.place.description
-          : "This place doesn't have any description yet, if you want to add description please contact admin"}
-      </p>
-      adssadas
-      <Carousel
-        // @ts-ignore
-        items={data.place.nearbyPlaces.map((place) => ({
-          ...place,
-          // @ts-ignore
-          onClick: () => setOpenPlace(place.id),
-        }))}
-      />
-      adssadas
-      <div>
-        {
-          // @ts-ignore
-          data.place.posts.map((post) => (
-            <PostCard
-              isLoggedQuery={isLoggedQuery}
-              id={post!.id}
-              key={post!.id}
-            />
-          ))
-        }
+            onClick: () => setOpenPlace(place.id),
+          }))}
+        />
+        <div>
+          {
+            // @ts-ignore
+            data.place.posts.map((post) => (
+              <PostCard
+                isLoggedQuery={isLoggedQuery}
+                id={post!.id}
+                key={post!.id}
+              />
+            ))
+          }
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
@@ -569,262 +525,6 @@ const Carousel: React.FC<CarouselProps> = ({ items }) => {
         ))}
       </div>
     </div>
-  );
-};
-
-const DetailModal: React.FC<{
-  onClose: () => void;
-  place: any;
-  open: boolean;
-  currentImage: number;
-  setCurrentImage: React.Dispatch<React.SetStateAction<number>>;
-}> = ({ onClose, place, open, currentImage, setCurrentImage }) => {
-  const [imageInSequence, setImageInSequence] = useState(0);
-  const { data, loading, error, refetch } = usePostQuery({
-    variables: { id: place.posts[currentImage].id },
-  });
-  const [likeMutation] = useLikeMutation();
-  const [unlikeMutation] = useUnlikeMutation();
-  const [reportMutation] = useReportMutation();
-  const isLogged = useIsLoggedQuery();
-  const [commentContent, setCommentContent] = useState('');
-  const [createCommentMutation] = useCreateCommentMutation();
-
-  if (loading || isLogged.loading) return <div>loading</div>;
-  if (error || isLogged.error) return <div>error</div>;
-
-  return (
-    <Modal onClose={onClose} open={open}>
-      <section className="absolute justify-between z-50 top-[50%] left-[50%] bg-white max-h-[600px] max-w-[800px] w-full h-full -translate-y-1/2 -translate-x-1/2 rounded-xl flex">
-        {/* NAVIGATION IN PLACE PHOTOS */}
-        {currentImage > 0 && (
-          <button onClick={() => setCurrentImage(currentImage - 1)}>
-            <ChevronLeftIcon className="h-10 w-10 absolute z-50 top-[50%] -left-20 -translate-y-1/2 text-white" />
-          </button>
-        )}
-        {currentImage < place.posts.length - 1 && (
-          <button onClick={() => setCurrentImage(currentImage + 1)}>
-            <ChevronRightIcon className="h-10 w-10 absolute z-50 top-[50%] -right-20 -translate-y-1/2 text-white" />
-          </button>
-        )}
-
-        {/* PHOTO */}
-        <div className="relative max-h-[600px] max-w-[480px] w-full h-full ">
-          {/* NAVIGATION IN COLLECTION */}
-          {place.posts[currentImage].url.length > 1 && (
-            <>
-              {imageInSequence > 0 && (
-                <button onClick={() => setImageInSequence(imageInSequence - 1)}>
-                  <ChevronLeftIcon className="h-8 w-8 absolute z-50 top-[50%] left-0 -translate-y-1/2 text-white" />
-                </button>
-              )}
-              {imageInSequence < place.posts[currentImage].url.length - 1 && (
-                <button onClick={() => setImageInSequence(imageInSequence + 1)}>
-                  <ChevronRightIcon className="h-8 w-8 absolute z-50 top-[50%] right-0 -translate-y-1/2 text-white" />
-                </button>
-              )}
-            </>
-          )}
-          <Image
-            src={place.posts[currentImage].url[imageInSequence]}
-            layout="fill"
-            objectFit="cover"
-            objectPosition="center"
-            alt="Post"
-            className="rounded-l-xl"
-          />
-        </div>
-        <div className="flex-auto h-full">
-          {/* POST DETAILS */}
-          <div className="w-full justify-between flex p-3 border-b border-[#EEEFEE]">
-            <div className="flex items-center gap-2">
-              <div className="relative rounded-full w-8 h-8">
-                <Image
-                  src={GeneratedProfileUrl(
-                    place.posts[currentImage].author.firstName,
-                    place.posts[currentImage].author.lastName
-                  )}
-                  layout="fill"
-                  objectFit="contain"
-                  objectPosition="center"
-                  className="rounded-full"
-                  alt="Profile picture"
-                />
-              </div>
-              {`${place.posts[currentImage].author.firstName} ${place.posts[currentImage].author.lastName}`}
-            </div>
-            <Menu
-              items={[
-                {
-                  title: 'Report',
-                  onClick: async () => {
-                    try {
-                      await reportMutation({
-                        variables: { id: place.posts[currentImage].id },
-                      });
-                      toast.success('Post reported');
-                    } catch (error: any) {
-                      toast.error(error.message);
-                    }
-                  },
-                },
-                { title: 'Unfollow', onClick: () => {} },
-                {
-                  title: 'Go to post',
-                  href: `/post/${place.posts[currentImage].id}`,
-                },
-                {
-                  title: 'Copy link',
-                  onClick: () =>
-                    navigator.clipboard.writeText(
-                      `https://www.histories.cc/post/${data?.post.id}`
-                    ),
-                },
-              ]}
-            >
-              <button className="">
-                <DotsHorizontalIcon className="h-6 w-6" />
-              </button>
-            </Menu>
-          </div>
-
-          {/* COMMENTS */}
-          <div id="comments" className="w-full overflow-y-auto h-[400px] pt-2">
-            {data!.post.description ?? ''}
-            {data!.post.comments.map((comment: any) => (
-              <Comment
-                content={comment.content}
-                author={comment.author}
-                createdAt={comment.createdAt}
-                id={comment.id}
-                logged={isLogged.data!.isLogged ?? null}
-                key={comment.id}
-                liked={comment.liked}
-                refetch={refetch}
-              />
-            ))}
-          </div>
-
-          {/* REACTIONS */}
-          <div
-            id="reactions"
-            className="w-full items-center gap-2 p-3 border-t border-[#EEEFEE]"
-          >
-            <div className="w-full flex gap-2">
-              {isLogged.data?.isLogged ? (
-                data?.post.liked ? (
-                  <div
-                    onClick={async () => {
-                      try {
-                        await unlikeMutation({
-                          variables: { id: data!.post.id },
-                        });
-                        await refetch();
-                      } catch (error) {
-                        // @ts-ignore
-                        toast.error(error.message);
-                      }
-                    }}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6"
-                      viewBox="0 0 20 20"
-                      fill="#FF0000"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                ) : (
-                  <div
-                    onClick={async () => {
-                      try {
-                        await likeMutation({
-                          variables: { id: data!.post.id, type: 'like' },
-                        });
-                        await refetch();
-                      } catch (error) {
-                        // @ts-ignore
-                        toast.error(error.message);
-                      }
-                    }}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                      />
-                    </svg>
-                  </div>
-                )
-              ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                  />
-                </svg>
-              )}
-              <ChatIcon className="h-8 w-8" />
-              <PaperAirplaneIcon className="h-8 w-8 rotate-45" />
-              <BookmarkIcon className="h-8 w-8 absolute right-4" />
-            </div>
-            <strong className="font-semibold">
-              {data?.post.likes.length} likes
-            </strong>
-            <br />
-            <TimeAgo date={data!.post.createdAt} />
-          </div>
-          <form
-            className="w-full flex items-center gap-2 p-3 border-t border-[#EEEFEE]"
-            onSubmit={async (event) => {
-              event.preventDefault();
-
-              try {
-                await createCommentMutation({
-                  variables: {
-                    target: place.posts[currentImage].id,
-                    content: commentContent,
-                  },
-                });
-                setCommentContent('');
-                await refetch();
-              } catch (error: any) {
-                toast.error(error.message);
-              }
-            }}
-          >
-            <textarea
-              className="border-2 border-gray-300 rounded-xl bg-gray-100 p-2 resize-none overflow-hidden"
-              onChange={(e: any) => setCommentContent(e.target.value)}
-              value={commentContent}
-              placeholder="Write a comment..."
-            />
-            <Button type="submit">Submit</Button>
-          </form>
-        </div>
-      </section>
-    </Modal>
   );
 };
 

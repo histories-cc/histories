@@ -1,9 +1,4 @@
-import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { Menu } from '@headlessui/react';
-import useDarkMode from '@lib/hooks/useDarkmode';
-import Image from 'next/image';
 
 import { Search } from 'components/MainPage';
 import { MapGL } from 'components/Map';
