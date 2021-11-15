@@ -11,31 +11,21 @@ import { usePathsQuery, usePlaceQuery } from '@graphql/geo.graphql';
 import Image from 'next/image';
 import useSuperCluster from 'use-supercluster';
 import Gallery from 'react-photo-gallery';
-import { Button } from '@nextui-org/react';
-import GeneratedProfileUrl from '@lib/functions/GeneratedProfileUrl';
+import { Avatar, Button } from '@nextui-org/react';
 import { useCreateCommentMutation, usePostQuery } from '@graphql/post.graphql';
 import TimeAgo from 'react-timeago';
 import { Comment } from '@components/Comment';
 import { DotsHorizontalIcon } from '@heroicons/react/solid';
-import {
-  ChatIcon,
-  PaperAirplaneIcon,
-  BookmarkIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-} from '@heroicons/react/outline';
 import { useIsLoggedQuery } from '@graphql/user.graphql';
-import { Modal, Menu } from '@components/Modal';
+import { Menu, Modal } from '@components/Modal';
 import { toast } from 'react-hot-toast';
-import { useRouter } from 'next/router';
-import { TimeLine } from '@components/TimeLine';
 import {
   useLikeMutation,
   useReportMutation,
+  useUnfollowMutation,
   useUnlikeMutation,
 } from '@graphql/relations.graphql';
 import UpdateUrl from './UpdateUrl';
-import { motion } from 'framer-motion';
 import { PostCard } from '@components/PostCard';
 import image from 'next/image';
 import Link from 'next/link';
@@ -45,6 +35,13 @@ import CameraIcon from '@components/Icons/CameraIcon';
 import ShareIcon from '@components/Icons/ShareIcon';
 import MarkerIcon from '@components/Icons/MarkerIcon';
 import ChevronIcon from '@components/Icons/Chevron';
+import { useDeleteMutation } from '@graphql/post.graphql';
+import { FiSend } from 'react-icons/fi';
+import { MdPhotoCamera } from 'react-icons/md';
+import { AiFillLike, AiOutlineComment, AiOutlineMore } from 'react-icons/ai';
+import { useRouter } from 'next/router';
+import { TimeLine } from '@components/TimeLine';
+import GeneratedProfileUrl from '@lib/functions/GeneratedProfileUrl';
 
 type PlaceProps = {
   id: number;
@@ -90,9 +87,10 @@ const MapGL: FC<MapGLProps> = ({ searchCoordinates, setBounds, oldPoints }) => {
     0,
     new Date().getTime(),
   ]);
+  const mapRef = useRef<any>(null);
   const paths = usePathsQuery();
   const [openPlace, setOpenPlace] = useState<number | null>(null);
-  const [placeMinimized, setPlaceMinimized] = useState<boolean>(false);
+  const [placeMinimized, setPlaceMinimized] = useState<boolean>(true);
 
   const [viewport, setViewport] = useState<Viewport>({
     latitude: 50,
@@ -148,8 +146,6 @@ const MapGL: FC<MapGLProps> = ({ searchCoordinates, setBounds, oldPoints }) => {
     () => UpdateUrl({ ...viewport, router, place: openPlace }),
     [openPlace]
   );
-
-  const mapRef = useRef<any>(null);
 
   // PLACES FILTER
   /*
@@ -399,7 +395,9 @@ const PlaceWindow: React.FC<PlaceWindowProps> = ({
   const isLoggedQuery = useIsLoggedQuery();
 
   if (loading || isLoggedQuery.loading)
-    return <div className="w-full h-full"> loading </div>;
+    return (
+      <div className="w-full h-full bg-white relative z-30"> loading </div>
+    );
   if (error || isLoggedQuery.error || data?.place === undefined)
     return <div className="w-full h-full"> error </div>;
 
@@ -407,24 +405,27 @@ const PlaceWindow: React.FC<PlaceWindowProps> = ({
 
   return (
     <>
-      <div className="relative z-30 w-full h-full overflow-y-auto">
+      <div className="relative bg-white z-30 w-full h-full overflow-y-auto">
         {/* BANNER */}
         <div className="w-full h-80 bg-green-700">
           {/* @ts-ignore */}
           {data.place.posts[0]?.url[0] && (
-            <div className="relative w-full h-full">
-              <Image
-                // BANNER IMAGE
-                src={
-                  data.place.preview.length > 0
-                    ? data.place.preview
-                    : data.place.posts[0].url[0]
-                }
-                layout="fill"
-                alt="Place preview"
-                objectFit="cover"
-              />
-            </div>
+            <>
+              {' '}
+              <div className="relative w-full h-full">
+                <Image
+                  // BANNER IMAGE
+                  src={
+                    data.place.preview.length > 0
+                      ? data.place.preview
+                      : data.place.posts[0].url[0]
+                  }
+                  layout="fill"
+                  alt="Place preview"
+                  objectFit="cover"
+                />
+              </div>
+            </>
           )}
         </div>
         <h2 id="PLACE_NAME" className="font-semibold text-2xl px-2 pt-1">
@@ -481,11 +482,11 @@ const PlaceWindow: React.FC<PlaceWindowProps> = ({
             onClick: () => setOpenPlace(place.id),
           }))}
         />
-        <div>
+        <div className="grid grid-cols-2 gap-2 w-full p-2">
           {
             // @ts-ignore
             data.place.posts.map((post) => (
-              <PostCard
+              <MinimalPostCard
                 isLoggedQuery={isLoggedQuery}
                 id={post!.id}
                 key={post!.id}
@@ -525,6 +526,198 @@ const Carousel: React.FC<CarouselProps> = ({ items }) => {
         ))}
       </div>
     </div>
+  );
+};
+
+const MinimalPostCard: FC<{
+  isLoggedQuery: any;
+  id: number;
+}> = ({ id, isLoggedQuery }) => {
+  const router = useRouter();
+
+  const { data, loading, error } = usePostQuery({ variables: { id } });
+  const [unfollowMutation] = useUnfollowMutation();
+
+  const [deleteMutation] = useDeleteMutation();
+
+  const [modal, setModal] = useState(false);
+  const [modalScreen, setModalScreen] = useState('main');
+  const modalProps = {
+    open: modal,
+    onClose: () => {
+      setModal(false);
+      setModalScreen('main');
+    },
+  };
+
+  const [currentImage, setCurrentImage] = useState(0);
+  const [editMode, setEditMode] = useState(false);
+
+  if (loading) return <div>loading</div>;
+  if (error || data?.post.liked === undefined) {
+    console.log(error);
+
+    return <div>error</div>;
+  }
+
+  const postDate = new Date(data!.post.postDate).toLocaleDateString('cs-cz', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  });
+
+  return (
+    <>
+      {modalScreen === 'main' ? (
+        <Modal {...modalProps} aria-labelledby="modal-title">
+          {isLoggedQuery?.data?.isLogged?.id === data!.post.author.id ? (
+            <>
+              <ModalOption
+                onClick={async () => {
+                  try {
+                    await deleteMutation({
+                      variables: { id },
+                    });
+                  } catch (error) {
+                    // @ts-ignore
+                    toast.error(error.message);
+                  }
+                }}
+                text="Delete post"
+                warning
+              />
+              <ModalOption
+                onClick={() => {
+                  setEditMode(true);
+                  setModalScreen('report');
+                }}
+                text="Edit"
+              />
+            </>
+          ) : (
+            isLoggedQuery?.data?.isLogged?.id && (
+              <>
+                <ModalOption
+                  onClick={() => setModalScreen('report')}
+                  text="Report"
+                  warning
+                />
+
+                <ModalOption
+                  onClick={async () => {
+                    try {
+                      await unfollowMutation({
+                        variables: { userID: data!.post.author.id },
+                      });
+                    } catch (error) {
+                      // @ts-ignore
+                      toast.error(error.message);
+                    }
+                  }}
+                  text="Unfollow"
+                  warning
+                />
+              </>
+            )
+          )}
+          <ModalOption onClick={() => setModal(false)} text="Share" />
+          <ModalOption
+            onClick={() =>
+              router.push(`https://www.histories.cc/post/${data?.post.id}`)
+            }
+            text="Go to post"
+          />
+          <ModalOption
+            onClick={async () => {
+              await navigator.clipboard.writeText(
+                `https://www.histories.cc/post/${data?.post.id}`
+              );
+              modalProps.onClose();
+            }}
+            text="Copy link"
+          />
+          <ModalOption onClick={() => setModal(false)} text="Cancel" />
+        </Modal>
+      ) : modalScreen === 'report' ? (
+        <Modal aria-labelledby="modal-title" {...modalProps}>
+          <div className="w-full py-4 relative border-b border-[#DADBDA]">
+            <a className="text-center">Report</a>
+            <button
+              className="absolute top-1 right-4 text-3xl font-semibold"
+              onClick={modalProps.onClose}
+            >
+              x
+            </button>
+          </div>
+          <ModalOption onClick={() => setModal(false)} text="Reason 1" />
+          <ModalOption onClick={() => setModal(false)} text="Reason 2" />
+          <ModalOption onClick={() => setModal(false)} text="Reason 3" />
+          <ModalOption onClick={() => setModal(false)} text="Reason 4" />
+        </Modal>
+      ) : (
+        <></>
+      )}
+
+      <div className="w-full m-auto bg-white dark:bg-[#343233] border-gray-[#DADBDA] border rounded-lg text-text-light dark:text-white mb-8">
+        <div className="w-full flex space-between p-[1em]">
+          <a className="w-full gap-[10px] h-18 flex items-center">
+            <Link href={`/${data!.post.author.username}`}>
+              <>
+                <Avatar
+                  size="medium"
+                  src={GeneratedProfileUrl(
+                    data!.post.author.firstName,
+                    data!.post.author.lastName
+                  )}
+                />
+                <div>
+                  <a className="font-semibold text-lg">
+                    {data!.post.author.firstName} {data!.post.author.lastName}
+                  </a>
+                  <a className="flex gap-[10px]">
+                    <TimeAgo date={data.post.createdAt} />
+                  </a>
+                </div>
+              </>
+            </Link>
+          </a>
+          <p className="p-3 w-[200px]">
+            <a className="flex gap-[10px] mt-2">
+              <MdPhotoCamera size={24} />
+              {postDate}
+            </a>
+          </p>
+        </div>
+        {data.post.description}
+
+        <div className="w-full">
+          <img src={data.post.url[currentImage]} alt="Post" />
+        </div>
+      </div>
+    </>
+  );
+};
+
+const ModalOption = ({
+  text,
+  onClick,
+  warning,
+}: {
+  text: string;
+  onClick: () => void;
+  warning?: boolean;
+}) => {
+  const [loading, setLoading] = useState(false);
+
+  return (
+    <button
+      onClick={onClick}
+      className={`${
+        warning ? 'text-red-500 font-semibold' : ''
+      } w-full border-b border-gray-[#DADBDA] py-4`}
+    >
+      {loading ? 'loading...' : text}
+    </button>
   );
 };
 

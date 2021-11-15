@@ -16,14 +16,14 @@ const CreatePost = async ({
   photoDate: string;
   longitude: number;
   latitude: number;
-  url: Array<string>;
+  url: Array<{ url: string; blurhash: string }>;
 }): Promise<string> => {
   // check every image in an array with NSFW api
   // if any of images is NSFW set `post.nsfw = true` and `post.public = false` by default
   const isNSFW = (
     await Promise.all(
       url.map(async (x) => {
-        const res = await NSFWCheck(x);
+        const res = await NSFWCheck(x.url);
         // if NSFW probability is more than 0.8 out of 1 return NSFW as true
         return res !== undefined && res > 0.8;
       })
@@ -37,7 +37,8 @@ const CreatePost = async ({
     description: "${description}",
     createdAt: ${new Date().getTime()},
     postDate: ${photoDate},
-    url: ${JSON.stringify(url)},
+    url: ${JSON.stringify(url.map((x) => x.url))},
+    blurhash: ${JSON.stringify(url.map((x) => x.blurhash))},
     nsfw: ${isNSFW ?? false}, 
     edited: false,
     public: ${!(isNSFW ?? false)}

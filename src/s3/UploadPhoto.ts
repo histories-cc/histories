@@ -1,9 +1,12 @@
 import AWS from 'aws-sdk';
-import { uuid } from 'uuidv4';
 import sharp from 'sharp';
 import streamToPromise from 'stream-to-promise';
+import crypto from 'crypto';
+import { encode } from 'blurhash';
 
-const UploadPhoto = async (photo: any): Promise<string> => {
+const UploadPhoto = async (
+  photo: any
+): Promise<{ url: string; blurhash: string }> => {
   // check if env variables are not undefined, otherwise throw error
   if (!process.env.S3_BUCKET) throw new Error('S3 bucket is not defined');
   if (!process.env.S3_ACCESS_KEY)
@@ -20,20 +23,21 @@ const UploadPhoto = async (photo: any): Promise<string> => {
   // check if file is image
   if (!mimetype.startsWith('image/')) throw new Error('file is not a image');
 
-  // generate unique file name
-  const uniqueFileName = `${new Date().getTime()}-${uuid().substring(
-    0,
-    8
-  )}.jpg`;
-
   const stream = await createReadStream();
   // await upload stream
   const buffer = await streamToPromise(stream);
 
+  // generate file hash
+  const fileHash = crypto.createHash('sha256', buffer).digest('hex') + '.jpeg';
+
   // edit image with sharp
-  const image = await sharp(buffer) 
+  const image = await sharp(buffer)
     .resize(2560, undefined, { withoutEnlargement: true })
- 
+    // convert image format to jpeg
+    .jpeg();
+
+  const imageBuffer = await sharp(buffer)
+    .resize(2560, undefined, { withoutEnlargement: true })
     // convert image format to jpeg
     .jpeg()
     .toBuffer();
@@ -41,8 +45,8 @@ const UploadPhoto = async (photo: any): Promise<string> => {
   // S3 parameters
   const params = {
     Bucket: process.env.S3_BUCKET,
-    Key: uniqueFileName,
-    Body: image,
+    Key: fileHash,
+    Body: imageBuffer,
     ACL: 'public-read',
   };
 
@@ -54,7 +58,8 @@ const UploadPhoto = async (photo: any): Promise<string> => {
     .promise();
 
   // return image url
-  return promise.Location;
+  // @ts-ignore
+  return { url: promise.Location, blurhash: '' };
 };
 
 export default UploadPhoto;

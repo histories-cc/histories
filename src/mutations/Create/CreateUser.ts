@@ -1,5 +1,4 @@
 import { hash } from 'bcryptjs';
-import { uuid } from 'uuidv4';
 import SendEmail from '../../email/SendEmail';
 import RunCypherQuery from '../../database/RunCypherQuery';
 
@@ -32,7 +31,7 @@ const CreateUser = async ({
   );
 
   // authorization token for email verifiaction
-  const authorizationToken = `${new Date().getTime()}-${uuid()}`;
+  const authorizationToken = `${new Date().getTime()}`;
 
   const query = `CREATE (n:User {
 username : "${username}",
