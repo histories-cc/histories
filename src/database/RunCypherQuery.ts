@@ -1,6 +1,6 @@
 import DbConnector from './driver';
 
-const RunCypherQuery = async (query: string) => {
+const RunCypherQuery = async (query: string, params?: {}) => {
   // initialize driver
   const driver = DbConnector();
 
@@ -8,7 +8,7 @@ const RunCypherQuery = async (query: string) => {
   const session = driver.session();
 
   // run query
-  const result = await session.run(query);
+  const result = await session.run(query, params);
 
   // close session
   driver.close();

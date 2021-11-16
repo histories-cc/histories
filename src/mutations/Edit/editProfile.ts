@@ -30,16 +30,24 @@ const EditProfile = async ({
   password: string | undefined;
 }): Promise<string> => {
   const query = `MATCH (user:User)
-WHERE ID(user) = ${id}
-${username !== undefined ? `SET user.username = "${username}"\n` : ''}${
-    bio !== undefined ? `SET user.bio = "${bio}"\n` : ''
-  }${firstName !== undefined ? `SET user.firstName = "${firstName}"\n` : ''}${
-    lastName !== undefined ? `SET user.lastName = "${lastName}"\n` : ''
-  }${email !== undefined ? `SET user.email = "${email}"\n` : ''}${
-    password !== undefined ? `SET user.password = "${password}"\n` : ''
+WHERE ID(user) = $userId
+${username !== undefined ? `SET user.username = $username\n` : ''}${
+    bio !== undefined ? `SET user.bio = $bio\n` : ''
+  }${firstName !== undefined ? `SET user.firstName = $firstName\n` : ''}${
+    lastName !== undefined ? `SET user.lastName = $lastName\n` : ''
+  }${email !== undefined ? `SET user.email = $email\n` : ''}${
+    password !== undefined ? `SET user.password = $password\n` : ''
   }`;
 
-  await RunCypherQuery(query);
+  await RunCypherQuery(query, {
+    username,
+    firstName,
+    lastName,
+    email,
+    password,
+    bio,
+    userId: id,
+  });
   return 'Info edited succesfully';
 };
 

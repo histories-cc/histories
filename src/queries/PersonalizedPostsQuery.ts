@@ -40,7 +40,7 @@ const PersonalizedPostsQuery = async (logged: number | null) => {
     }
     RETURN COLLECT(DISTINCT post{.*, id: ID(post), author:author{.*, id: ID(author)} }) as posts`
       : `MATCH (user:User)
-      WHERE ID(user) = ${logged}
+      WHERE ID(user) = $loggedId
       CALL {
           WITH user
           OPTIONAL MATCH (author:User)-[:CREATED]->(post:Post)
@@ -52,7 +52,7 @@ const PersonalizedPostsQuery = async (logged: number | null) => {
       }
       RETURN COLLECT(DISTINCT post{.*, id: ID(post)}) AS posts`;
 
-  const result = await RunCypherQuery(query);
+  const result = await RunCypherQuery(query, { loggedId: logged });
 
   return result.records[0].get('posts');
 };

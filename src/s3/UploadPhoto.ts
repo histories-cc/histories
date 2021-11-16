@@ -28,7 +28,7 @@ const UploadPhoto = async (
   const buffer = await streamToPromise(stream);
 
   // generate file hash
-  const fileHash = crypto.createHash('sha256', buffer).digest('hex') + '.jpeg';
+  const fileHash = new Date().getTime() + '.jpeg'; // crypto.createHash('sha256', buffer).digest('hex') + '.jpeg';
 
   // edit image with sharp
   const image = await sharp(buffer)

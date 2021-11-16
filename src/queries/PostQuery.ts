@@ -10,7 +10,7 @@ const PostQuery = async ({
   const query = `MATCH (author:User)-[:CREATED]->(post:Post)-[:IS_LOCATED]->(place:Place)${
     logged ? ', (logged:User)' : ''
   }
-  WHERE ID(post) = ${id} ${logged ? `AND ID(logged) = ${logged}` : ''}
+  WHERE ID(post) = $postId ${logged ? `AND ID(logged) = ${logged}` : ''}
   CALL {
       WITH post
       OPTIONAL MATCH (user:User)-[:LIKE]->(post)
@@ -53,7 +53,7 @@ const PostQuery = async ({
         author: commentAuthor{.*, id: ID(commentAuthor)}})    
   } AS post`;
 
-  const result = await RunCypherQuery(query);
+  const result = await RunCypherQuery(query, { postId: id });
 
   if (result.records[0] === undefined) throw new Error('Post does not exist');
   else

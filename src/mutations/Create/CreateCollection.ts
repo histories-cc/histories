@@ -1,5 +1,4 @@
-import DbConnector from '../../database/driver';
-import { UserExists } from '../../../shared/validation';
+import RunCypherQuery from '../../database/RunCypherQuery';
 
 const CreateCollection = async ({
   username,
@@ -9,25 +8,26 @@ const CreateCollection = async ({
   username: string;
   collectionName: string;
   description: string;
-}): Promise<string> => {
+}): Promise<number> => {
   const query = `MATCH 
   (author:User)
     WHERE author.username =~ "(?i)${username}"
     CREATE (collection:Collection {
-    collectionName: "${collectionName}",
-    description: "${description}",
-    createdAt: "${new Date().getTime()}"
+    collectionName: $collectionName,
+    description: $description,
+    createdAt: $createdAt
     })
     CREATE (author)-[r:CREATED]->(collection)
   `;
 
-  const driver = DbConnector();
-  const session = driver.session();
+  await RunCypherQuery(query, {
+    createdAt: new Date().getTime(),
+    description,
+    collectionName,
+    username,
+  });
 
-  await session.run(query);
-  driver.close();
-
-  return (await UserExists(username)) ? 'collection created' : 'failed';
+  return 0;
 };
 
 export default CreateCollection;

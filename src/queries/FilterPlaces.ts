@@ -41,14 +41,21 @@ const FilterPlacesQuery = async ({
   }
 
   const query = `MATCH (place:Place)<-[:IS_LOCATED]-(post:Post)<-[:CREATED]-(author:User)
-WHERE place.location.latitude >= ${minLatitude} AND place.location.latitude <= ${maxLatitude}
-AND place.location.longitude >= ${minLongitude} AND place.location.longitude <= ${maxLongitude}
-${minDate ? ` AND post.postDate >= ${minDate} ` : ''}
-${maxDate ? ` AND post.postDate <= ${maxDate} ` : ''}
+WHERE place.location.latitude >= $minLatitude AND place.location.latitude <= $maxLatitude
+AND place.location.longitude >= $minLongitude AND place.location.longitude <= $maxLongitude
+${minDate ? ` AND post.postDate >= $minDate ` : ''}
+${maxDate ? ` AND post.postDate <= $maxDate ` : ''}
 WITH place{.*,latitude: place.location.latitude, longitude: place.location.longitude, id: ID(place), posts: COLLECT(post{.*, id: ID(post), author: author{.*, id: ID(author)}})} AS result
 RETURN COLLECT(result) AS places`;
 
-  const result = await RunCypherQuery(query);
+  const result = await RunCypherQuery(query, {
+    minLatitude,
+    maxLatitude,
+    minLongitude,
+    maxLongitude,
+    minDate,
+    maxDate,
+  });
 
   return result.records[0].get('places').map((x: any) => ({
     ...x,
