@@ -52,6 +52,7 @@ export default gql`
     description: String!
     name: String!
     preview: String!
+    icon: String
     posts: [Post]!
     nearbyPlaces: [NearbyPlaces]!
   }
@@ -82,6 +83,7 @@ export default gql`
     id: Int!
     latitude: Float!
     longitude: Float!
+    icon: String
     posts: [Post]!
   }
 

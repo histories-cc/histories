@@ -366,7 +366,7 @@ const MapPlace = ({ place, onClick }: { place: any; onClick: () => void }) => {
         className="-translate-y-1/2 -translate-x-1/2 cursor-pointer"
       >
         <Image
-          src={place.posts[0].url[0]}
+          src={place.icon ?? place.posts[0].url[0]}
           width={60}
           height={60}
           className="rounded-full object-cover"

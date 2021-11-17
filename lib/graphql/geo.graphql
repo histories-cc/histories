@@ -22,6 +22,7 @@ query MapPosts(
     id
     latitude
     longitude
+    icon
     posts {
       id
       url
@@ -42,6 +43,7 @@ query Place($id: Int!) {
   place(id: $id) {
     latitude
     longitude
+
     name
     description
     preview
