@@ -18984,7 +18984,7 @@ use-composed-ref@^1.0.0:
   resolved "https://registry.yarnpkg.com/use-composed-ref/-/use-composed-ref-1.2.1.tgz#9bdcb5ccd894289105da2325e1210079f56bf849"
   integrity sha512-6+X1FLlIcjvFMAeAD/hcxDT8tmyrWnbSPMU0EnxQuDLIxokuFzWliXBiYZuGIx+mrAMLBw0WFfCkaPw8ebzAhw==
 
-use-deep-compare-effect@^1.6.1:
+use-deep-compare-effect@^1.8.1:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/use-deep-compare-effect/-/use-deep-compare-effect-1.8.1.tgz#ef0ce3b3271edb801da1ec23bf0754ef4189d0c6"
   integrity sha512-kbeNVZ9Zkc0RFGpfMN3MNfaKNvcLNyxOAAd9O4CBZ+kCBXXscn9s/4I+8ytUER4RDpEYs5+O6Rs4PqiZ+rHr5Q==
@@ -19016,13 +19016,13 @@ use-subscription@1.5.1:
   dependencies:
     object-assign "^4.1.1"
 
-use-supercluster@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/use-supercluster/-/use-supercluster-0.3.0.tgz#f39440617a3d43379ef3da9fb2783edb94939170"
-  integrity sha512-dVG3ijBe0AJblerD+vT/eYLWcsDILMuoVx2sSfTq6UoguBKaF7DXNI7m+5Z3Zvqvx89FDv3BwFTZpChX5aMdww==
+use-supercluster@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/use-supercluster/-/use-supercluster-0.4.0.tgz#4fdfed8091ac79a34de30926cc0e711ae8799d8b"
+  integrity sha512-GdZj1iAksSAkI3pWH/6hRyqIFGQaEQo576GN06JRFYDlmqqUG0iA9N36OABZb/wPjkyz73JBlZNj/fVx9FPU2A==
   dependencies:
     dequal "^2.0.2"
-    use-deep-compare-effect "^1.6.1"
+    use-deep-compare-effect "^1.8.1"
 
 use@^3.1.0:
   version "3.1.1"

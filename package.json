@@ -107,7 +107,7 @@
     "tailwind-scrollbar-hide": "^1.1.5",
     "upng-js": "^2.1.0",
     "use-places-autocomplete": "^1.10.0",
-    "use-supercluster": "^0.3.0"
+    "use-supercluster": "^0.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
