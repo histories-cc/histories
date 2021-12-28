@@ -65,7 +65,7 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "formik": "^2.2.9",
-    "framer-motion": "^4.1.17",
+    "framer-motion": "^5.5.5",
     "graphql": "^15.7.2",
     "graphql-let": "^0.18.6",
     "graphql-upload": "^13.0.0",
