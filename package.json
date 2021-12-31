@@ -120,7 +120,7 @@
     "@graphql-codegen/import-types-preset": "^2.1.7",
     "@graphql-codegen/typescript": "^2.4.0",
     "@graphql-codegen/typescript-operations": "^2.2.0",
-    "@graphql-codegen/typescript-react-apollo": "^3.2.1",
+    "@graphql-codegen/typescript-react-apollo": "^3.2.3",
     "@storybook/addon-a11y": "^6.4.7",
     "@storybook/addon-actions": "^6.4.0",
     "@storybook/addon-essentials": "^6.4.0",
