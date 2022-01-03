@@ -5878,10 +5878,10 @@ apollo-server-core@^2.25.3:
     subscriptions-transport-ws "^0.9.19"
     uuid "^8.0.0"
 
-apollo-server-core@^3.6.0:
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/apollo-server-core/-/apollo-server-core-3.6.0.tgz#56419e6d6494f96dbb0bc924be566b62be62d1bf"
-  integrity sha512-ZGVbrBPcFzOl0SUhReQ0/dcJLzJYrXr9/iVJZuuOz2BbbAUIeHn9NQ8I+QCpq3Fehy0uCtU3+kaUHMgYBvElWw==
+apollo-server-core@^3.6.0, apollo-server-core@^3.6.1:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/apollo-server-core/-/apollo-server-core-3.6.1.tgz#e835198a2eda5bcb61d2a1174d44ecb0ac414d15"
+  integrity sha512-V2Us5x7d+w8dVdyFLxEygMgaQ3KZ6Z59HpaQBNHQ7C5wVZhjUXIsgbehBtfzQbMpyMx0z5/8Z8eIrC4zNoGJDw==
   dependencies:
     "@apollographql/apollo-tools" "^0.5.1"
     "@apollographql/graphql-playground-html" "1.6.29"
