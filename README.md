@@ -18,6 +18,7 @@
 
 ## About
 
+
 HiStories is a social site for sharing historical photos of places, so anyone can see, how the place has changed over time.
 And it also is my high school final project.
 
