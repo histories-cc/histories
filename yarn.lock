@@ -2721,10 +2721,10 @@
     pluralize "^8.0.0"
     prettier "2.3.2"
 
-"@neo4j/graphql@^2.5.0", "@neo4j/graphql@^2.5.4":
-  version "2.5.4"
-  resolved "https://registry.yarnpkg.com/@neo4j/graphql/-/graphql-2.5.4.tgz#6bd34cfe231cb68d026b0725fdc146c9e15b6753"
-  integrity sha512-IDRFQhV8PLdTvEVwTxqU2cnKf3CG+oJ0+Y75mApQiGi13p8cA12GDTlSHtxI1qTZSE+pKysjxlTgQ5ceGrvZsQ==
+"@neo4j/graphql@^2.5.4", "@neo4j/graphql@^2.5.5":
+  version "2.5.5"
+  resolved "https://registry.yarnpkg.com/@neo4j/graphql/-/graphql-2.5.5.tgz#290d69fe670585b76c842fa2c628b5aa13bb28e3"
+  integrity sha512-q+cQIssO9ciI+qSDoP/WkSn1XVxQsaV/R/afFbA1hdygVMng/pGwiVbElBDievlpbzs9fPCunGNX2Ak8V3WxWg==
   dependencies:
     "@graphql-tools/merge" "6.2.14"
     "@graphql-tools/schema" "^7.1.5"
