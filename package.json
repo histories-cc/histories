@@ -44,7 +44,7 @@
     "@headlessui/react": "^1.4.2",
     "@heroicons/react": "^1.0.5",
     "@neo4j/graphql": "^2.5.5",
-    "@neo4j/graphql-ogm": "^2.5.0",
+    "@neo4j/graphql-ogm": "^2.5.5",
     "@nextui-org/react": "^1.0.1-alpha.57",
     "@reach/combobox": "^0.16.3",
     "@tailwindcss/forms": "^0.4.0",

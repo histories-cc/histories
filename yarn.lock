@@ -2707,21 +2707,21 @@
   resolved "https://registry.yarnpkg.com/@napi-rs/triples/-/triples-1.0.3.tgz#76d6d0c3f4d16013c61e45dfca5ff1e6c31ae53c"
   integrity sha512-jDJTpta+P4p1NZTFVLHJ/TLFVYVcOqv6l8xwOeBKNPMgY/zDYH/YH7SJbvrr/h1RcS9GzbPcLKGzpuK9cV56UA==
 
-"@neo4j/graphql-ogm@^2.5.0":
-  version "2.5.4"
-  resolved "https://registry.yarnpkg.com/@neo4j/graphql-ogm/-/graphql-ogm-2.5.4.tgz#ba0b78060a42dbebf5d223e633b48ec09801c524"
-  integrity sha512-sSL6IcujpemN8GRn2URt11o2a6iDmxar8z7tvbPPUT3rovfT3oHs4Ic7lJgogxefYI7xeCSDQJkta+gtXsDg6A==
+"@neo4j/graphql-ogm@^2.5.5":
+  version "2.5.5"
+  resolved "https://registry.yarnpkg.com/@neo4j/graphql-ogm/-/graphql-ogm-2.5.5.tgz#e37e7f968c93c189f4ac177e5d490fe013278aff"
+  integrity sha512-AfPH4gz5pbSkTOGu8rJpljwSt0Hrc6tF8QoGGVm5EkPrlSN9b80R/dO5Wr0oYNYjNqSo313dCFh9aUwBWbfBsw==
   dependencies:
     "@graphql-codegen/core" "2.0.0"
     "@graphql-codegen/plugin-helpers" "2.0.0"
     "@graphql-codegen/typescript" "2.0.0"
     "@graphql-tools/merge" "6.2.14"
-    "@neo4j/graphql" "^2.5.4"
+    "@neo4j/graphql" "^2.5.5"
     camelcase "^6.2.0"
     pluralize "^8.0.0"
     prettier "2.3.2"
 
-"@neo4j/graphql@^2.5.4", "@neo4j/graphql@^2.5.5":
+"@neo4j/graphql@^2.5.5":
   version "2.5.5"
   resolved "https://registry.yarnpkg.com/@neo4j/graphql/-/graphql-2.5.5.tgz#290d69fe670585b76c842fa2c628b5aa13bb28e3"
   integrity sha512-q+cQIssO9ciI+qSDoP/WkSn1XVxQsaV/R/afFbA1hdygVMng/pGwiVbElBDievlpbzs9fPCunGNX2Ak8V3WxWg==
