@@ -137,7 +137,7 @@
     "@types/react-transition-group": "^4.4.4",
     "@types/sharp": "^0.29.3",
     "@types/strip-comments": "^2.0.1",
-    "@types/uuid": "^8.3.1",
+    "@types/uuid": "^8.3.4",
     "@types/uuidv4": "^5.0.0",
     "@types/validator": "^13.6.6",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
