@@ -32,7 +32,7 @@
     "test:types": "tsc --pretty --noEmit"
   },
   "dependencies": {
-    "@apollo/client": "^3.4.17",
+    "@apollo/client": "^3.5.7",
     "@headlessui/react": "^1.4.2",
     "@heroicons/react": "^1.0.5",
     "@neo4j/graphql-ogm": "^2.5.5",
