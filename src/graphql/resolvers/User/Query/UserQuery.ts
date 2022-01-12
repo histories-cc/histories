@@ -147,6 +147,13 @@ CALL {
 }
 
 CALL {
+  WITH post
+  OPTIONAL MATCH (post)-[:CONTAINS]->(photo:Photo)
+  RETURN COLLECT(DISTINCT photo{.*}) AS photos
+}
+
+
+CALL {
   WITH user
   OPTIONAL MATCH (user)-[:FOLLOW]->(following:User)
   RETURN DISTINCT following
@@ -187,6 +194,7 @@ CALL {
 
 RETURN user{.*, id: ID(user),
   posts: COLLECT(DISTINCT post{.*,
+      photos,
       id: ID(post),
       author: user{.*,
           id: ID(user)

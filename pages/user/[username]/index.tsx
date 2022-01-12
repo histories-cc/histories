@@ -134,7 +134,7 @@ const PostsPage: React.FC<{
                   {...post}
                   key={post.id}
                   refetch={refetch}
-                  photos={post.url.map((x: string) => ({ url: x }))}
+                  photos={post.photos}
                 />
               ))
             : data?.posts.map((post: any) => (
@@ -143,7 +143,7 @@ const PostsPage: React.FC<{
                   {...post}
                   key={post.id}
                   refetch={refetch}
-                  photos={post.url.map((x: string) => ({ url: x }))}
+                  photos={post.photos}
                 />
               ))}
           {data?.posts.length == 0 && (

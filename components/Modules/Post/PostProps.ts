@@ -1,3 +1,5 @@
+import { Photo } from '../../../.cache/__types__';
+
 type PostProps = {
   author: {
     firstName: string;
@@ -7,7 +9,7 @@ type PostProps = {
     id: number;
   };
   timeline?: boolean;
-  photos?: Array<{ url: string }>;
+  photos?: Array<Photo>;
   createdAt: number;
   description?: string;
   likeCount: number;
