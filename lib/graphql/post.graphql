@@ -37,7 +37,13 @@ query personalizedPosts($skip: Int!, $take: Int!) {
       username
       profile
     }
-    url
+    photos {
+      hash
+      blurhash
+      width
+      height
+      index
+    }
     createdAt
     postDate
     likeCount
@@ -56,7 +62,13 @@ query post($id: Int!) {
     hashtags {
       name
     }
-    url
+    photos {
+      hash
+      blurhash
+      width
+      height
+      index
+    }
     author {
       id
       username
@@ -92,7 +104,13 @@ query post($id: Int!) {
 query posts($input: PostsInput) {
   posts(input: $input) {
     id
-    url
+    photos {
+      hash
+      blurhash
+      width
+      height
+      index
+    }
     postDate
     description
     createdAt

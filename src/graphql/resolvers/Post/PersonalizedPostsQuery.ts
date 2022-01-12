@@ -19,13 +19,13 @@ const PersonalizedPostsQuery = async ({
       // post, author and place
       CALL {
           WITH user
-          OPTIONAL MATCH (author:User)-[:CREATED]->(post:Post)-[:IS_LOCATED]->(place:Place)
+          OPTIONAL MATCH (author:User)-[:CREATED]->(post:Post)-[:IS_LOCATED]->(place:Place), (author:User)-[:CREATED]->(post:Post)-[:CONTAINS]->(photo:Photo)
           ${
             logged !== null
               ? 'WHERE ((user)-[:FOLLOW]->(author)) OR (user = author)'
               : ''
           }
-          RETURN post, author, place
+          RETURN photo, post, author, place
           ORDER BY post.createdAt DESC    // sort by newest
           // skip and limit for infinite scroll as parameters
           SKIP $skip 
@@ -93,6 +93,7 @@ const PersonalizedPostsQuery = async ({
           post,
           liked,
           likeCount,
+          photos: collect(DISTINCT photo{.*}),
       
           // post comments as an array of objects
           COLLECT(DISTINCT comment{.*,
@@ -128,6 +129,7 @@ const PersonalizedPostsQuery = async ({
           comments,   // post comments
           author, // post author
           place,  // place post is located in
+          photos,  // photos in post
           liked   // type of liked if user is logged in
       }) AS posts`;
 

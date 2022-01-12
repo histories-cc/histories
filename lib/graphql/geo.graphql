@@ -20,7 +20,13 @@ query Place($id: Int!) {
     preview
     posts {
       id
-      url
+      photos {
+        hash
+        blurhash
+        width
+        height
+        index
+      }
     }
     nearbyPlaces {
       id

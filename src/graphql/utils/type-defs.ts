@@ -157,7 +157,7 @@ export default gql`
   type PersonalizedPost {
     id: Int!
     description: String
-    url: [String]!
+    photos: [Photo!]!
     createdAt: Float!
     postDate: Float!
     edited: Boolean!
@@ -203,16 +203,23 @@ export default gql`
     distance: Float!
   }
 
+  type Photo {
+    hash: String!
+    blurhash: String!
+    width: Int!
+    height: Int!
+    index: Int!
+  }
+
   type Post {
     createdAt: Float!
     postDate: Float!
     description: String
     hashtags: [Hashtag]
-    url: [String!]!
-    blurhash: [String!]!
     id: Int!
     author: User!
     likes: [UserInfoMinimal]!
+    photos: [Photo!]!
     liked: Boolean!
     place: Place!
     comments: [Comment]!

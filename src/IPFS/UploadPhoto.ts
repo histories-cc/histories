@@ -50,12 +50,16 @@ async function UploadPhoto(photo: Buffer) {
   const image = await loadImage(photo); // load image from buffer
   const imageData = getImageData(image); // get image data
 
+  console.log('loaded image');
+
   const [url, blurhash] = await Promise.all([
     client.add(photo),
     GetBlurhash(imageData),
   ]);
 
-  return { url: url.path, blurhash, width: image.width, height: image.height };
+  console.log('uploaded to IPFS');
+
+  return { hash: url.path, blurhash, width: image.width, height: image.height };
 }
 
 export default UploadPhoto;

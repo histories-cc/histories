@@ -7,6 +7,7 @@ import {
   LoginInput,
   UpdateProfileInput,
   ResetPasswordInput,
+  CreatePostInput,
 } from '../../../../.cache/__types__';
 import {
   ValidateComment,
@@ -259,14 +260,7 @@ const mutations = {
     {
       input,
     }: {
-      input: {
-        photo: any;
-        description: string;
-        hashtags: string;
-        photoDate: string;
-        longitude: number;
-        latitude: number;
-      };
+      input: CreatePostInput;
     },
     context: contextType
   ) => {
@@ -279,8 +273,10 @@ const mutations = {
     if (validateCoordinates) throw new Error(validateCoordinates);
 
     // check description
-    const validateDescription = ValidateDescription(input.description).error;
-    if (validateDescription) throw new Error(validateDescription);
+    if (input.description) {
+      const validateDescription = ValidateDescription(input.description).error;
+      if (validateDescription) throw new Error(validateDescription);
+    }
 
     // check date
     const validateDate = ValidateDate(Number(input.photoDate)).error;
@@ -296,14 +292,10 @@ const mutations = {
 
     if (input.photo.length === 0) throw new Error('No photo');
 
-    const urls: Array<{
-      url: string;
-      blurhash: string;
-      width: number;
-      height: number;
-    }> = await Promise.all(
-      input.photo.map(async (photo: any) => {
+    const photos = await Promise.all(
+      input.photo.map(async (photo, index: number) => {
         const { createReadStream, mimetype } = await photo;
+
         // check if file is image
         if (!mimetype.startsWith('image/'))
           throw new Error('file is not a image');
@@ -312,23 +304,22 @@ const mutations = {
         // await upload stream
         const buffer = await streamToPromise(stream);
 
+        // downscale image
         const imageBuffer = await sharp(buffer)
           .resize(2560, undefined, { withoutEnlargement: true })
           // convert image format to jpeg
           .jpeg()
           .toBuffer();
 
-        return await UploadPhoto(imageBuffer);
+        return { ...(await UploadPhoto(imageBuffer)), index };
       })
     );
-
-    if (context.validToken)
-      CreatePost({
-        ...input,
-        userID: context.decoded.id,
-        url: urls,
-      });
-    else throw new Error('User is not logged');
+    console.log('received, uploaded and validated');
+    CreatePost({
+      ...input,
+      userID: context.decoded.id,
+      photos,
+    });
 
     return 'post created';
   },

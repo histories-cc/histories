@@ -50,7 +50,13 @@ query user($username: String, $id: Int) {
     postCount
     posts {
       id
-      url
+      photos {
+        hash
+        blurhash
+        width
+        height
+        index
+      }
       description
       postDate
       createdAt

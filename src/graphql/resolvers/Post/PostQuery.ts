@@ -7,10 +7,13 @@ const PostQuery = async ({
   id: number;
   logged: number | null;
 }) => {
-  const query = `MATCH (author:User)-[:CREATED]->(post:Post)-[:IS_LOCATED]->(place:Place)${
+  const query = `MATCH (author:User)-[:CREATED]->(post:Post)-[:IS_LOCATED]->(place:Place) ${
     logged ? ', (logged:User)' : ''
-  }
+  } , (post)-[:CONTAINS]->(photo:Photo)
+
   WHERE ID(post) = $postId ${logged ? `AND ID(logged) = ${logged}` : ''}
+ 
+
   CALL {
       WITH post
       OPTIONAL MATCH (user:User)-[:LIKE]->(post)
@@ -47,6 +50,7 @@ const PostQuery = async ({
       liked: ${logged ? 'EXISTS((logged)-[:LIKE]->(post))' : 'false'},
       likes: COLLECT(DISTINCT like{.*, id: ID(like)}),
       hashtags: COLLECT(hashtag{.*, id:ID(hashtag)}),
+      photos: COLLECT(DISTINCT photo{.*}),
       comments: COLLECT(DISTINCT comment{.*,
         id:ID(comment),
         liked: ${logged ? 'likedComment' : 'false'},
