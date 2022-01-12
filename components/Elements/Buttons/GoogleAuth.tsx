@@ -1,4 +1,4 @@
-import { useGoogleAuthMutation } from '@graphql/user.graphql';
+import { useGoogleAuthMutation } from '@graphql/auth.graphql';
 import Cookie from 'js-cookie';
 import Image from 'next/image';
 import router from 'next/router';

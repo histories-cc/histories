@@ -26,7 +26,7 @@ type queryInput = {
 
 const PlacesQuery = async ({ filter, loggedId }: queryInput) => {
   const query = `
-  MATCH (place:Place)<-[:IS_LOCATED]-(post:Post)<-[:CREATED]-(author:User)
+  MATCH (place:Place)<-[:IS_LOCATED]-(post:Post)<-[:CREATED]-(author:User), (post)-[:CONTAINS]->(photo:Photo)
   WHERE (place.location.latitude >= $minLatitude OR $minLatitude IS NULL)                 // min latitude
     AND (place.location.latitude <= $maxLatitude OR $maxLatitude IS NULL)                 // max latitude
     AND (place.location.longitude >= $minLongitude OR $minLongitude IS NULL)              // min longitude
@@ -54,12 +54,19 @@ const PlacesQuery = async ({ filter, loggedId }: queryInput) => {
         RETURN COUNT(r) AS followingCount  // return number
     }    
   
+    CALL {
+        WITH post
+        MATCH (post)-[:CONTAINS]->(photo:Photo)
+        RETURN COLLECT(DISTINCT photo{.*}) AS photos
+    }
+
     RETURN COLLECT(post{.*,
         id: ID(post),
         likeCount,
         followerCount,
         followingCount,
         author: author{.*,id: ID(author)},
+        photos,
         place: place{.*, 
             id: ID(place),
             latitude: place.location.latitude,  // latitude

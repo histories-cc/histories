@@ -16,7 +16,6 @@ export default gql`
     "Search"
     search(input: SearchInput!): SearchResult!
 
-    userPosts(input: UserPostsInput!): [Post!]!
     personalizedPosts(input: PersonalizedPostsInput): [PersonalizedPost!]!
 
     "Returns place detail information"
@@ -259,11 +258,6 @@ export default gql`
     bio: String
     password: String
     notificationSettings: NotificationsSettingsInput
-  }
-
-  input UserPostsInput {
-    id: Int!
-    offset: Int
   }
 
   input DeleteUserInput {

@@ -1,7 +1,7 @@
 import { Input } from '@components/Elements';
 import Button from '@components/Elements/Buttons/Button';
 import AuthLayout from '@components/Layouts/Auth';
-import { useResetPasswordMutation } from '@graphql/user.graphql';
+import { useResetPasswordMutation } from '@graphql/auth.graphql';
 import { RedirectInvalidToken } from '@lib/functions/ServerSideProps';
 import NewPasswordFormInputs from '@lib/types/forms/newPasswordFormInputs';
 import { useRouter } from 'next/router';
@@ -20,7 +20,7 @@ const NewPassword: React.FC<{ token: string }> = ({ token }) => {
   const {
     register,
     handleSubmit,
-    formState: { },
+    formState: {},
   } = useForm<NewPasswordFormInputs>();
 
   const onSubmit: SubmitHandler<NewPasswordFormInputs> = async (data) => {

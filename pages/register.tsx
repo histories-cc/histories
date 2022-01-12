@@ -1,6 +1,6 @@
 import AuthLayout from '@components/Layouts/Auth';
 import RegisterForm from '@components/Modules/Forms/RegisterForm';
-import { useCreateUserMutation } from '@graphql/user.graphql';
+import { useCreateUserMutation } from '@graphql/auth.graphql';
 import { RedirectLogged } from '@lib/functions/ServerSideProps';
 import RegisterFormInputs from '@lib/types/forms/registerFormInputs';
 import Cookie from 'js-cookie';
@@ -10,13 +10,13 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 
 const Register: React.FC = () => {
-  const [createAccount] = useCreateUserMutation();  // create new user mutation
-  const [loading, setLoading] = useState(false);    // loading after submit
+  const [createAccount] = useCreateUserMutation(); // create new user mutation
+  const [loading, setLoading] = useState(false); // loading after submit
 
   const {
     register,
     handleSubmit,
-    formState: { },
+    formState: {},
   } = useForm<RegisterFormInputs>();
 
   const onSubmit: SubmitHandler<RegisterFormInputs> = async (data) => {
@@ -80,6 +80,5 @@ const Register: React.FC = () => {
 };
 
 export const getServerSideProps = RedirectLogged;
-
 
 export default Register;

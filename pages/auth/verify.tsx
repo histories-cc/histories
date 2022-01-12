@@ -1,5 +1,6 @@
 import Button from '@components/Elements/Buttons/Button';
-import { useMeQuery, useVerifyTokenMutation } from '@graphql/user.graphql';
+import { useVerifyTokenMutation } from '@graphql/auth.graphql';
+import { useMeQuery } from '@graphql/user.graphql';
 import { RedirectInvalidToken } from '@lib/functions/ServerSideProps';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';

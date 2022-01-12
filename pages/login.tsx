@@ -2,7 +2,7 @@ import { Input } from '@components/Elements';
 import Button from '@components/Elements/Buttons/Button';
 import GoogleAuthButton from '@components/Elements/Buttons/GoogleAuth';
 import AuthLayout from '@components/Layouts/Auth';
-import { useLoginMutation } from '@graphql/user.graphql';
+import { useLoginMutation } from '@graphql/auth.graphql';
 import { RedirectLogged } from '@lib/functions/ServerSideProps';
 import LoginFormInputs from '@lib/types/forms/loginFormInputs';
 import Cookie from 'js-cookie';

@@ -49,7 +49,7 @@ const PostCard: React.FC<{ id: number; index: number }> = ({ id, index }) => {
       }`}
     >
       <Image
-        src={UrlPrefix + data!.post.url[0]}
+        src={UrlPrefix + data!.post.photos[0].hash}
         layout="fill"
         alt="image"
         objectFit="cover"

@@ -90,7 +90,7 @@ async function RegisterWithGooge(googleJWT: string) {
           createdAt: new Date().getTime(),
           verified: true,
           locale: res.data.locale,
-          profile: profile.url,
+          profile: profile.hash,
           profileBlurhash: profile.blurhash,
           passwordResetToken,
         },

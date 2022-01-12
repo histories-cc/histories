@@ -26,23 +26,23 @@ const PostDetail: React.FC<{ id: number }> = ({ id }) => {
             data.post.description ?? `${data.post.author.firstName}'s post`,
           type: 'website',
           url: `https://www.histories.cc/post/${data.post.id}`,
-          images: data.post.url.map((url) => ({
-            url: UrlPrefix + url,
+          images: data.post.photos.map((photo) => ({
+            url: UrlPrefix + photo.hash,
             alt: `${data.post.author.firstName}'s photo`,
             type: 'image/jpeg',
-            height: 800,
-            width: 800,
+            height: photo.height,
+            width: photo.width,
           })),
           site_name: 'Post',
         },
       }}
     >
       <main className="max-w-4xl m-auto">
-        {data.post.url.length > 0 && (
+        {data.post.photos.length > 0 && (
           <div className="flex flex-col mt-8 md:flex-row">
             <div className="relative w-full bg-white cursor-pointer dark:bg-black h-[60vh] bg-secondary">
               <Image
-                src={UrlPrefix + data.post.url[0]}
+                src={UrlPrefix + data.post.photos[0].hash}
                 layout="fill"
                 objectFit="contain"
                 objectPosition="center"
