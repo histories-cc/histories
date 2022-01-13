@@ -1,6 +1,7 @@
 import * as blurhash from 'blurhash';
 import { createCanvas, Image, loadImage } from 'canvas';
 import { create, IPFSHTTPClient } from 'ipfs-http-client';
+import sharp from 'sharp';
 
 // get image dimensions
 function getImageData(image: Image) {
@@ -47,19 +48,30 @@ async function UploadPhoto(photo: Buffer) {
   const client =
     process.env.IPFS_CLIENT == 'default' ? create() : CreateInfuraClient();
 
-  const image = await loadImage(photo); // load image from buffer
-  const imageData = getImageData(image); // get image data
+  // minimize photo to a max of 256px on longest side
+  const minimizedPhoto = await sharp(photo)
+    .resize(256, undefined, { withoutEnlargement: true })
+    // convert image format to jpeg
+    .jpeg()
+    .toBuffer();
 
-  console.log('loaded image');
+  // use minimized image for faster blurhash generation
+  const minimizedImage = await loadImage(minimizedPhoto); // load image from buffer
+  const minimizedImageData = getImageData(minimizedImage); // get image data
 
-  const [url, blurhash] = await Promise.all([
-    client.add(photo),
-    GetBlurhash(imageData),
-  ]);
+  // use original image to get width and heigt
+  const originalImage = await loadImage(photo); // load image from buffer
+  const originalImageData = getImageData(originalImage); // get image data
 
-  console.log('uploaded to IPFS');
+  const url = await client.add(photo);
+  const blurhash = await GetBlurhash(minimizedImageData); // 'blurhash';
 
-  return { hash: url.path, blurhash, width: image.width, height: image.height };
+  return {
+    hash: url.path,
+    blurhash,
+    width: originalImageData.width,
+    height: originalImageData.height,
+  };
 }
 
 export default UploadPhoto;
