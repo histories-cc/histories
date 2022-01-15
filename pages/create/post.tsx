@@ -197,7 +197,7 @@ const Login: FC = () => {
               variables: {
                 ...values,
                 photoDate: Date.parse(values.photoDate).toString(),
-                hashtags: JSON.stringify(tags),
+                hashtags: '',
                 latitude: marker.latitude,
                 longitude: marker.longitude,
                 photo: file,

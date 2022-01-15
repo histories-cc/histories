@@ -29,6 +29,7 @@
     "test": "jest",
     "test:lib": "jest --testPathPattern=lib",
     "test:shared": "jest --testPathPattern=shared",
+    "test:src": "jest --testPathPattern=src",
     "test:types": "tsc --pretty --noEmit"
   },
   "dependencies": {

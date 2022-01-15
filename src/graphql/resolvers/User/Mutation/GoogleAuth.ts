@@ -7,6 +7,7 @@ import RunCypherQuery from '../../../../database/RunCypherQuery';
 import SignJWT from '../../../../functions/SignJWT';
 import { UploadPhoto } from '../../../../IPFS';
 import RegisteredWithGoogleEmail from '../../../../email/content/NewPassword';
+import { GenerateBlurhash } from '../../../../functions';
 
 async function RegisterWithGooge(googleJWT: string) {
   const passwordResetToken = `${new Date().getTime()}-${uuidv4()}`; // generate token for new password creation
@@ -63,8 +64,12 @@ async function RegisterWithGooge(googleJWT: string) {
             email: res.data.email,
           },
         });
+      if (!process.env.JWT_SECRET) throw new Error('JWT secret is not defined');
 
-      return SignJWT(existingUser.records[0].get('user').id);
+      return SignJWT(
+        existingUser.records[0].get('user').id,
+        process.env.JWT_SECRET
+      );
     }
 
     // if there is no user with same email or googleID create user and return JWT
@@ -72,8 +77,11 @@ async function RegisterWithGooge(googleJWT: string) {
       const response = await axios.get(res.data.picture, {
         responseType: 'arraybuffer',
       });
-      const profileImage = await Buffer.from(response.data, 'utf-8');
-      const profile = await UploadPhoto(profileImage);
+      const profileImage = Buffer.from(response.data, 'utf-8');
+      const [blurhash, profile] = await Promise.all([
+        GenerateBlurhash(profileImage),
+        UploadPhoto(profileImage),
+      ]);
 
       const date = new Date().getTime().toString();
       // get user data from neo4j
@@ -91,7 +99,7 @@ async function RegisterWithGooge(googleJWT: string) {
           verified: true,
           locale: res.data.locale,
           profile: profile.hash,
-          profileBlurhash: profile.blurhash,
+          profileBlurhash: blurhash,
           passwordResetToken,
         },
       });
@@ -105,8 +113,9 @@ async function RegisterWithGooge(googleJWT: string) {
         }),
         res.data.email
       );
+      if (!process.env.JWT_SECRET) throw new Error('JWT secret is not defined');
 
-      return SignJWT(userInfo.records[0].get('id'));
+      return SignJWT(userInfo.records[0].get('id'), process.env.JWT_SECRET);
     }
   } catch (error: any) {
     throw new Error(error);

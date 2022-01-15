@@ -11,11 +11,6 @@ function getImageData(image: Image) {
   return context.getImageData(0, 0, image.width, image.height);
 }
 
-// generate blurhash
-export async function GetBlurhash({ data, width, height }: ImageData) {
-  return blurhash.encode(data, width, height, 6, 6);
-}
-
 export function CreateInfuraClient(): IPFSHTTPClient {
   // if infura credentials are not set, throw error
   if (!process.env.INFURA_PROJECT_ID)
@@ -48,29 +43,16 @@ async function UploadPhoto(photo: Buffer) {
   const client =
     process.env.IPFS_CLIENT == 'default' ? create() : CreateInfuraClient();
 
-  // minimize photo to a max of 256px on longest side
-  const minimizedPhoto = await sharp(photo)
-    .resize(256, undefined, { withoutEnlargement: true })
-    // convert image format to jpeg
-    .jpeg()
-    .toBuffer();
-
-  // use minimized image for faster blurhash generation
-  const minimizedImage = await loadImage(minimizedPhoto); // load image from buffer
-  const minimizedImageData = getImageData(minimizedImage); // get image data
-
   // use original image to get width and heigt
-  const originalImage = await loadImage(photo); // load image from buffer
-  const originalImageData = getImageData(originalImage); // get image data
+  const image = await loadImage(photo); // load image from buffer
+  const imageData = getImageData(image); // get image data
 
-  const url = await client.add(photo);
-  const blurhash = await GetBlurhash(minimizedImageData); // 'blurhash';
+  const uploaded = await client.add(photo);
 
   return {
-    hash: url.path,
-    blurhash,
-    width: originalImageData.width,
-    height: originalImageData.height,
+    hash: uploaded.path,
+    width: imageData.width,
+    height: imageData.height,
   };
 }
 

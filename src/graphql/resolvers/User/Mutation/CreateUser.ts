@@ -79,7 +79,9 @@ const CreateUser = async ({
     email
   );
 
-  return SignJWT(user.records[0].get('id'));
+  if (!process.env.JWT_SECRET) throw new Error('JWT secret is not defined');
+
+  return SignJWT(user.records[0].get('id'), process.env.JWT_SECRET);
 };
 
 export default CreateUser;
