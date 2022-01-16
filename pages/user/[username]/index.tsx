@@ -52,6 +52,8 @@ const PostsPage: React.FC<{
     },
   });
 
+  console.log(postsTmp.data)
+
   return (
     <UserLayout
       user={user}
@@ -129,23 +131,23 @@ const PostsPage: React.FC<{
         >
           {loading
             ? postsTmp.data?.posts.map((post: any) => (
-                <Post
-                  timeline
-                  {...post}
-                  key={post.id}
-                  refetch={refetch}
-                  photos={post.photos}
-                />
-              ))
+              <Post
+                timeline
+                {...post}
+                key={post.id}
+                refetch={refetch}
+                photos={post.photos}
+              />
+            ))
             : data?.posts.map((post: any) => (
-                <Post
-                  timeline
-                  {...post}
-                  key={post.id}
-                  refetch={refetch}
-                  photos={post.photos}
-                />
-              ))}
+              <Post
+                timeline
+                {...post}
+                key={post.id}
+                refetch={refetch}
+                photos={post.photos}
+              />
+            ))}
           {data?.posts.length == 0 && (
             <Card>
               <div>

@@ -112,17 +112,19 @@ const Post: React.FC<PostProps> = ({
           <p className="px-4 pt-2 font-medium">{description}</p>
           {photos && (
             <div className="relative w-full bg-white cursor-pointer dark:bg-black h-[360px] bg-secondary">
-              <Blurhash
+              <div className='w-full flex justify-center'><Blurhash
                 hash={photos[0].blurhash}
-                width={598}
-                height={(598 / photos[0].width) * photos[0].height}
+                width={photos[0].width > 598 ? 598 : photos[0].width}
+                height={photos[0].height > 360 ? 360 : photos[0].height}
                 punch={1}
-              />
+              /></div>
 
               <Image
                 src={UrlPrefix + photos[0].hash}
                 layout="fill"
                 objectFit="contain"
+                placeholder="blur"
+                blurDataURL={"https://ipfs.io/ipfs" + photos[0].hash}
                 objectPosition="center"
                 alt="Profile picture"
               />

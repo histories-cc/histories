@@ -7,9 +7,10 @@ const PostQuery = async ({
   id: number;
   logged: number | null;
 }) => {
-  const query = `MATCH (author:User)-[:CREATED]->(post:Post)-[:IS_LOCATED]->(place:Place) ${
+  const query = `
+  MATCH (author:User)-[:CREATED]->(post:Post)-[:IS_LOCATED]->(place:Place) ${
     logged ? ', (logged:User)' : ''
-  } , (post)-[:CONTAINS]->(photo:Photo)
+  }
 
   WHERE ID(post) = $postId ${logged ? `AND ID(logged) = ${logged}` : ''}
  
@@ -43,6 +44,13 @@ const PostQuery = async ({
       RETURN DISTINCT hashtag
       LIMIT 100
   }
+
+  CALL {
+      WITH post
+      OPTIONAL MATCH (post)-[:CONTAINS]->(photo:Photo)
+      RETURN photo
+      ORDER BY photo.index ASC
+  }
       
   RETURN post{.*, id: ID(post), 
       place: place{.*, latitude: place.location.latitude, longitude: place.location.longitude, id: ID(place)},
@@ -59,12 +67,10 @@ const PostQuery = async ({
 
   const [result] = await RunCypherQuery({ query, params: { postId: id } });
 
+  console.log(result.records[0].get('post'));
+
   if (result.records[0] === undefined) throw new Error('Post does not exist');
-  else
-    return {
-      ...result.records[0].get('post'),
-      url: result.records[0].get('post').url,
-    };
+  else return result.records[0].get('post');
 };
 
 export default PostQuery;

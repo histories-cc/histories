@@ -60,7 +60,7 @@ const PlacesQuery = async ({ filter, loggedId }: queryInput) => {
         RETURN COLLECT(DISTINCT photo{.*}) AS photos
     }
 
-    RETURN COLLECT(post{.*,
+    RETURN COLLECT(DISTINCT post{.*,
         id: ID(post),
         likeCount,
         followerCount,

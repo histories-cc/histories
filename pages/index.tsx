@@ -94,7 +94,7 @@ const PersonalizedPosts = () => {
           {...post}
           key={post.id}
           refetch={refetch}
-          photos={post.url.map((x: string) => ({ url: x }))}
+          photos={post.photos}
         />
       ))}
     </InfiniteScroll>

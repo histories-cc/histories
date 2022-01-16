@@ -79,7 +79,7 @@ async function CreatePost({
       userID,
       description,
       createdAt: new Date(0).getTime(),
-      postDate: new Date(photoDate).getTime(),
+      postDate: photoDate,
       nsfw,
       public: !nsfw,
       longitude: coordinates.longitude,
@@ -93,7 +93,7 @@ async function CreatePost({
   const driver = DbConnector();
   const session = driver.session();
 
-  const postID = result.records[0].get('user');
+  const postID = result.records[0].get('post').id;
   /*
   await session.run(`WITH ${hashtags} AS tags
   MATCH (user:User), (post:Post)
