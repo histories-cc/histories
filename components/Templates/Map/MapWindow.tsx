@@ -112,7 +112,7 @@ const MapGL: React.FC<MapGLProps> = ({ onMove }) => {
                   ) : (
                     <Image
                       // @ts-ignore
-                      src={UrlPrefix + place.preview[0]}
+                      src={UrlPrefix + place.preview.hash}
                       layout="fill"
                       objectFit="cover"
                       objectPosition="center"

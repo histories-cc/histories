@@ -187,7 +187,7 @@ export default gql`
     longitude: Float!
     description: String
     name: String
-    preview: [String!]
+    preview: Photo!
     icon: String
     posts: [Post]!
     nearbyPlaces: [NearbyPlaces]!
@@ -208,6 +208,7 @@ export default gql`
     width: Int!
     height: Int!
     index: Int!
+    id: Float!
   }
 
   type Post {

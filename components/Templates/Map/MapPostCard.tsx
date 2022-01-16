@@ -12,7 +12,12 @@ const MapPostCard: React.FC<{
     longitude: number;
     latitude: number;
     icon?: string | null;
-    preview?: string[] | null;
+    preview?: {
+      hash: string;
+      blurhash: string;
+      width: number;
+      height: number;
+    };
     description?: string;
   };
 }> = ({ place }) => {
@@ -36,7 +41,7 @@ const MapPostCard: React.FC<{
       {place.preview && (
         <div className="relative w-full h-full rounded-t-lg cursor-pointer bg-secondary">
           <Image
-            src={UrlPrefix + place.preview[0]}
+            src={UrlPrefix + place.preview.hash}
             layout="fill"
             objectFit="cover"
             objectPosition="center"

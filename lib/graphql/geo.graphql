@@ -5,7 +5,12 @@ query Places($input: PlacesInput) {
     longitude
     latitude
     icon
-    preview
+    preview {
+      hash
+      blurhash
+      width
+      height
+    }
     description
   }
 }
@@ -17,7 +22,12 @@ query Place($id: Int!) {
 
     name
     description
-    preview
+    preview {
+      hash
+      blurhash
+      width
+      height
+    }
     posts {
       id
       photos {

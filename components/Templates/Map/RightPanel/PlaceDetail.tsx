@@ -25,7 +25,7 @@ const PlaceDetail: React.FC<{
         <div className="relative w-full rounded-lg cursor-pointer h-52 md:h-72 bg-secondary">
           {sidebarPlace.preview && (
             <Image
-              src={UrlPrefix + sidebarPlace.preview[0]}
+              src={UrlPrefix + sidebarPlace.preview.hash}
               layout="fill"
               objectFit="cover"
               objectPosition="center"

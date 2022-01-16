@@ -21,9 +21,9 @@ const PlacesQuery = async ({ filter, loggedId }: PlacesQueryInput) => {
   // return most liked post from place which has photos
   CALL {
       WITH place
-      OPTIONAL MATCH (place:Place)<-[:IS_LOCATED]-(post:Post)<-[:CREATED]-(author:User)
-      WHERE post.url IS NOT NULL  // where post has photos
-      RETURN post
+      OPTIONAL MATCH (place:Place)<-[:IS_LOCATED]-(post:Post)-[:CONTAINS]->(photo:Photo)
+      WHERE photo.hash IS NOT NULL  // where post has photos
+      RETURN photo
       LIMIT 1 // only one to use as preview image
   }
   
@@ -63,7 +63,7 @@ const PlacesQuery = async ({ filter, loggedId }: PlacesQueryInput) => {
               // if place has preview return place preview
               WHEN (place.preview IS NOT NULL) THEN place.preview
               // else if place has post with photos, return photos as preview otherwise return null
-              ELSE post.url
+              ELSE photo{.*}
           END
   } AS placeObj
   ORDER BY placeObj.id ASC
