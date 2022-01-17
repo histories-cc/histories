@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.5.7",
-    "@headlessui/react": "^1.4.2",
+    "@headlessui/react": "^1.4.3",
     "@heroicons/react": "^1.0.5",
     "@neo4j/graphql-ogm": "^2.5.5",
     "@nextui-org/react": "^1.0.1-alpha.57",
