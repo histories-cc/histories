@@ -88,7 +88,7 @@
     "react-map-gl": "^6.1.17",
     "react-select": "^5.2.2",
     "react-timeago": "^6.2.1",
-    "sass": "^1.48.0",
+    "sass": "^1.49.0",
     "sharp": "^0.29.3",
     "stream-to-promise": "^3.0.0",
     "strip-comments": "^2.0.1",
