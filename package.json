@@ -43,7 +43,7 @@
     "apollo": "^2.33.9",
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-client": "^2.6.10",
-    "apollo-server-core": "^3.6.1",
+    "apollo-server-core": "^3.6.2",
     "apollo-server-express": "^3.6.1",
     "apollo-server-micro": "^2.25.3",
     "apollo-upload-client": "^17.0.0",
