@@ -143,7 +143,7 @@
     "jest": "^27.4.7",
     "jest-expect-message": "^1.0.2",
     "jest-extended": "^1.1.0",
-    "lint-staged": "^12.2.0",
+    "lint-staged": "^12.2.1",
     "next-sitemap": "^1.9.12",
     "postcss": "^8.4.5",
     "react-docgen-typescript-loader": "^3.7.2",
