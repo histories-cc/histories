@@ -7,7 +7,7 @@ tasks:
       cp .env.example .env.local;
       cp nodemon.json.example nodemon.json;
       yarn build;
-      docker build . -t histories
+      docker build . -t histories;
       gp sync-done setup;
     command: echo "Setup done"
   - name: Dev Server
