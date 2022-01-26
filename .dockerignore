@@ -1,4 +1,6 @@
 .next
+.dist
+.cache
 node_modules
 LICENSE
 .env.example
