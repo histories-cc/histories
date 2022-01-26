@@ -7,10 +7,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: jerray/publish-docker-action@master
+      - uses: actions/checkout@master
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
         with:
+          name: ${{ secrets.DOCKER_USERNAME }}/histories
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          registry: docker.pkg.github.com
-          repository: ${{ secrets.DOCKER_USERNAME }}/histories
-          auto_tag: true
