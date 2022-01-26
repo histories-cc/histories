@@ -27,7 +27,7 @@ services:
       - PGID=1000
       - TZ=Europe/London
     volumes:
-      - /path/to/data:/config
+      - IPFSData:/data
     ports:
       - 80:80
       - 4001:4001
@@ -37,4 +37,6 @@ services:
 
 volumes:
   Neo4jData:
+    driver: local
+  IPFSData:
     driver: local
