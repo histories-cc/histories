@@ -1,35 +1,45 @@
 <div align="center">
-    <img src="https://github.com/hiStories-cc/hiStories/blob/main/public/logo/big-white.svg" alt="Histories" />
+    <img src="https://github.com/histories-cc/histories/blob/main/public/logo/big-white.svg" alt="Histories" />
 </div>
 
 <div align="center">
-    <a href="https://www.histories.cc"><b>hiStories.cc</b></a>
+    <a href="https://www.histories.cc"><b>histories.cc</b></a>
     •
-    <a href="https://gitpod.io/#https://github.com/hiStories-cc/hiStories"><b>Gitpod</b></a>
+    <a href="https://gitpod.io/#https://github.com/histories-cc/histories"><b>Gitpod</b></a>
 </div>
 <br>
 <div align="center">
-    <img src="https://github.com/hiStories-cc/hiStories/actions/workflows/build-node.yml/badge.svg" /> 
-    <img src="https://github.com/hiStories-cc/hiStories/actions/workflows/test-node.yml/badge.svg" alt="test action"/>
+    <img src="https://github.com/hiStories-cc/histories/actions/workflows/build-node.yml/badge.svg" alt="build"/> 
+    <img src="https://github.com/hiStories-cc/histories/actions/workflows/test-node.yml/badge.svg" alt="test"/>
     <a href="https://gitpod.io/#https://github.com/histories-cc/histories"><img src="https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod" alt="Gitpod Ready-to-Code"/></a>
 </div>
 
 ## About
 
-HiStories is a social site for sharing historical photos of places, so anyone can see, how the place has changed over time.
+Histories is a social site for sharing historical photos of places, so anyone can see, how the place has changed over time.
 And it also is my high school final project.
 
 ## Setup
 
-[![Edit with Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/hiStories-cc/hiStories)
-
-### Setup dev server:
+[![Edit with Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/histories-cc/histories)
 
 1. copy `.env.example` to `.env.local` and change values
 2. copy `nodemon.json.example` to `nodemon.json` and change values
-3. install dependencies `yarn`
-4. setup environment `docker-compose up -d`
-5. run `yarn dev`
+
+### Docker:
+
+```bash
+docker build . -t histories
+docker run -p 80:3000 --env-file ./.env.local histories:latest
+```
+
+### Setup dev server:
+
+```bash
+yarn
+docker-compose up -d
+yarn dev
+```
 
 ## Tech stack
 
