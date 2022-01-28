@@ -52,4 +52,4 @@ jobs:
         with:
           node-version: 16
       - run: yarn
-      - run: yarn test:types
+      - run: yarn typecheck

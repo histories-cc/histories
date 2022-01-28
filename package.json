@@ -30,7 +30,8 @@
     "test:lib": "jest --testPathPattern=lib",
     "test:shared": "jest --testPathPattern=shared",
     "test:src": "jest --testPathPattern=src",
-    "test:types": "tsc --pretty --noEmit"
+    "pretypecheck": "yarn codegen",
+    "typecheck": "tsc --pretty --noEmit"
   },
   "dependencies": {
     "@apollo/client": "^3.5.7",
