@@ -8,6 +8,10 @@ on: [push]
 jobs:
   test:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
     name: Test
     steps:
       - uses: actions/checkout@v2
@@ -20,6 +24,10 @@ jobs:
 
   lint:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
     name: Lint
     steps:
       - uses: actions/checkout@v2
@@ -32,6 +40,10 @@ jobs:
 
   typecheck:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
     name: Typecheck
     steps:
       - uses: actions/checkout@v2
