@@ -3,11 +3,7 @@
 
 name: Build
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main, production, dependabot]
+on: [push]
 
 jobs:
   build:
@@ -26,3 +22,16 @@ jobs:
           cache: 'yarn'
       - run: yarn
       - run: yarn build
+
+  notify:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: ${{ secrets.DOCKER_USERNAME }}/histories
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          tags: 'latest, ${GITHUB_REF##*/}-0.${{ github.run_number }}'
