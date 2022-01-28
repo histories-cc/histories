@@ -111,7 +111,7 @@ const Post: React.FC<PostProps> = ({
           <p className="px-4 pt-2 font-medium">{description}</p>
           {photos && (
             <div className="relative w-full bg-white cursor-pointer dark:bg-black h-[360px] bg-secondary">
-              <div className="flex justify-center w-full h-full items-center">
+              <div className="flex items-center justify-center w-full h-full">
                 <Blurhash
                   hash={photos[0].blurhash}
                   width={

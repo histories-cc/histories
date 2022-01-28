@@ -79,7 +79,7 @@ WITH post{.*,
         longitude: place.location.longitude // longitude
     }
 } AS postObject
-${""}
+${''}
 SKIP $skip
 LIMIT $take
 
@@ -105,7 +105,7 @@ RETURN COLLECT(DISTINCT postObject) AS posts
         ? `(?i)${filter.authorUsername}`
         : null,
       placeId: filter?.placeId ?? null,
-      exclude: []
+      exclude: [],
     },
   });
 

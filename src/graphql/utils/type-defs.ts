@@ -131,7 +131,7 @@ export default gql`
     " asc | desc // default is asc"
     sort: String
     " id | createdAt | likeCount | commentsCount | distance"
-    sortBy: String    
+    sortBy: String
   }
 
   input PersonalizedPostsInput {
