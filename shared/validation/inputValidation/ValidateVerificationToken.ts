@@ -1,4 +1,4 @@
-import { isUuid } from 'uuidv4';
+import { validate } from 'uuid';
 
 const ValidateVerificationToken = (
   token: string
@@ -10,7 +10,7 @@ const ValidateVerificationToken = (
   if (token === undefined || token === null)
     return { error: 'invalid verification token' };
 
-  if (regex.test(token) && isUuid(token.match(regex)![2]))
+  if (regex.test(token) && validate(token.match(regex)![2]))
     return { error: null };
   else return { error: 'invalid verification token' };
 };
