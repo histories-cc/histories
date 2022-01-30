@@ -23,7 +23,7 @@ jobs:
       - run: yarn
       - run: yarn build
 
-  notify:
+  publish:
     needs: build
     name: Publish docker image
     runs-on: ubuntu-latest
@@ -36,3 +36,9 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           tags: 'latest, 0.${{ github.run_number }}'
+      - name: Post comment
+        uses: KeisukeYamashita/create-comment@v1
+        with:
+          comment: |
+            Docker image automatically deployed🥳\
+            try `docker pull ${{ secrets.DOCKER_USERNAME }}/histories:0.${{ github.run_number }}`
