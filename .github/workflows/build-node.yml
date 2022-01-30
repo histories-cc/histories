@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [14.x, 16.x]
     name: Build (Node ${{ matrix.node-version }})
     steps:
       - uses: actions/checkout@v2
@@ -42,3 +42,4 @@ jobs:
           comment: |
             Docker image automatically deployed🥳\
             try `docker pull ${{ secrets.DOCKER_USERNAME }}/histories:0.${{ github.run_number }}`
+          token: ${{ secrets.GITHUB_TOKEN }}

@@ -19,7 +19,7 @@
     "map"
   ],
   "engines": {
-    "node": "16.x"
+    "node": ">=14.x <=16.x"
   },
   "private": false,
   "scripts": {
