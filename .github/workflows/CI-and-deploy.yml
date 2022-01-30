@@ -5,7 +5,15 @@
 
 name: CI and Deploy
 
-on: [push]
+on:
+  push:
+    paths-ignore:
+      - '**/*.md'
+      - '**/.gitignore'
+      - '**/.gitkeep'
+      - '*.example'
+      - '.vscode'
+      - 'public'
 
 jobs:
   # Jest
