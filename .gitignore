@@ -53,5 +53,3 @@ nodemon.json
 */stories-static
 
 tsconfig.tsbuildinfo
-
-public/hashes.txt
