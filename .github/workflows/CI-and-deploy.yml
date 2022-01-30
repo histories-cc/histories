@@ -1,21 +1,20 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
+# Yes, I am actually proud of this
+
 name: CI and Deploy
 
 on: [push]
 
-env:
-  DOCKER_TAG: 0.${{ github.run_number }}
-
 jobs:
   # Jest
   test:
+    name: Test
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [14.x, 16.x]
-    name: Test
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -42,11 +41,11 @@ jobs:
       - run: yarn lint
   # Typecheck
   typecheck:
+    name: Typecheck
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [14.x, 16.x]
-    name: Typecheck
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -58,11 +57,11 @@ jobs:
   # Build
   build:
     needs: [typecheck]
+    name: Build (Node ${{ matrix.node-version }})
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [14.x, 16.x]
-    name: Build (Node ${{ matrix.node-version }})
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -74,7 +73,7 @@ jobs:
       - run: yarn build
   # Publish docker image
   publish:
-    needs: build
+    needs: [build]
     name: Publish docker image
     runs-on: ubuntu-latest
     steps:
@@ -85,16 +84,17 @@ jobs:
           name: ${{ secrets.DOCKER_USERNAME }}/histories
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          tags: 'latest, $DOCKER_TAG'
+          tags: 'latest, 0.${{ github.run_number }}'
   # Create comment on commit
   comment:
-    needs: publish
+    name: Comment docker tag
+    needs: [publish]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - name: Add commit comment
         run: |
-          jq -nc '{"body": "Docker image automatically deployed🥳 `docker pull ${{ secrets.DOCKER_USERNAME }}/histories:$DOCKER_TAG`"}' | \
+          jq -nc '{"body": "Docker image automatically deployed🥳 `docker pull ${{ secrets.DOCKER_USERNAME }}/histories:0.${{ github.run_number }}`"}' | \
           curl -sL  -X POST -d @- \
             -H "Content-Type: application/json" \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
