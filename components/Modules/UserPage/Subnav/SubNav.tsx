@@ -11,7 +11,7 @@ import {
 import UserSubNavItem from './SubNavItem';
 
 export type UserSubNavProps = {
-  currentTab: string;
+  currentTab: 'posts' | 'collections' | 'map';
   user: { username: string; firstName: string; id: number };
   view: 'grid' | 'list';
   setView: React.Dispatch<React.SetStateAction<'grid' | 'list'>>;

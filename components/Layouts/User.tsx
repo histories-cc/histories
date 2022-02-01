@@ -7,7 +7,7 @@ import { Layout } from '.';
 
 type UserLayoutProps = {
   user: any;
-  currentTab: string;
+  currentTab: 'posts' | 'collections' | 'map';
   head: HeadProps;
 };
 

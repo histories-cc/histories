@@ -124,6 +124,7 @@ export default gql`
     placeId: Int
     authorId: Int
     authorUsername: String
+    collectionId: Int
   }
 
   input PostsInput {

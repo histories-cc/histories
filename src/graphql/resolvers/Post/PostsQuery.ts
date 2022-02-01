@@ -1,33 +1,21 @@
-import RunCypherQuery from '../../../database/RunCypherQuery';
 import neo4j from 'neo4j-driver';
 
+import { Maybe, PostsFilter } from '../../../../.cache/__types__';
+import RunCypherQuery from '../../../database/RunCypherQuery';
+
 type queryInput = {
-  filter: {
-    placeId?: number;
-    authorId?: number;
-    authorUsername?: string;
-    maxLatitude: number | null;
-    minLatitude: number | null;
-    maxLongitude: number | null;
-    minLongitude: number | null;
-    minDate: number | null;
-    maxDate: number | null;
-    radius: {
-      latitude: number;
-      longitude: number;
-      distance: number;
-    } | null;
-    tags: string[] | null;
-    skip: number | null;
-    take: number | null;
-  } | null;
+  filter?: Maybe<PostsFilter>;
   loggedId: number | null;
 };
 
 const PostsQuery = async ({ filter, loggedId }: queryInput) => {
   const query = ` 
 WITH $loggedId AS loggedID
-MATCH (author:User)-[:CREATED]->(post:Post)-[:IS_LOCATED]->(place:Place)
+MATCH (author:User)-[:CREATED]->(post:Post)-[:IS_LOCATED]->(place:Place)${
+    filter?.collectionId
+      ? `, (collection:Collection {id:${filter.collectionId}})-[:CONTAINS]->(post)`
+      : ''
+  }
 WHERE (place.location.latitude >= $minLatitude OR $minLatitude IS NULL)                 // min latitude
   AND (place.location.latitude <= $maxLatitude OR $maxLatitude IS NULL)                 // max latitude
   AND (place.location.longitude >= $minLongitude OR $minLongitude IS NULL)              // min longitude
@@ -37,7 +25,7 @@ WHERE (place.location.latitude >= $minLatitude OR $minLatitude IS NULL)         
   AND (author.id = $authorId OR $authorId IS NULL)                                      // author id
   AND (author.username =~ $authorUsername OR $authorUsername IS NULL)                   // author id
   AND NOT ID(place) IN $exclude                                                         // object id is not in exclude
-  
+
 OPTIONAL MATCH(logged:User {id: loggedID}) // optionally match logged use
 
 // post author followers and following and likes

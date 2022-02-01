@@ -1,7 +1,7 @@
-import FullTextSearch from '../../resolvers/Search/FullTextSearch';
 import {
   PersonalizedPostsInput,
   PlacesInput,
+  PostsInput,
   SearchInput,
 } from '../../../../.cache/__types__';
 import {
@@ -15,6 +15,7 @@ import {
   SuggestedUsersQuery,
   UserQuery,
 } from '../../../graphql/resolvers';
+import FullTextSearch from '../../resolvers/Search/FullTextSearch';
 import { contextType } from './resolvers';
 
 const queries = {
@@ -63,27 +64,7 @@ const queries = {
     {
       input,
     }: {
-      input: {
-        filter: {
-          placeId?: number;
-          authorId?: number;
-          authorUsername?: string;
-          maxLatitude: number | null;
-          minLatitude: number | null;
-          maxLongitude: number | null;
-          minLongitude: number | null;
-          minDate: number | null;
-          maxDate: number | null;
-          radius: {
-            latitude: number;
-            longitude: number;
-            distance: number;
-          } | null;
-          tags: string[] | null;
-          skip: number | null;
-          take: number | null;
-        } | null;
-      };
+      input: PostsInput;
     },
     context: contextType
   ) =>
