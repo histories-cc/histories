@@ -1,12 +1,15 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import UserLayout from '@components/Layouts/User';
+import DropdownTransition from '@components/Modules/Dropdown/DropdownTransition';
 import Card from '@components/Modules/UserPage/Card';
+import DeleteCollectionModal from '@components/Templates/Modals/DeleteCollectionModal';
 import {
   CollectionDocument,
   CollectionQuery,
 } from '@graphql/collection.graphql';
 import { usePostsQuery } from '@graphql/post.graphql';
 import { UserDocument, UserQuery } from '@graphql/user.graphql';
+import { Menu, Transition } from '@headlessui/react';
 import {
   GetCookieFromServerSideProps,
   IsJwtValid,
@@ -14,9 +17,10 @@ import {
 } from '@lib/functions';
 import { GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Blurhash } from 'react-blurhash';
 import { useTranslation } from 'react-i18next';
+import { HiOutlineChevronDown } from 'react-icons/hi';
 
 import { Maybe } from '../../.cache/__types__';
 import UrlPrefix from '../../shared/config/UrlPrefix';
@@ -41,7 +45,8 @@ const CheckPost: React.FC<{
     variables: { input: { filter: { collectionId: collection.id } } },
   });
   const { t } = useTranslation<string>();
-
+  const [isDeleteCollectionModalOpen, setIsDeleteCollectionModalOpen] =
+    useState<boolean>(false);
   return (
     <UserLayout
       user={user}
@@ -63,8 +68,37 @@ const CheckPost: React.FC<{
         },
       }}
     >
-      <h1 className="pt-4 text-3xl font-semibold">{collection.name}</h1>
-      <p className="pb-4">{collection.description}</p>
+      <DeleteCollectionModal isOpen={isDeleteCollectionModalOpen} setIsOpen={setIsDeleteCollectionModalOpen} />
+      <div className="flex items-center justify-between pr-4">
+        <div>
+          <h1 className="pt-4 text-3xl font-semibold">{collection.name}</h1>
+          <p className="pb-4">{collection.description}</p>
+        </div>
+
+        <Menu as="div" className="relative">
+          <Menu.Button className="flex items-center px-2 py-1 font-semibold text-gray-600 border border-gray-300 rounded-lg gap-2">
+            Options
+            <HiOutlineChevronDown />
+          </Menu.Button>
+          <Transition as={Fragment} {...DropdownTransition}>
+            <Menu.Items as="div" className="dropdown">
+              <Menu.Item as="div" className="rounded-t-lg dropdown-item">
+                {t('edit_collection')}
+              </Menu.Item>
+              <Menu.Item
+                as="div"
+                className="dropdown-item-danger"
+                onClick={() => setIsDeleteCollectionModalOpen(true)}
+              >
+                {t('delete_collection')}
+              </Menu.Item>
+              <Menu.Item as="div" className="rounded-b-lg dropdown-item">
+                {t('close')}
+              </Menu.Item>
+            </Menu.Items>
+          </Transition>
+        </Menu>
+      </div>
       {loading ? (
         'loading posts'
       ) : error ? (

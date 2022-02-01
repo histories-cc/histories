@@ -91,5 +91,7 @@
   "repeat_password": "Zopakujte heslo",
   "send_email_notifications": "Odeslat upozornění e-mailem",
   "log_in_to_existing_account": "Přihlásit se k existujícímu účetu",
-  "send_reset_password_link": "Odeslat odkaz pro obnovení hesla"
+  "send_reset_password_link": "Odeslat odkaz pro obnovení hesla",
+  "edit_collection": "Upravit kolekci",
+  "delete_collection": "Smazat kolekci"
 }

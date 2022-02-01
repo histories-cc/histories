@@ -18,3 +18,15 @@
 .mapboxgl-ctrl-bottom-right {
   display: none !important;
 }
+
+.dropdown {
+  @apply absolute right-0 z-50 flex flex-col w-48 mt-2 bg-white border border-gray-200 rounded-lg dark:bg-gray-900 focus:outline-none dark:border-gray-800 divide-y;
+}
+
+.dropdown-item {
+  @apply px-4 flex py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer font-medium text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-100;
+}
+
+.dropdown-item-danger {
+  @apply px-4 flex py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer font-medium text-sm text-red-500 dark:text-gray-400 dark:hover:text-gray-100;
+}

@@ -91,5 +91,7 @@
   "repeat_password": "Repeat password",
   "send_email_notifications": "Send email notifications",
   "log_in_to_existing_account": "Log in to existing account",
-  "send_reset_password_link": "Send reset password link"
+  "send_reset_password_link": "Send reset password link",
+  "edit_collection": "Edit collection",
+  "delete_collection": "Delete collection"
 }
