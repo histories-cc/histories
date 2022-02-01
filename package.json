@@ -69,6 +69,7 @@
     "nextjs-progressbar": "^0.0.13",
     "nodemailer": "^6.6.5",
     "nodemon": "^2.0.15",
+    "preact": "^10.6.5",
     "prettier": "^2.4.1",
     "react": "^17.0.2",
     "react-blurhash": "^0.1.3",

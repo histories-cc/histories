@@ -31,6 +31,13 @@ module.exports = withPWA({
       use: 'yaml-loader',
     });
 
+    if (!options.dev && !options.isServer) {
+      Object.assign(config.resolve.alias, {
+        react: 'preact/compat',
+        'react-dom/test-utils': 'preact/test-utils',
+        'react-dom': 'preact/compat',
+      });
+    }
     return config;
   },
   images: {
