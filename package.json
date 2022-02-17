@@ -83,7 +83,7 @@
     "react-i18next": "^11.15.3",
     "react-icons": "^4.3.1",
     "react-infinite-scroll-component": "^6.1.0",
-    "react-map-gl": "^6.1.17",
+    "react-map-gl": "^6.1.19",
     "react-timeago": "^6.2.1",
     "sass": "^1.49.0",
     "sharp": "^0.29.3",
