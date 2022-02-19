@@ -88,19 +88,12 @@ jobs:
   # try to build docker image if not publishing
   docker-build:
     needs: [build]
-    name: Build
-    strategy:
-      matrix:
-        node-version: [16.x]
+    name: Build Dockerfile
     runs-on: ubuntu-latest
     if: github.ref != 'refs/heads/main'
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'yarn'
+      - name: Build Dockerfile
       - run: docker build . -t histories
 
   # Publish docker image
