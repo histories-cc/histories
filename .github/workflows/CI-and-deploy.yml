@@ -91,9 +91,9 @@ jobs:
     name: Build Dockerfile
     runs-on: ubuntu-latest
     if: github.ref != 'refs/heads/main'
-    steps: 
-      - name: Build Dockerfile 
-      - run: docker build . -t histories
+    steps:
+      - name: Build Dockerfile
+        run: docker build . -t histories
 
   # Publish docker image
   docker-publish:
