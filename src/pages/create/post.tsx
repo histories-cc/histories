@@ -2,8 +2,11 @@ import { Input } from '@components/elements';
 import Button from '@components/elements/buttons/Button';
 import { Layout } from '@components/layouts';
 import Search from '@components/modules/Search';
-import { useCreatePostMutation } from '@graphql';
-import { useCreatePostSelectedPlaceLazyQuery } from '@graphql';
+import {
+  useCreatePostMapPlacesQuery,
+  useCreatePostMutation,
+  useCreatePostSelectedPlaceLazyQuery,
+} from '@graphql';
 import { Tab } from '@headlessui/react';
 import UrlPrefix from '@src/constants/IPFSUrlPrefix';
 import {
@@ -107,17 +110,10 @@ const CreatePostPage: React.FC<CreatePostPageProps> = ({
   const [selectedPlaceId, setSelectedPlaceId] = useState<number | null>(
     placeID
   );
-  const [selectedPlaceDataReady, setSelectedPlaceDataReady] =
-    useState<boolean>(false);
 
   const [getSelectedPlace, selectedPlaceQuery] =
     useCreatePostSelectedPlaceLazyQuery();
-
-  useEffect(() => {
-    console.log(selectedPlaceQuery);
-    if (selectedPlaceId !== null)
-      getSelectedPlace({ variables: { id: selectedPlaceId } });
-  }, [selectedPlaceId]);
+  const mapPlacesQuery = useCreatePostMapPlacesQuery();
 
   // for reading coordinates from query params
   const router = useRouter();
@@ -160,6 +156,11 @@ const CreatePostPage: React.FC<CreatePostPageProps> = ({
       zoom: 14,
     });
   }, [searchCoordinates]);
+
+  useEffect(() => {
+    if (selectedPlaceId !== null)
+      getSelectedPlace({ variables: { id: selectedPlaceId } });
+  }, [selectedPlaceId]);
 
   // on load read set marker & viewport coordinates by query params
   useEffect(() => {
@@ -359,6 +360,25 @@ const CreatePostPage: React.FC<CreatePostPageProps> = ({
               </Button>
             </>
           )}
+          {t('places')}
+          <div className="w-full h-24 gap-2 overflow-x-auto">
+            <div className="w-auto flex">
+              {mapPlacesQuery.loading ? (
+                <div />
+              ) : (
+                mapPlacesQuery.data?.places.map((place, index) => (
+                  <div key={index} className=" h-11 bg-red-500 rounded-md">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedPlaceId(place.id)}
+                    >
+                      {place.name}
+                    </button>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
           <div className="w-full max-w-4xl px-6 m-auto xl:px-0">
             <label>Photo date</label>
             <Tab.Group
@@ -578,3 +598,6 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   } else return SSRRedirect('/login');
 };
 export default CreatePostPage;
+function uesCreatePostMapPlacesQuery() {
+  throw new Error('Function not implemented.');
+}

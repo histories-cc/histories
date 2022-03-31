@@ -85,3 +85,16 @@ query CreatePostSelectedPlace($id: Int!) {
     }
   }
 }
+
+query CreatePostMapPlaces($input: PlacesInput) {
+  places(input: $input) {
+    id
+    name
+    preview {
+      hash
+      blurhash
+      width
+      height
+    }
+  }
+}
