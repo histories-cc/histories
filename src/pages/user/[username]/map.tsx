@@ -2,8 +2,8 @@ import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import UserLayout from '@components/layouts/User';
 import MapStyleMenu from '@components/modules/mapPage/map/MapStyleMenu';
 import Card from '@components/modules/userPage/Card';
-import { PostsDocument } from '@graphql/queries/post.graphql';
-import { UserDocument, UserQuery } from '@graphql/queries/user.graphql';
+import { PostsDocument } from '@graphql';
+import { UserDocument, UserQuery } from '@graphql';
 import UrlPrefix from '@src/constants/IPFSUrlPrefix';
 import {
   GetCookieFromServerSideProps,

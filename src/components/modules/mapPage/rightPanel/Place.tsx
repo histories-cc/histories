@@ -1,6 +1,6 @@
 import EditPlaceModal from '@components/modules/modals/EditPlaceModal';
-import { useMapSidebarPlaceQuery } from '@graphql/queries/place.graphql';
-import { useMapSidebarPostsQuery } from '@graphql/queries/post.graphql';
+import { useMapSidebarPlaceQuery } from '@graphql';
+import { useMapSidebarPostsQuery } from '@graphql';
 import UrlPrefix from '@src/constants/IPFSUrlPrefix';
 import { MapContext } from '@src/contexts/MapContext';
 import MeContext from '@src/contexts/MeContext';

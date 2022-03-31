@@ -1,4 +1,4 @@
-import { EditPostInput } from '../../../../../.cache/__types__';
+import { EditPostInput } from '../../../../../src/graphql/index';
 import RunCypherQuery from '../../../../database/RunCypherQuery';
 
 interface IEditPostProps extends EditPostInput {

@@ -1,12 +1,9 @@
 import Loading from '@components/elements/Loading';
 import { Layout } from '@components/layouts';
 import { Post } from '@components/modules/post';
-import { useInterestingPlacesQuery } from '@graphql/queries/place.graphql';
-import { usePersonalizedPostsQuery } from '@graphql/queries/post.graphql';
-import {
-  useMeQuery,
-  useSuggestedUsersQuery,
-} from '@graphql/queries/user.graphql';
+import { useInterestingPlacesQuery } from '@graphql';
+import { usePersonalizedPostsQuery } from '@graphql';
+import { useMeQuery, useSuggestedUsersQuery } from '@graphql';
 import UrlPrefix from '@src/constants/IPFSUrlPrefix';
 import Image from 'next/image';
 import Link from 'next/link';

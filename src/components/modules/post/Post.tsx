@@ -1,8 +1,5 @@
 import AddToCollectionModal from '@components/modules/modals/AddToCollectionModal';
-import {
-  useLikeMutation,
-  useUnlikeMutation,
-} from '@graphql/mutations/relations.graphql';
+import { useLikeMutation, useUnlikeMutation } from '@graphql';
 import UrlPrefix from '@src/constants/IPFSUrlPrefix';
 import MeContext from '@src/contexts/MeContext';
 import { motion } from 'framer-motion';
@@ -16,7 +13,7 @@ import { HiOutlineHeart } from 'react-icons/hi';
 import { IoIosMore } from 'react-icons/io';
 import TimeAgo from 'react-timeago';
 
-import { Maybe, Photo } from '../../../../.cache/__types__';
+import { Maybe, Photo } from '../../../../src/graphql/index';
 import Card from '../userPage/Card';
 import { LikePost, UnlikePost } from '.';
 import OptionsMenu from './OptionsMenu';

@@ -1,6 +1,6 @@
 import { Button, Input } from '@components/elements';
 import { Layout } from '@components/layouts';
-import { useCreateCollectionMutation } from '@graphql/mutations/collection.graphql';
+import { useCreateCollectionMutation } from '@graphql';
 import Router from 'next/router';
 import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';

@@ -1,9 +1,6 @@
 import DeletePostModal from '@components/modules/modals/DeletePostModal';
-import {
-  useDeleteMutation,
-  useEditPostMutation,
-} from '@graphql/mutations/post.graphql';
-import { useUnfollowMutation } from '@graphql/mutations/relations.graphql';
+import { useDeleteMutation, useEditPostMutation } from '@graphql';
+import { useUnfollowMutation } from '@graphql';
 import { Menu, Transition } from '@headlessui/react';
 import MeContext from '@src/contexts/MeContext';
 import Link from 'next/link';

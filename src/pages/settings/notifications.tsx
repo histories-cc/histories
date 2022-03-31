@@ -1,6 +1,6 @@
 import { CheckboxElement } from '@components/elements';
 import SettingsLayout from '@components/layouts/Settings';
-import { useUpdateProfileMutation } from '@graphql/mutations/user.graphql';
+import { useUpdateProfileMutation } from '@graphql';
 import MeContext from '@src/contexts/MeContext';
 import { RedirectAnonymous } from '@src/functions/ServerSideProps';
 import React from 'react';

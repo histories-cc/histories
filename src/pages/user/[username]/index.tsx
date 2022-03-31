@@ -7,12 +7,8 @@ import {
 import UserLayout from '@components/layouts/User';
 import { Post } from '@components/modules/post';
 import Card from '@components/modules/userPage/Card';
-import {
-  PostsDocument,
-  PostsQuery,
-  usePostsQuery,
-} from '@graphql/queries/post.graphql';
-import { UserDocument, UserQuery } from '@graphql/queries/user.graphql';
+import { PostsDocument, PostsQuery, usePostsQuery } from '@graphql';
+import { UserDocument, UserQuery } from '@graphql';
 import UrlPrefix from '@src/constants/IPFSUrlPrefix';
 import {
   GetCookieFromServerSideProps,
@@ -24,7 +20,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import { Exact, InputMaybe, PostsInput } from '../../../../.cache/__types__';
+import { Exact, InputMaybe, PostsInput } from '../../../../src/graphql/index';
 import { ValidateUsername } from '../../../../shared/validation';
 
 const PostsPage: React.FC<{

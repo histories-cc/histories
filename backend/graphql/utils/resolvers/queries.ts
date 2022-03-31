@@ -4,7 +4,7 @@ import {
   PlacesInput,
   PostsInput,
   SearchInput,
-} from '../../../../.cache/__types__';
+} from '../../../../src/graphql/index';
 import {
   CollectionQuery,
   FilterPlacesQuery,

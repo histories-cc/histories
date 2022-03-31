@@ -2,7 +2,7 @@ import { hash } from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
 import validator from 'validator';
 
-import { CreateUserInput } from '../../../../../.cache/__types__';
+import { CreateUserInput } from '../../../../../src/graphql/index';
 import {
   IsValidName,
   IsValidUsername,

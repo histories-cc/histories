@@ -1,6 +1,6 @@
 import validator from 'validator';
 
-import { UpdateProfileInput } from '../../../../../.cache/__types__';
+import { UpdateProfileInput } from '../../../../../src/graphql/index';
 import {
   IsValidBio,
   IsValidName,

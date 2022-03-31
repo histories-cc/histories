@@ -4,7 +4,7 @@ import React, { useContext } from 'react';
 import { MapRef } from 'react-map-gl';
 import useSupercluster from 'use-supercluster';
 
-import { Maybe } from '../../../../../../.cache/__types__';
+import { Maybe } from '../../../../../../src/graphql/index';
 import GetPoints from './GetPoints';
 import Marker from './Marker';
 

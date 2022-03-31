@@ -1,7 +1,7 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import { Layout } from '@components/layouts';
 import PostDetailTemplate from '@components/templates/PostDetailTemplate';
-import { PostDocument, PostQuery } from '@graphql/queries/post.graphql';
+import { PostDocument, PostQuery } from '@graphql';
 import { GetCookieFromServerSideProps, SSRRedirect } from '@src/functions';
 import { GetServerSidePropsContext } from 'next';
 import React from 'react';

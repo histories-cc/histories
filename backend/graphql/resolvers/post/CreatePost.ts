@@ -1,4 +1,4 @@
-import { InputMaybe } from '../../../../.cache/__types__';
+import { InputMaybe } from '../../../../src/graphql/index';
 import DbConnector from '../../../database/driver';
 import RunCypherQuery from '../../../database/RunCypherQuery';
 

@@ -1,5 +1,5 @@
 import { Button } from '@components/elements';
-import { useAddToCollectionMutation } from '@graphql/mutations/relations.graphql';
+import { useAddToCollectionMutation } from '@graphql';
 import { Dialog, Transition } from '@headlessui/react';
 import MeContext from '@src/contexts/MeContext';
 import React, { Fragment } from 'react';

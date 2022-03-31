@@ -1,5 +1,5 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
-import { UserDocument, UserQuery } from '@graphql/queries/user.graphql';
+import { UserDocument, UserQuery } from '@graphql';
 import UrlPrefix from '@src/constants/IPFSUrlPrefix';
 import { SSRRedirect } from '@src/functions';
 import { GetServerSidePropsContext } from 'next';

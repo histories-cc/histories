@@ -1,8 +1,5 @@
 import { Button, Tooltip } from '@components/elements';
-import {
-  useFollowMutation,
-  useUnfollowMutation,
-} from '@graphql/mutations/relations.graphql';
+import { useFollowMutation, useUnfollowMutation } from '@graphql';
 import UrlPrefix from '@src/constants/IPFSUrlPrefix';
 import MeContext from '@src/contexts/MeContext';
 import Image from 'next/image';
@@ -12,7 +9,7 @@ import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { HiBadgeCheck } from 'react-icons/hi';
 
-import { Maybe } from '../../../../../.cache/__types__';
+import { Maybe } from '../../../../../src/graphql/index';
 
 export type UserLeftPanelProps = {
   user: {

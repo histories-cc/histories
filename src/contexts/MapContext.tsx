@@ -3,9 +3,9 @@ import {
   viewportPlaceholder,
 } from '@src/constants/MapPlaceholderValues';
 import IMapContext from '@src/types/contexts/MapContext';
-import React from 'react';
+import { createContext } from 'react';
 
-export const MapContext = React.createContext<IMapContext>({
+export const MapContext = createContext<IMapContext>({
   bounds: boundsPlaceholder,
   setBounds: () => {},
   whatToShow: 'places',

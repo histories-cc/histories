@@ -3,11 +3,7 @@ import UserLayout from '@components/layouts/User';
 import DropdownTransition from '@components/modules/dropdown/DropdownTransition';
 import DeleteCollectionModal from '@components/modules/modals/DeleteCollectionModal';
 import Card from '@components/modules/userPage/Card';
-import {
-  CollectionDocument,
-  CollectionQuery,
-} from '@graphql/queries/collection.graphql';
-import { usePostsQuery } from '@graphql/queries/post.graphql';
+import { CollectionDocument, CollectionQuery, usePostsQuery } from '@graphql';
 import { Dialog, Menu, Transition } from '@headlessui/react';
 import UrlPrefix from '@src/constants/IPFSUrlPrefix';
 import {

@@ -2,7 +2,7 @@ import '../translation/i18n';
 import 'src/styles/main.css';
 
 import { ApolloProvider } from '@apollo/client';
-import { useMeQuery } from '@graphql/queries/user.graphql';
+import { useMeQuery } from '@graphql';
 import MeContext from '@src/contexts/MeContext';
 import { useApollo } from '@src/utils/apollo';
 import type { AppProps } from 'next/app';

@@ -2,8 +2,8 @@ import { Input } from '@components/elements';
 import Button from '@components/elements/buttons/Button';
 import { Layout } from '@components/layouts';
 import Search from '@components/modules/Search';
-import { useCreatePostMutation } from '@graphql/mutations/post.graphql';
-import { useCreatePostSelectedPlaceLazyQuery } from '@graphql/queries/place.graphql';
+import { useCreatePostMutation } from '@graphql';
+import { useCreatePostSelectedPlaceLazyQuery } from '@graphql';
 import { Tab } from '@headlessui/react';
 import UrlPrefix from '@src/constants/IPFSUrlPrefix';
 import {

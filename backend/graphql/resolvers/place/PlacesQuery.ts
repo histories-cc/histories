@@ -1,6 +1,6 @@
 import neo4j from 'neo4j-driver';
 
-import { Maybe, PlacesFilter } from '../../../../.cache/__types__';
+import { Maybe, PlacesFilter } from '../../../../src/graphql/index';
 import RunCypherQuery from '../../../database/RunCypherQuery';
 
 type PlacesQueryInput = {

@@ -1,6 +1,6 @@
 import { QueryResult } from '@apollo/client';
-import { MapPlacesQuery } from '@graphql/queries/place.graphql';
-import { PostsQuery } from '@graphql/queries/post.graphql';
+import { MapPlacesQuery } from '@graphql';
+import { PostsQuery } from '@graphql';
 import React from 'react';
 
 import {
@@ -9,7 +9,7 @@ import {
   Maybe,
   PlacesInput,
   PostsInput,
-} from '../../../.cache/__types__';
+} from '../../../src/graphql/index';
 import { IBounds, IViewport } from '../map';
 
 interface IMapContext {

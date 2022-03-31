@@ -3,7 +3,7 @@
     "baseUrl": "./",
     "paths": {
       "@components/*": ["src/components/*"],
-      "@graphql/*": ["src/graphql/*"],
+      "@graphql": ["src/graphql/index"],
       "@src/*": ["src/*"],
       "@public/*": ["public/*"]
     },

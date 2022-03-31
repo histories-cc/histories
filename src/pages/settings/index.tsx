@@ -1,8 +1,8 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import { Button, Input } from '@components/elements';
 import SettingsLayout from '@components/layouts/Settings';
-import { useUpdateProfileMutation } from '@graphql/mutations/user.graphql';
-import { MeDocument, MeQuery } from '@graphql/queries/user.graphql';
+import { useUpdateProfileMutation } from '@graphql';
+import { MeDocument, MeQuery } from '@graphql';
 import {
   GetCookieFromServerSideProps,
   IsJwtValid,

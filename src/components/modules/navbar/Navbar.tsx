@@ -1,4 +1,4 @@
-import { useSearchQuery } from '@graphql/queries/search.graphql';
+import { useSearchQuery } from '@graphql';
 import { Menu, Transition } from '@headlessui/react';
 import MeContext from '@src/contexts/MeContext';
 import Link from 'next/link';

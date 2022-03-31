@@ -1,7 +1,7 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import UserLayout from '@components/layouts/User';
 import Card from '@components/modules/userPage/Card';
-import { UserDocument, UserQuery } from '@graphql/queries/user.graphql';
+import { UserDocument, UserQuery } from '@graphql';
 import {
   GetCookieFromServerSideProps,
   IsJwtValid,

@@ -1,4 +1,4 @@
-import { CommentsInput } from '../../../../.cache/__types__';
+import { CommentsInput } from '../../../../src/graphql/index';
 import RunCypherQuery from '../../../database/RunCypherQuery';
 
 async function CommentsQuery(input: CommentsInput) {

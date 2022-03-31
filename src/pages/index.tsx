@@ -5,7 +5,7 @@ import MapTemplate, {
 import { GetServerSideProps } from 'next';
 import React from 'react';
 
-import { Maybe } from '../../.cache/__types__';
+import { Maybe } from '../../src/graphql/index';
 
 export type SidebarPlaceType = {
   id: number;

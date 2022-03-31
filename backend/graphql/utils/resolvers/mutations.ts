@@ -13,7 +13,7 @@ import {
   Mutation,
   ResetPasswordInput,
   UpdateProfileInput,
-} from '../../../../.cache/__types__';
+} from '../../../../src/graphql/index';
 import {} from '../../../../shared/validation';
 import {
   IsValidComment,

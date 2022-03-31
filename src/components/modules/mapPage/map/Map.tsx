@@ -17,7 +17,7 @@ import ReactMapGL, {
   NavigationControl,
 } from 'react-map-gl';
 
-import { Maybe } from '../../../../../.cache/__types__';
+import { Maybe } from '../../../../../src/graphql/index';
 import { FetchMore, MapStyleMenu, SearchLocation } from './index';
 import Clusters from './markers/Clusters';
 import { TimeLine } from './timeLine';

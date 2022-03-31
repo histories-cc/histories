@@ -1,5 +1,5 @@
 import { ApolloError, ApolloQueryResult } from '@apollo/client';
-import { MeQuery } from '@graphql/queries/user.graphql';
+import { MeQuery } from '@graphql';
 
 interface IMeContext {
   isLoggedIn: boolean;

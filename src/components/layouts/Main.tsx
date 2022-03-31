@@ -2,7 +2,7 @@ import MeContext from '@src/contexts/MeContext';
 import HeadProps from '@src/types/head';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 
 import { orange_main } from '../../../shared/constants/colors';
@@ -24,7 +24,7 @@ const Layout: React.FC<MainLayoutProps> = ({
   children,
   background,
 }) => {
-  const meContext = React.useContext(MeContext);
+  const meContext = useContext(MeContext);
 
   const router = useRouter();
 

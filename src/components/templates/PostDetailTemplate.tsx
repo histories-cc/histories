@@ -1,6 +1,6 @@
 import { PlaceDetailModal } from '@components/modules/modals/PlaceDetailModal';
 import PostDetailCommentSection from '@components/modules/postDetail/Comments';
-import { PostQuery } from '@graphql/queries/post.graphql';
+import { PostQuery } from '@graphql';
 import UrlPrefix from '@src/constants/IPFSUrlPrefix';
 import MeContext from '@src/contexts/MeContext';
 import Image from 'next/image';

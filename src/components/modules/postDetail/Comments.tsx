@@ -1,12 +1,9 @@
 import { Input, Loading, Tooltip } from '@components/elements';
 import StringWithMentions from '@components/elements/StringWithMentions';
-import { useCreateCommentMutation } from '@graphql/mutations/comment.graphql';
-import {
-  useLikeMutation,
-  useUnlikeMutation,
-} from '@graphql/mutations/relations.graphql';
-import { usePostCommentsQuery } from '@graphql/queries/comment.graphql';
-import { PostQuery } from '@graphql/queries/post.graphql';
+import { useCreateCommentMutation } from '@graphql';
+import { useLikeMutation, useUnlikeMutation } from '@graphql';
+import { usePostCommentsQuery } from '@graphql';
+import { PostQuery } from '@graphql';
 import UrlPrefix from '@src/constants/IPFSUrlPrefix';
 import MeContext from '@src/contexts/MeContext';
 import i18n from '@src/translation/i18n';

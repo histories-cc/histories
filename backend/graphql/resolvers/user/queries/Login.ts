@@ -2,7 +2,7 @@ import { compareSync } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import validator from 'validator';
 
-import { LoginInput } from '../../../../../.cache/__types__';
+import { LoginInput } from '../../../../../src/graphql/index';
 import { IsValidUsername } from '../../../../../shared/validation/InputValidation';
 import { allowedErrors } from '../../../../constants/errors';
 import RunCypherQuery from '../../../../database/RunCypherQuery';

@@ -1,6 +1,6 @@
 import MapPageGrid from '@components/modules/mapPage/Grid';
-import { useMapPlacesQuery } from '@graphql/queries/place.graphql';
-import { usePostsQuery } from '@graphql/queries/post.graphql';
+import { useMapPlacesQuery } from '@graphql';
+import { usePostsQuery } from '@graphql';
 import {
   boundsPlaceholder,
   viewportPlaceholder,

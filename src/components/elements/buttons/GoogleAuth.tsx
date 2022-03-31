@@ -1,4 +1,4 @@
-import { useGoogleAuthMutation } from '@graphql/mutations/auth.graphql';
+import { useGoogleAuthMutation } from '@graphql';
 import Cookie from 'js-cookie';
 import router from 'next/router';
 import React from 'react';
@@ -61,7 +61,7 @@ const WithGoogle: React.FC<{
       onClick={renderProps.onClick}
       disabled={renderProps.disabled}
       type="button"
-      className="flex items-center font-semibold gap-2 text-black dark:text-white"
+      className="flex items-center font-semibold text-black gap-2 dark:text-white"
     >
       <svg
         width="49"

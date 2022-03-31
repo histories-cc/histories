@@ -1,5 +1,5 @@
 import { Button, Input } from '@components/elements';
-import { useEditPlaceMutation } from '@graphql/mutations/place.graphql';
+import { useEditPlaceMutation } from '@graphql';
 import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment, useEffect } from 'react';
 import { useForm } from 'react-hook-form';

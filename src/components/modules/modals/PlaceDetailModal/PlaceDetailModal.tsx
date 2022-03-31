@@ -1,4 +1,4 @@
-import { usePlaceDetailModalQuery } from '@graphql/queries/place.graphql';
+import { usePlaceDetailModalQuery } from '@graphql';
 import { Dialog, Transition } from '@headlessui/react';
 import UrlPrefix from '@src/constants/IPFSUrlPrefix';
 import Image from 'next/image';

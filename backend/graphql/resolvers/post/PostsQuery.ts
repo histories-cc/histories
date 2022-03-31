@@ -1,4 +1,4 @@
-import { Maybe, PostsFilter } from '../../../../.cache/__types__';
+import { Maybe, PostsFilter } from '../../../../src/graphql/index';
 import RunCypherQuery from '../../../database/RunCypherQuery';
 
 type queryInput = {
