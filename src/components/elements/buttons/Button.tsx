@@ -4,6 +4,8 @@ import { Loading } from '..';
 
 export type Styles =
   | 'primary_solid'
+  | 'transparent'
+  | 'transparent_secondary'
   | 'warning_solid'
   | 'danger_solid'
   | 'success_solid'
@@ -24,7 +26,12 @@ export type ButtonProps = {
 };
 
 export const ButtonStyles = {
-  primary_solid: 'bg-brand hover:bg-brand border border-brand text-white',
+  primary_solid:
+    'bg-brand hover:bg-brand border border-brand text-white text-center flex items-center justify-center font-semibold',
+  transparent:
+    'bg-transparent text-erie text-center flex items-center justify-center font-semibold',
+  transparent_secondary:
+    'bg-transparent text-subtle text-center flex items-center justify-center font-semibold',
   warning_solid:
     'bg-orange-500 hover:bg-orange-600 border border-orange-600 text-white focus:ring-orange-600',
   danger_solid:
@@ -43,7 +50,7 @@ export const ButtonStyles = {
 
 export const ButtonSizes = {
   sm: 'px-2 py-1 gap-1',
-  base: 'px-4 py-2 gap-2',
+  base: 'px-4 h-14 gap-2',
   md: 'px-6 py-3 gap-2',
   lg: 'px-8 py-4 gap-2',
   xl: 'px-10 py-5 gap-2',

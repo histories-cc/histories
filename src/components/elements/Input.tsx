@@ -46,7 +46,7 @@ const Input: React.FC<InputProps> = ({
   }, [showPassword]);
 
   return (
-    <div className="">
+    <div className="w-full">
       {/* LABEL */}
       <label
         htmlFor={name}
@@ -71,7 +71,9 @@ const Input: React.FC<InputProps> = ({
           }
           disabled={disabled}
           placeholder={placeholder}
-          className={`${type === 'checkbox' ? '' : 'formInput'}
+          className={`${
+            type === 'checkbox' ? '' : 'h-14 w-full bg-marble font-semibold'
+          }
             ${error === undefined ? 'border-gray-300 ' : 'border-red-500'} ${
             hasLeftIcon ? 'pl-8' : ''
           } ${hasRightIcon ? 'pr-8' : ''}`}

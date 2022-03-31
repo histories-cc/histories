@@ -48,7 +48,7 @@ const UserLeftPanel: React.FC<UserLeftPanelProps> = ({ user }) => {
   const { t } = useTranslation();
 
   return (
-    <div className="flex flex-col items-center block md:fixed top-24 lg:col-span-4 md:col-span-12 col-span-full">
+    <div className="flex flex-col items-center md:fixed top-24 lg:col-span-4 md:col-span-12 col-span-full">
       {/* PROFILE PICTURE */}
       <Link href={`/user/${user.username}/profile`} passHref>
         <div className="relative w-32 h-32 rounded-full md:w-48 md:h-48 transition-all duration-400 ease-in-out">
@@ -95,7 +95,7 @@ const UserLeftPanel: React.FC<UserLeftPanelProps> = ({ user }) => {
 
       <div className="flex pt-4 gap-8">
         {/* FOLLOWERS COUNT */}
-        <div className="flex flex-col  text-base">
+        <div className="flex flex-col text-base">
           <span className="font-semibold text-center text-black">
             {followerCountWithoutMe + (localFollowingState ? 1 : 0)}
           </span>

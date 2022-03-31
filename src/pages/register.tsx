@@ -12,6 +12,7 @@ import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
+import { FiUser } from 'react-icons/fi';
 
 export interface RegisterFormInputs {
   firstName: string;
@@ -53,7 +54,7 @@ const Register: React.FC = () => {
             password: data.password,
             email: data.email,
             firstName: data.firstName,
-            emailSubscription: data.notifications,
+            emailSubscription: false,
             lastName: data.lastName,
             locale: navigator.language,
           },
@@ -90,7 +91,6 @@ const Register: React.FC = () => {
 
   return (
     <AuthLayout
-      heading={t('create_new_account')}
       head={{
         title: `Sign up | HiStories`,
         description: `Create new HiStories account`,
@@ -104,82 +104,82 @@ const Register: React.FC = () => {
         },
       }}
     >
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
-        <div className="flex flex-col gap-3 sm:flex-row">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
+        <div className="flex items-center justify-center w-48 h-48 m-auto mb-6 rounded-full bg-marble text-subtle">
+          <FiUser className="w-24 h-24 font-semibold" />
+        </div>
+        <div className="flex flex-col w-full max-w-2xl m-auto gap-4">
+          <div className="flex flex-col items-center w-full gap-3 sm:flex-row">
+            <Input
+              label={t('first_name')}
+              register={register}
+              name="firstName"
+              options={{ required: true, maxLength: 256 }}
+              autoComplete="given-name"
+            />
+            <Input
+              label={t('last_name')}
+              register={register}
+              name="lastName"
+              options={{ maxLength: 256 }}
+              autoComplete="family-name"
+            />
+          </div>
+
           <Input
-            label={t('first_name')}
+            label={t('username')}
             register={register}
-            name="firstName"
+            name="username"
             options={{ required: true, maxLength: 256 }}
-            autoComplete="given-name"
+            autoComplete="username"
           />
+          {usernameUsed && t('username_already_used')}
           <Input
-            label={t('last_name')}
+            label={t('email')}
             register={register}
-            name="lastName"
-            options={{ maxLength: 256 }}
-            autoComplete="family-name"
+            name="email"
+            options={{ required: true }}
+            autoComplete="email"
+          />
+
+          <Input
+            label={t('password')}
+            register={register}
+            name="password"
+            type="password"
+            options={{ required: true, minLength: 8 }}
+          />
+
+          <Input
+            label={t('repeat_password')}
+            register={register}
+            name="repeatPassword"
+            type="password"
+            options={{
+              required: true,
+              minLength: 8,
+            }}
+            autoComplete="new-password"
           />
         </div>
 
-        <Input
-          label={t('username')}
-          register={register}
-          name="username"
-          options={{ required: true, maxLength: 256 }}
-          autoComplete="username"
-        />
-        {usernameUsed && t('username_already_used')}
-        <Input
-          label={t('email')}
-          register={register}
-          name="email"
-          options={{ required: true }}
-          autoComplete="email"
-        />
+        <div className="w-full">
+          <div className="flex flex-col justify-center max-w-lg m-auto">
+            <div className="flex items-center justify-center my-4">
+              <GoogleAuthButton />
+            </div>
 
-        <Input
-          label={t('password')}
-          register={register}
-          name="password"
-          type="password"
-          options={{ required: true, minLength: 8 }}
-        />
+            <Button style="primary_solid" loading={loading}>
+              {t(loading ? 'loading' : 'register')}
+            </Button>
 
-        <Input
-          label={t('repeat_password')}
-          register={register}
-          name="repeatPassword"
-          type="password"
-          options={{
-            required: true,
-            minLength: 8,
-          }}
-          autoComplete="new-password"
-        />
-
-        <label className="inline-flex items-center mt-3">
-          <input
-            type="checkbox"
-            className="w-5 h-5 text-orange-600 rounded-lg form-checkbox"
-            {...register('notifications')}
-          />
-          <span className="ml-2 text-gray-700">
-            {t('send_email_notifications')}
-          </span>
-        </label>
-
-        <Button style="primary_solid" loading={loading}>
-          {t(loading ? 'loading' : 'register')}
-        </Button>
-
-        <GoogleAuthButton text={t('google_register')} />
-        <Link href="/login">
-          <a className="pl-2 underline">{t('log_in_to_existing_account')}</a>
-        </Link>
-        <Link href="/forgot-password">
-          <a className="pl-2 underline">{t('forgot_password')}</a>
-        </Link>
+            <Link href="/forgot-password" passHref>
+              <Button style="transparent">
+                {t('log_in_to_existing_account').toUpperCase()}
+              </Button>
+            </Link>
+          </div>
+        </div>
       </form>
     </AuthLayout>
   );

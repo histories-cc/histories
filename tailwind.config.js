@@ -7,8 +7,13 @@ module.exports = {
       boxShadow: {
         custom: '0px 3px 12px rgba(0, 0, 0, 0.48)',
       },
+
       colors: {
         brand: '#FF4F00',
+        subtle: '#9EA3B0',
+        marble: '#F4F4F6',
+        erie: '#201E1F',
+
         dark: {
           text: {
             primary: '#FFFFFF',
