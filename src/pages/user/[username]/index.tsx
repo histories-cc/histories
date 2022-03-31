@@ -14,14 +14,13 @@ import {
 } from '@graphql/queries/post.graphql';
 import { UserDocument, UserQuery } from '@graphql/queries/user.graphql';
 import UrlPrefix from '@src/constants/IPFSUrlPrefix';
-import MeContext from '@src/contexts/MeContext';
 import {
   GetCookieFromServerSideProps,
   IsJwtValid,
   SSRRedirect,
 } from '@src/functions';
 import { GetServerSidePropsContext } from 'next';
-import React, { useContext } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -40,7 +39,7 @@ const PostsPage: React.FC<{
 }> = ({ userQuery, posts: postsTmp }) => {
   const user = userQuery.user as NonNullable<UserQuery['user']>;
   const { t } = useTranslation();
-  const meContext = useContext(MeContext);
+
   const { data, loading, refetch, fetchMore, error } = usePostsQuery({
     variables: {
       input: {
@@ -53,7 +52,6 @@ const PostsPage: React.FC<{
     },
   });
 
-  if (loading) return <div>post loading</div>;
   if (error) return <div>{JSON.stringify(error)}</div>;
 
   return (
@@ -85,72 +83,76 @@ const PostsPage: React.FC<{
         },
       }}
     >
-      <div className="w-full">
-        <InfiniteScroll
-          dataLength={data!.posts.length} //This is important field to render the next data
-          next={() => {
-            fetchMore({
-              variables: {
-                input: {
-                  filter: {
-                    authorUsername: user.username,
-                    skip: data?.posts.length || 0,
-                    take: 20,
+      {loading ? (
+        <div></div>
+      ) : (
+        <div className="w-full">
+          <InfiniteScroll
+            dataLength={data!.posts.length} //This is important field to render the next data
+            next={() => {
+              fetchMore({
+                variables: {
+                  input: {
+                    filter: {
+                      authorUsername: user.username,
+                      skip: data?.posts.length || 0,
+                      take: 20,
+                    },
                   },
                 },
-              },
-              updateQuery: (previousResult, { fetchMoreResult }) => {
-                return {
-                  ...previousResult,
-                  posts: [
-                    ...previousResult.posts,
-                    ...(fetchMoreResult?.posts ?? []),
-                  ],
-                };
-              },
-            });
-          }}
-          hasMore={(data?.posts.length ?? 1) % 20 == 0}
-          loader={
-            <p style={{ textAlign: 'center' }}>
-              <b>loading</b>
-            </p>
-          }
-          refreshFunction={async () => await refetch()}
-        >
-          {loading
-            ? postsTmp.data?.posts.map((post) => (
-                <Post {...post} key={post.id} photos={post.photos} />
-              ))
-            : data?.posts.map((post) => (
-                <Post {...post} key={post.id} photos={post.photos} />
-              ))}
-          {data?.posts.length == 0 && (
-            <Card>
-              <div>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                  className="w-8 h-8 text-brand-500"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-                  ></path>
-                </svg>
-              </div>
-              <div>
-                {user.firstName} doesn{"'"}t have any posts yet
-              </div>
-            </Card>
-          )}
-        </InfiniteScroll>
-      </div>
+                updateQuery: (previousResult, { fetchMoreResult }) => {
+                  return {
+                    ...previousResult,
+                    posts: [
+                      ...previousResult.posts,
+                      ...(fetchMoreResult?.posts ?? []),
+                    ],
+                  };
+                },
+              });
+            }}
+            hasMore={(data?.posts.length ?? 1) % 20 == 0}
+            loader={
+              <p style={{ textAlign: 'center' }}>
+                <b>loading</b>
+              </p>
+            }
+            refreshFunction={async () => await refetch()}
+          >
+            {loading
+              ? postsTmp.data?.posts.map((post) => (
+                  <Post {...post} key={post.id} photos={post.photos} />
+                ))
+              : data?.posts.map((post) => (
+                  <Post {...post} key={post.id} photos={post.photos} />
+                ))}
+            {data?.posts.length == 0 && (
+              <Card>
+                <div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                    className="w-8 h-8 text-brand-500"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                    ></path>
+                  </svg>
+                </div>
+                <div>
+                  {user.firstName} doesn{"'"}t have any posts yet
+                </div>
+              </Card>
+            )}
+          </InfiniteScroll>
+        </div>
+      )}
     </UserLayout>
   );
 };

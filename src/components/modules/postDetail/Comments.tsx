@@ -14,12 +14,15 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useContext, useState } from 'react';
+import { Blurhash } from 'react-blurhash';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import {
   HiOutlineCalendar,
   HiOutlineHeart,
+  HiOutlineLocationMarker,
+  HiOutlinePlusCircle,
   HiPaperAirplane,
 } from 'react-icons/hi';
 import TimeAgo from 'react-timeago';
@@ -100,6 +103,44 @@ const PostDetailCommentSection: React.FC<PostDetailCommentSectionProps> = ({
 
   return (
     <div className="h-full p-2 overflow-y-auto bg-zinc-100">
+      <div className="flex bg-white border border-gray-200 p-0.5 rounded-xl shadow-sm w-full lg:hidden">
+        <div className="relative w-20 h-20 rounded-xl aspect-square">
+          <Blurhash
+            hash={post.place.preview!.blurhash}
+            height="100%"
+            width="100%"
+            className="rounded-xl blurhash"
+            punch={1}
+          />
+          <Image
+            src={UrlPrefix + post.place.preview?.hash}
+            layout="fill"
+            objectFit="cover"
+            className="rounded-xl"
+            alt="Image of the place"
+          />
+        </div>
+        <div className="flex flex-col items-center w-full h-20 overflow-y-hidden p-1.5">
+          <a className="font-semibold">{post.place.name}</a>
+          <div className="flex justify-center py-2 gap-2">
+            <Link
+              href={`/?lat=${post.place.latitude}&lng=${post.place.longitude}&zoom=28.5&place=${post.place.id}`}
+            >
+              <a className="flex items-center px-2 py-1 rounded-lg gap-1.5 hover:bg-gray-100">
+                <HiOutlineLocationMarker /> {t('show_on_map')}
+              </a>
+            </Link>
+            {meContext.data?.me && (
+              <Link href={`/create/post?placeID=${post.place.id}`}>
+                <a className="flex items-center px-2 py-1 rounded-lg gap-1.5 hover:bg-gray-100">
+                  <HiOutlinePlusCircle />
+                  {t('add_photo')}
+                </a>
+              </Link>
+            )}
+          </div>
+        </div>
+      </div>
       {/* AUTHOR */}
       <div className="p-2 mt-1 bg-white border border-gray-200 rounded-xl">
         <div className="flex flex-col gap-2">
