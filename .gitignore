@@ -35,10 +35,11 @@ yarn-error.log*
 # vercel
 .vercel
 
-# graphql-let
+# graphql
 *.graphql.d.ts
 *.graphqls.d.ts
 /.cache
+*/graphql/index.tsx
 
 # PWA
 sw.js
@@ -50,6 +51,6 @@ dist
 nodemon.json
 
 # storybook
-*/stories-static
+**/stories-static
 
 tsconfig.tsbuildinfo

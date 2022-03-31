@@ -24,8 +24,9 @@
   "private": false,
   "scripts": {
     "codegen": "graphql-let",
-    "dev": "concurrently \"tsc -w --project tsconfig-express.json\" \"nodemon server.js --watch dist\"",
-    "build": "yarn codegen && tsc --project tsconfig-express.json && next build",
+    "gqlcodegen": "graphql-codegen --config codegen.yml",
+    "dev": "concurrently \"tsc -w --project tsconfig-express.json\" \"nodemon server.js --watch dist\" \"graphql-codegen --watch src/**/*.graphql\"",
+    "build": "yarn codegen && yarn gqlcodegen && tsc --project tsconfig-express.json && next build",
     "postbuild": "next-sitemap",
     "start": "NODE_ENV=production node server.js",
     "lint": "next lint",
@@ -34,11 +35,12 @@
     "test:lib": "jest --testPathPattern=lib",
     "test:shared": "jest --testPathPattern=shared",
     "test:src": "jest --testPathPattern=src",
-    "pretypecheck": "yarn codegen",
+    "pretypecheck": "yarn codegen && yarn gqlcodegen",
     "typecheck": "tsc --pretty --noEmit"
   },
   "dependencies": {
     "@apollo/client": "^3.5.8",
+    "@graphql-codegen/introspection": "^2.1.1",
     "@headlessui/react": "^1.4.3",
     "@reach/combobox": "^0.16.3",
     "@tailwindcss/forms": "^0.4.0",

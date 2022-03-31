@@ -22,7 +22,8 @@ export type ButtonProps = {
   size?: Sizes;
   args?: any;
   className?: string;
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  type?: 'button' | 'submit' | 'reset' | 'link';
 };
 
 export const ButtonStyles = {
@@ -64,11 +65,12 @@ const Button: React.FC<ButtonProps> = ({
   children,
   className,
   onClick,
+  type,
 }) => (
   <button
     {...args}
     onClick={onClick}
-    type={loading ? 'button' : 'submit'}
+    type={loading ? 'button' : type || 'submit'}
     className={
       'flex items-center transition-all duration-300 ease-in-out rounded-lg ' +
         ButtonStyles[style ?? 'primary_solid'] +

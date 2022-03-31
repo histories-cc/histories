@@ -78,15 +78,13 @@ const PlacePost: React.FC<{ post: any }> = ({ post }) => {
                 <TimeAgo date={post.createdAt} />
               </span>
             </div>
-            <div className="absolute bottom-0 left-0 flex w-full p-1 rounded-b-lg bg-white/80 dark:bg-zinc-900/80">
-              <div className="flex items-center m-auto font-semibold gap-1">
-                <span>{post.startYear}</span>
-                {post.startYear !== post.endYear && (
-                  <>
-                    -<span>{post.endYear}</span>
-                  </>
-                )}
-              </div>
+            <div className="absolute bottom-0 left-0 z-20 flex items-end justify-center w-full p-1 font-semibold text-white rounded-b-lg h-1/2 bg-gradient-to-t from-zinc-900/80 via-transparent to-transparent">
+              {post.startYear}
+              {post.startYear !== post.endYear && (
+                <>
+                  -<span>{post.endYear}</span>
+                </>
+              )}
             </div>
           </div>
         )}
@@ -208,7 +206,7 @@ const Place: React.FC<PlaceProps> = ({ id }) => {
             [null, null, null].map((_, index) => (
               <div
                 key={index}
-                className="flex flex-col w-full h-64 text-left rounded-lg bg-zinc-200 dark:bg-zinc-800/80  animate-pulse"
+                className="w-full h-64 rounded-lg bg-zinc-200 dark:bg-zinc-800/80 animate-pulse"
               />
             ))
           ) : (

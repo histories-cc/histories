@@ -71,3 +71,17 @@ query InterestingPlaces($input: PlacesInput) {
     years
   }
 }
+
+query CreatePostSelectedPlace($id: Int!) {
+  place(id: $id) {
+    latitude
+    longitude
+    name
+    preview {
+      hash
+      blurhash
+      height
+      height
+    }
+  }
+}

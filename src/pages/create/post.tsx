@@ -3,15 +3,19 @@ import Button from '@components/elements/buttons/Button';
 import { Layout } from '@components/layouts';
 import Search from '@components/modules/Search';
 import { useCreatePostMutation } from '@graphql/mutations/post.graphql';
+import { useCreatePostSelectedPlaceLazyQuery } from '@graphql/queries/place.graphql';
 import { Tab } from '@headlessui/react';
+import UrlPrefix from '@src/constants/IPFSUrlPrefix';
 import {
   GetCookieFromServerSideProps,
   IsJwtValid,
   SSRRedirect,
 } from '@src/functions';
 import { GetServerSidePropsContext } from 'next';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
+import { Blurhash } from 'react-blurhash';
 import { useDropzone } from 'react-dropzone';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
@@ -100,6 +104,20 @@ const CreatePostPage: React.FC<CreatePostPageProps> = ({
   for (let i = 1; i <= 12; i++) {
     months.push(new Date(0, i, 0).toLocaleString('en', { month: 'long' }));
   }
+  const [selectedPlaceId, setSelectedPlaceId] = useState<number | null>(
+    placeID
+  );
+  const [selectedPlaceDataReady, setSelectedPlaceDataReady] =
+    useState<boolean>(false);
+
+  const [getSelectedPlace, selectedPlaceQuery] =
+    useCreatePostSelectedPlaceLazyQuery();
+
+  useEffect(() => {
+    console.log(selectedPlaceQuery);
+    if (selectedPlaceId !== null)
+      getSelectedPlace({ variables: { id: selectedPlaceId } });
+  }, [selectedPlaceId]);
 
   // for reading coordinates from query params
   const router = useRouter();
@@ -154,7 +172,7 @@ const CreatePostPage: React.FC<CreatePostPageProps> = ({
       zoom: 14,
     });
   }, []);
-  const [collapsed, setCollapsed] = useState(true);
+
   useEffect(() => {
     if (newTag.slice(-1) === ' ') {
       if (newTag !== '') {
@@ -203,7 +221,7 @@ const CreatePostPage: React.FC<CreatePostPageProps> = ({
         variables: {
           input: {
             ...date,
-            placeID,
+            placeID: selectedPlaceId,
             description: data.description,
             latitude: viewport.latitude,
             longitude: viewport.longitude,
@@ -240,8 +258,16 @@ const CreatePostPage: React.FC<CreatePostPageProps> = ({
       >
         <div className="relative w-full h-full">
           <MapGL
-            latitude={viewport.latitude}
-            longitude={viewport.longitude}
+            latitude={
+              selectedPlaceId !== null && selectedPlaceQuery.data !== undefined
+                ? selectedPlaceQuery.data?.place.latitude
+                : viewport.latitude
+            }
+            longitude={
+              selectedPlaceId !== null && selectedPlaceQuery.data !== undefined
+                ? selectedPlaceQuery.data.place.longitude
+                : viewport.longitude
+            }
             zoom={viewport.zoom}
             width="100%"
             height="100%"
@@ -259,10 +285,18 @@ const CreatePostPage: React.FC<CreatePostPageProps> = ({
               positionOptions={{ enableHighAccuracy: true }}
             />
             <Marker
-              longitude={viewport.longitude}
-              latitude={viewport.latitude}
-              offsetTop={-20}
-              offsetLeft={-10}
+              latitude={
+                selectedPlaceId !== null &&
+                selectedPlaceQuery.data !== undefined
+                  ? selectedPlaceQuery.data?.place.latitude
+                  : viewport.latitude
+              }
+              longitude={
+                selectedPlaceId !== null &&
+                selectedPlaceQuery.data !== undefined
+                  ? selectedPlaceQuery.data.place.longitude
+                  : viewport.longitude
+              }
             >
               <HiLocationMarker className="w-10 h-10 text-brand -translate-x-1/2 -translate-y-full" />
             </Marker>
@@ -280,187 +314,208 @@ const CreatePostPage: React.FC<CreatePostPageProps> = ({
             <Search setSearchCoordinates={setSearchCoordinates} />
           </div>
         </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full p-4">
           {/* PAGE HEADING */}
           <h1 className="pb-1 text-3xl font-bold tracking-tight">
             {t('Create post')}
           </h1>
+          {selectedPlaceId !== null && (
+            <>
+              {`${t('add_photo_of_place')}: `}
+              <span className="text-xl font-semibold">
+                {selectedPlaceQuery.data?.place.name}
+              </span>
+              <div className="relative w-32 h-32 rounded-md">
+                {!selectedPlaceQuery.loading &&
+                selectedPlaceQuery.data !== undefined ? (
+                  <>
+                    <Blurhash
+                      className="blurhash"
+                      hash={selectedPlaceQuery.data!.place!.preview!.blurhash}
+                      width="100%"
+                      height="100%"
+                      punch={1}
+                    />
+                    <Image
+                      layout="fill"
+                      objectFit="cover"
+                      objectPosition="center"
+                      className="rounded-md"
+                      src={
+                        UrlPrefix +
+                        selectedPlaceQuery!.data!.place!.preview!.hash
+                      }
+                      width="100%"
+                      height="100%"
+                      alt={t('place_preview')}
+                    />
+                  </>
+                ) : (
+                  <div className="w-full h-full rounded-lg bg-zinc-200 dark:bg-zinc-800/80 animate-pulse" />
+                )}
+              </div>
+              <Button onClick={() => setSelectedPlaceId(null)} type="button">
+                {t('i_dont_want_to_add_photo_of_this_place')}
+              </Button>
+            </>
+          )}
           <div className="w-full max-w-4xl px-6 m-auto xl:px-0">
-            <div className="flex w-full">
-              <div className="w-full p-2">
-                <div>
-                  <label>Photo date</label>
-                  <Tab.Group
-                    selectedIndex={timeSelectMode}
-                    onChange={setTimeSelectMode}
+            <label>Photo date</label>
+            <Tab.Group
+              selectedIndex={timeSelectMode}
+              onChange={setTimeSelectMode}
+            >
+              <Tab.List className="flex gap-2">
+                {['date', 'timespan'].map((name, index) => (
+                  <Tab
+                    key={index}
+                    className={({ selected }) =>
+                      `px-4 py-1 rounded-lg shadow ${
+                        selected
+                          ? 'bg-blue-500 text-white'
+                          : 'bg-white text-black hover:bg-gray-200'
+                      }`
+                    }
                   >
-                    <Tab.List className="flex gap-2">
-                      {['date', 'timespan'].map((name, index) => (
-                        <Tab
-                          key={index}
-                          className={({ selected }) =>
-                            `px-4 py-1 rounded-lg shadow ${
-                              selected
-                                ? 'bg-blue-500 text-white'
-                                : 'bg-white text-black hover:bg-gray-200'
-                            }`
-                          }
-                        >
-                          {t(name)}
-                        </Tab>
-                      ))}
-                    </Tab.List>
-                    <Tab.Panels>
-                      <Tab.Panel>
-                        <div className="pt-4 grid grid-cols-[5em_12em_6em] gap-2">
-                          <Input
-                            register={register}
-                            label={t('day')}
-                            name="day"
-                            options={{}}
-                            type="number"
-                            inputProps={{
-                              min: 1,
-                              max: 31,
-                            }}
-                          />
+                    {t(name)}
+                  </Tab>
+                ))}
+              </Tab.List>
+              <Tab.Panels>
+                <Tab.Panel>
+                  <div className="pt-4 grid grid-cols-[5em_12em_6em] gap-2">
+                    <Input
+                      register={register}
+                      label={t('day')}
+                      name="day"
+                      options={{}}
+                      type="number"
+                      inputProps={{
+                        min: 1,
+                        max: 31,
+                      }}
+                    />
 
-                          <label className="pb-2">
-                            {/* LABEL */}
-                            <span className="formInputLabel">{t('month')}</span>
+                    <label className="pb-2">
+                      {/* LABEL */}
+                      <span className="formInputLabel">{t('month')}</span>
 
-                            <select
-                              className="formInput"
-                              {...register('month')}
-                            >
-                              <option value={undefined} />
-                              {months.map((month, index) => (
-                                <option key={index} value={index + 1}>
-                                  {month}
-                                </option>
-                              ))}
-                            </select>
-                          </label>
+                      <select className="formInput" {...register('month')}>
+                        <option value={undefined} />
+                        {months.map((month, index) => (
+                          <option key={index} value={index + 1}>
+                            {month}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
 
-                          <Input
-                            label={`${t('year')} *`}
-                            register={register}
-                            name="year"
-                            options={{}}
-                            inputProps={{ max: new Date().getFullYear() }}
-                            type="number"
-                          />
-                        </div>
+                    <Input
+                      label={`${t('year')} *`}
+                      register={register}
+                      name="year"
+                      options={{}}
+                      inputProps={{ max: new Date().getFullYear() }}
+                      type="number"
+                    />
+                  </div>
 
-                        <p className="pb-2 text-gray-600">
-                          Fields with * are required
-                        </p>
-                      </Tab.Panel>
-                      <Tab.Panel>
-                        <div className="pt-4 grid grid-cols-[2.5em_5em_12em_6em] gap-x-2">
-                          <div className="flex items-center">From</div>
-                          <Input
-                            register={register}
-                            label={t('day')}
-                            name="startDay"
-                            options={{}}
-                            type="number"
-                            inputProps={{
-                              min: 1,
-                              max: 31,
-                            }}
-                          />
-                          <label className="pb-2">
-                            {/* LABEL */}
-                            <span className="formInputLabel">{t('month')}</span>
+                  <p className="pb-2 text-gray-600">
+                    Fields with * are required
+                  </p>
+                </Tab.Panel>
+                <Tab.Panel>
+                  <div className="pt-4 grid grid-cols-[2.5em_5em_12em_6em] gap-x-2">
+                    <div className="flex items-center">From</div>
+                    <Input
+                      register={register}
+                      label={t('day')}
+                      name="startDay"
+                      options={{}}
+                      type="number"
+                      inputProps={{
+                        min: 1,
+                        max: 31,
+                      }}
+                    />
+                    <label className="pb-2">
+                      {/* LABEL */}
+                      <span className="formInputLabel">{t('month')}</span>
 
-                            <select
-                              className="formInput"
-                              {...register('startMonth')}
-                            >
-                              <option value={undefined} />
-                              {months.map((month, index) => (
-                                <option key={index} value={index + 1}>
-                                  {month}
-                                </option>
-                              ))}
-                            </select>
-                          </label>
-                          <Input
-                            label={`${t('year')} *`}
-                            register={register}
-                            name="startYear"
-                            options={{}}
-                            inputProps={{ max: new Date().getFullYear() }}
-                            type="number"
-                          />{' '}
-                          <div className="flex items-center pb-1">To</div>
-                          <Input
-                            register={register}
-                            name="endDay"
-                            options={{}}
-                            type="number"
-                            inputProps={{
-                              min: 1,
-                              max: 31,
-                            }}
-                          />
-                          <label className="pb-2">
-                            <select
-                              className="formInput"
-                              {...register('endMonth')}
-                            >
-                              <option value={undefined} />
-                              {months.map((month, index) => (
-                                <option key={index} value={index + 1}>
-                                  {month}
-                                </option>
-                              ))}
-                            </select>
-                          </label>
-                          <Input
-                            register={register}
-                            name="endYear"
-                            options={{}}
-                            inputProps={{
-                              min: parseInt(watch('startYear') ?? '0'),
-                              max: new Date().getFullYear(),
-                            }}
-                            type="number"
-                          />
-                        </div>
+                      <select className="formInput" {...register('startMonth')}>
+                        <option value={undefined} />
+                        {months.map((month, index) => (
+                          <option key={index} value={index + 1}>
+                            {month}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                    <Input
+                      label={`${t('year')} *`}
+                      register={register}
+                      name="startYear"
+                      options={{}}
+                      inputProps={{ max: new Date().getFullYear() }}
+                      type="number"
+                    />{' '}
+                    <div className="flex items-center pb-1">To</div>
+                    <Input
+                      register={register}
+                      name="endDay"
+                      options={{}}
+                      type="number"
+                      inputProps={{
+                        min: 1,
+                        max: 31,
+                      }}
+                    />
+                    <label className="pb-2">
+                      <select className="formInput" {...register('endMonth')}>
+                        <option value={undefined} />
+                        {months.map((month, index) => (
+                          <option key={index} value={index + 1}>
+                            {month}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                    <Input
+                      register={register}
+                      name="endYear"
+                      options={{}}
+                      inputProps={{
+                        min: parseInt(watch('startYear') ?? '0'),
+                        max: new Date().getFullYear(),
+                      }}
+                      type="number"
+                    />
+                  </div>
 
-                        <p className="pb-2 text-gray-600">
-                          Fields with * are required
-                        </p>
-                      </Tab.Panel>
-                    </Tab.Panels>
-                  </Tab.Group>
-                </div>
-                <div>
-                  <Input
-                    label={t('description')}
-                    register={register}
-                    name="description"
-                    options={{}}
-                  />
+                  <p className="pb-2 text-gray-600">
+                    Fields with * are required
+                  </p>
+                </Tab.Panel>
+              </Tab.Panels>
+            </Tab.Group>
+            <div>
+              <Input
+                label={t('description')}
+                register={register}
+                name="description"
+                options={{}}
+              />
 
-                  <br />
-                </div>
-                <label>hashtags</label>
-                <input
-                  className="w-full h-10 px-3 mt-2 mb-1 leading-tight text-gray-700 border rounded-lg shadow appearance-none focus:outline-none focus:shadow-outline"
-                  name="hashtags"
-                  type="text"
-                  value={newTag}
-                  onChange={(e) => setNewTag(e.target.value)}
-                />
-              </div>
-              <div className="p-2">
-                <DropZoneComponent setFiles={setFile} />
-                Selected files {file.length}
-              </div>
+              <br />
             </div>
+            <label>hashtags</label>
+            <input
+              className="w-full h-10 px-3 mt-2 mb-1 leading-tight text-gray-700 border rounded-lg shadow appearance-none focus:outline-none focus:shadow-outline"
+              name="hashtags"
+              type="text"
+              value={newTag}
+              onChange={(e) => setNewTag(e.target.value)}
+            />
           </div>
           <div className="p-10 m-auto max-w-[27rem]">
             <div className="mt-[60px]"></div>
@@ -485,7 +540,10 @@ const CreatePostPage: React.FC<CreatePostPageProps> = ({
                 );
               })}
             </div>
-
+            <div className="p-2">
+              <DropZoneComponent setFiles={setFile} />
+              Selected files {file.length}
+            </div>
             <Button loading={isLoading}>submit</Button>
           </div>
         </form>

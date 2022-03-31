@@ -120,7 +120,7 @@ export default gql`
     minDate: Float
     maxDate: Float
     radius: Radius
-    tags: [String]
+    tags: [String!]
     skip: Int
     take: Int
     exclude: [Int!]
@@ -250,7 +250,7 @@ export default gql`
 
   input CreatePostInput {
     description: String
-    hashtags: [String!]
+    tags: [String!]
     latitude: Float
     longitude: Float
     placeID: Int
