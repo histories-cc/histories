@@ -16,8 +16,11 @@ const UserDropdown: React.FC = () => {
 
   return (
     <Menu as="div" className="relative">
-      <Menu.Button as="div" className="flex items-center gap-1">
-        <div className="relative w-8 h-8 border-2 border-transparent rounded-full cursor-pointer transition ease-in-out hover:border-gray-200">
+      <Menu.Button
+        as="div"
+        className="flex items-center px-4 py-1 font-bold rounded-lg cursor-pointer gap-1 transition ease-in-out hover:bg-gray-200 dark:hover:bg-gray-800"
+      >
+        <div className="relative w-8 h-8 rounded-full">
           <Image
             className="rounded-full gray-400"
             src={

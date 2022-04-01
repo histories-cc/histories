@@ -72,7 +72,7 @@ const Button: React.FC<ButtonProps> = ({
     onClick={onClick}
     type={loading ? 'button' : type || 'submit'}
     className={
-      'flex items-center transition-all duration-300 ease-in-out rounded-lg ' +
+      'flex items-center transition-all duration-300 ease-in-out rounded-lg uppercase ' +
         ButtonStyles[style ?? 'primary_solid'] +
         ' ' +
         ButtonSizes[size ?? 'base'] +

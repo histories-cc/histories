@@ -367,13 +367,22 @@ const CreatePostPage: React.FC<CreatePostPageProps> = ({
                 <div />
               ) : (
                 mapPlacesQuery.data?.places.map((place, index) => (
-                  <div key={index} className=" h-11 bg-red-500 rounded-md">
-                    <button
-                      type="button"
-                      onClick={() => setSelectedPlaceId(place.id)}
-                    >
-                      {place.name}
-                    </button>
+                  <div
+                    key={index}
+                    className=" h-11 rounded-md"
+                    onClick={() => setSelectedPlaceId(place.id)}
+                  >
+                    <div className="relative w-12 h-12">
+                      <Image
+                        src={UrlPrefix + place.preview?.hash}
+                        layout="fill"
+                        objectFit="cover"
+                        objectPosition="center"
+                        alt=""
+                        quality={60}
+                      />
+                    </div>
+                    <button type="button">{place.name}</button>
                   </div>
                 ))
               )}

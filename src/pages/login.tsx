@@ -94,16 +94,14 @@ const Login: React.FC = () => {
               <GoogleAuthButton />
             </div>
             <Button style="primary_solid" loading={loading}>
-              {t('login').toUpperCase()}
+              {t('login')}
             </Button>
             <Link href="/register" passHref>
-              <Button style="transparent" loading={loading}>
-                {t('register').toUpperCase()}
-              </Button>
+              <Button style="transparent">{t('register')}</Button>
             </Link>
             <Link href="/" passHref>
-              <Button style="transparent_secondary" loading={loading}>
-                {t('continue_without_account').toUpperCase()}
+              <Button style="transparent_secondary">
+                {t('continue_without_account')}
               </Button>
             </Link>
           </div>

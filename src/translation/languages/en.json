@@ -126,5 +126,6 @@
   "description": "Description",
   "photos": "Photos",
   "continue_without_account": "Continue without account",
-  "add_photo_of_place": "Add photo of place"
+  "add_photo_of_place": "Add photo of place",
+  "login_with_google":"Log in with Google"
 }

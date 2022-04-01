@@ -1,9 +1,10 @@
+import Suspense from '@components/elements/Suspense';
 import { useSearchQuery } from '@graphql';
 import { Menu, Transition } from '@headlessui/react';
 import MeContext from '@src/contexts/MeContext';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { HiSearch } from 'react-icons/hi';
@@ -17,9 +18,16 @@ interface SearchInput {
 
 const Navbar: React.FC = () => {
   const router = useRouter();
-  const meContext = React.useContext(MeContext); // me context
+  const meContext = useContext(MeContext); // me context
   const { t } = useTranslation<string>(); // i18n
-  const userIsLogged = meContext.data?.me?.id; // if user is logged in
+  const [userIsLogged, setUserIsLogged] = useState<boolean>(
+    meContext.data?.me?.profile !== undefined
+  );
+
+  useEffect(() => {
+    setUserIsLogged(meContext.data?.me?.profile !== undefined);
+  }, [meContext.data]);
+
   const { register } = useForm<SearchInput>(); // search input
   const searchQuery = useSearchQuery({ variables: { input: { text: '' } } }); // search query for search input
   const [searchFocused, setSearchFocused] = useState<boolean>(false);
@@ -82,27 +90,30 @@ const Navbar: React.FC = () => {
 
         {/* RIGHT SIDE */}
         <span className="flex items-center gap-4">
-          {userIsLogged ? (
-            <>
-              <Link href="/create/post">
-                <a className="px-4 py-2 text-white rounded-lg bg-brand">
-                  {t('create_post')}
-                </a>
-              </Link>
-              <UserDropdown />
-            </>
-          ) : (
+          <Suspense
+            condition={!userIsLogged}
+            fallback={
+              <>
+                <Link href="/create/post">
+                  <a className="block px-4 py-2 font-bold text-white rounded-lg transition ease-in-out bg-brand">
+                    {t('create_post')}
+                  </a>
+                </Link>
+                <UserDropdown />
+              </>
+            }
+          >
             <>
               <span className="hidden md:block">
                 <Link href="/login">
-                  <a className="block px-4 py-1 font-semibold text-gray-600 border border-transparent hover:bg-gray-200 hover:border-gray-200 translate ease-in-out duration-200 rounded-md dark:text-gray-200">
+                  <a className="block px-4 py-2 font-bold text-gray-600 rounded-lg dark:text-gray-200 transition ease-in-out hover:bg-gray-200 dark:hover:bg-gray-800">
                     {t('login')}
                   </a>
                 </Link>
               </span>
               <span className="hidden md:block">
                 <Link href="/register">
-                  <a className="block px-4 py-1 font-medium bg-gray-800 border border-gray-800 rounded-md text-gray-50">
+                  <a className="block px-4 py-2 font-bold text-white rounded-lg transition ease-in-out bg-brand">
                     {t('register')}
                   </a>
                 </Link>
@@ -145,7 +156,7 @@ const Navbar: React.FC = () => {
                 </Menu>
               </span>
             </>
-          )}
+          </Suspense>
         </span>
       </div>
     </nav>

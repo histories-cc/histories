@@ -170,12 +170,12 @@ const Register: React.FC = () => {
             </div>
 
             <Button style="primary_solid" loading={loading}>
-              {t(loading ? 'loading' : 'register')}
+              {t('register')}
             </Button>
 
-            <Link href="/forgot-password" passHref>
+            <Link href="/login" passHref>
               <Button style="transparent">
-                {t('log_in_to_existing_account').toUpperCase()}
+                {t('log_in_to_existing_account')}
               </Button>
             </Link>
           </div>
