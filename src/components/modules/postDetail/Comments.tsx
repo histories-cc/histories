@@ -1,5 +1,6 @@
 import { Input, Loading, Tooltip } from '@components/elements';
 import StringWithMentions from '@components/elements/StringWithMentions';
+import Suspense from '@components/elements/Suspense';
 import { useCreateCommentMutation } from '@graphql';
 import { useLikeMutation, useUnlikeMutation } from '@graphql';
 import { usePostCommentsQuery } from '@graphql';
@@ -100,7 +101,7 @@ const PostDetailCommentSection: React.FC<PostDetailCommentSectionProps> = ({
 
   return (
     <div className="h-full p-2 overflow-y-auto bg-zinc-100">
-      <div className="flex bg-white border border-gray-200 p-0.5 rounded-xl shadow-sm w-full lg:hidden">
+      <div className="flex w-full bg-white border border-gray-200 p-0.5 rounded-xl shadow-sm lg:hidden">
         <div className="relative w-20 h-20 rounded-xl aspect-square">
           <Blurhash
             hash={post.place.preview!.blurhash}
@@ -267,10 +268,19 @@ const PostDetailCommentSection: React.FC<PostDetailCommentSectionProps> = ({
 
             {/* TBD: infinite scroll */}
             <div className="w-full">
-              {commentsQuery.loading ? (
-                <Loading />
-              ) : (
-                commentsQuery.data?.comments.map((comment) => {
+              <Suspense
+                condition={!commentsQuery.loading}
+                fallback={[null, null, null].map((_, index) => (
+                  <div key={index} className="flex items-end pb-4 gap-2">
+                    <div className="relative w-10 h-10 bg-zinc-300 animate-pulse rounded-full aspect-square" />
+                    <div className="flex flex-col gap-2 p-2 bg-white border border-gray-200 rounded-t-lg rounded-r-lg w-fit">
+                      <div className="h-4 w-44 bg-zinc-300 animate-pulse rounded-md" />
+                      <div className="h-4 w-60 bg-zinc-300 animate-pulse rounded-md" />
+                    </div>
+                  </div>
+                ))}
+              >
+                {commentsQuery.data?.comments.map((comment) => {
                   return (
                     <div
                       key={comment?.id}
@@ -299,23 +309,27 @@ const PostDetailCommentSection: React.FC<PostDetailCommentSectionProps> = ({
                           {' · '}
                           <TimeAgo date={comment.createdAt} />
                         </span>
-                        <div className="break-all">
+                        <div className="break-all whitespace-pre">
                           <StringWithMentions text={comment?.content} />
                         </div>
                       </div>
                     </div>
                   );
-                })
-              )}
+                })}
+              </Suspense>
             </div>
           </div>
         )}
         {/* CREATE COMMENT FORM */}
         {meContext.isLoggedIn && (
-          <form onSubmit={handleSubmit(OnSubmit)}>
+          <form
+            onSubmit={handleSubmit(OnSubmit)}
+            className="p-2 bg-white border border-gray-200 rounded-lg"
+          >
             <Input
               register={register}
               name="content"
+              type="textarea"
               options={{
                 required: true,
                 validate: (value) => IsValidComment(value),
@@ -324,7 +338,7 @@ const PostDetailCommentSection: React.FC<PostDetailCommentSectionProps> = ({
               label={t('create_comment')}
               rightIcon={
                 <button type="submit">
-                  <HiPaperAirplane className="text-brand transform rotate-90 w-7 h-7 hover:scale-95 ease-in-out hover:text-blue-600" />
+                  <HiPaperAirplane className="text-brand transform rotate-90 w-7 h-7 hover:scale-95 ease-in-out" />
                 </button>
               }
             />

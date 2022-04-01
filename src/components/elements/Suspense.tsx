@@ -1,8 +1,8 @@
 import React from 'react';
 
 interface ISupenseProps {
-  fallback: React.ReactNode;
-  children: React.ReactNode;
+  fallback?: React.ReactNode | React.ReactNode[];
+  children: React.ReactNode | React.ReactNode[];
   condition: boolean;
 }
 
@@ -11,7 +11,7 @@ const Suspense: React.FC<ISupenseProps> = ({
   children,
   condition,
 }) => {
-  return <>{condition ? children : fallback}</>;
+  return <>{condition ? children : fallback || null}</>;
 };
 
 export default Suspense;

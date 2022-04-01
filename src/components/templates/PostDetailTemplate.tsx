@@ -79,7 +79,7 @@ const PostDetailTemplate: React.FC<PostDetailTemplateProps> = ({ post }) => {
               </div>
             ))}
 
-          <div className="absolute lg:flex bg-white border border-gray-200 p-0.5 top-3 right-[10%] lg:right-4 rounded-xl shadow-sm lg:w-96 w-[80%] hidden">
+          <div className="absolute hidden bg-white border border-gray-200 lg:flex p-0.5 top-3 right-[10%] lg:right-4 rounded-xl shadow-sm lg:w-96 w-[80%]">
             <div
               className="relative w-20 h-20 rounded-xl aspect-square"
               onClick={() => setPlaceDetailModal(true)}

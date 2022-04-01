@@ -1,5 +1,6 @@
 import { Input } from '@components/elements';
 import Button from '@components/elements/buttons/Button';
+import Suspense from '@components/elements/Suspense';
 import { Layout } from '@components/layouts';
 import Search from '@components/modules/Search';
 import {
@@ -14,7 +15,7 @@ import {
   IsJwtValid,
   SSRRedirect,
 } from '@src/functions';
-import { GetServerSidePropsContext } from 'next';
+import { GetServerSidwePropsContext } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -361,12 +362,13 @@ const CreatePostPage: React.FC<CreatePostPageProps> = ({
             </>
           )}
           {t('places')}
-          <div className="w-full h-24 gap-2 overflow-x-auto">
-            <div className="w-auto flex">
-              {mapPlacesQuery.loading ? (
-                <div />
-              ) : (
-                mapPlacesQuery.data?.places.map((place, index) => (
+          <div className="w-full h-24 overflow-x-auto gap-2">
+            <div className="flex w-auto">
+              <Suspense
+                condition={!mapPlacesQuery.loading}
+                fallback={<div>loading</div>}
+              >
+                {mapPlacesQuery.data?.places.map((place, index) => (
                   <div
                     key={index}
                     className=" h-11 rounded-md"
@@ -384,8 +386,8 @@ const CreatePostPage: React.FC<CreatePostPageProps> = ({
                     </div>
                     <button type="button">{place.name}</button>
                   </div>
-                ))
-              )}
+                ))}
+              </Suspense>
             </div>
           </div>
           <div className="w-full max-w-4xl px-6 m-auto xl:px-0">
