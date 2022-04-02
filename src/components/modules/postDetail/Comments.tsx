@@ -1,4 +1,4 @@
-import { Input, Loading, Tooltip } from '@components/elements';
+import { Input, Tooltip } from '@components/elements';
 import StringWithMentions from '@components/elements/StringWithMentions';
 import Suspense from '@components/elements/Suspense';
 import { useCreateCommentMutation } from '@graphql';
