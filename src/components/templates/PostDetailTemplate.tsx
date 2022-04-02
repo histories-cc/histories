@@ -1,4 +1,3 @@
-import { PlaceDetailModal } from '@components/modules/modals/PlaceDetailModal';
 import PostDetailCommentSection from '@components/modules/postDetail/Comments';
 import { PostQuery } from '@graphql';
 import UrlPrefix from '@src/constants/IPFSUrlPrefix';
@@ -17,27 +16,19 @@ interface PostDetailTemplateProps {
 const PostDetailTemplate: React.FC<PostDetailTemplateProps> = ({ post }) => {
   const { t } = useTranslation();
   const [currentPhoto, setCurrentPhoto] = useState<number>(0);
-  const [placeDetailModal, setPlaceDetailModal] = useState<boolean>(false); // open place detail modal
   const [showImage, setShowImage] = useState<boolean>(false);
   const meContext = useContext(MeContext);
 
   return (
     <main
-      className="block w-full font-medium text-gray-900"
+      className="block w-full font-medium text-black dark:text-white "
       style={{
         height: 'calc(100vh - 56px)',
       }}
     >
-      {/* PLACE DETAIL MODAL */}
-      <PlaceDetailModal
-        isOpen={placeDetailModal}
-        setIsOpen={setPlaceDetailModal}
-        id={post.place.id}
-        place={post.place}
-      />
-
       <div className="flex flex-col w-full h-full lg:flex-row ">
-        <div className="relative w-full min-h-[50vh]">
+        {/*  */}
+        <main className="relative w-full min-h-[50vh]">
           <Blurhash
             hash={post.photos[currentPhoto].blurhash}
             height="100%"
@@ -79,36 +70,48 @@ const PostDetailTemplate: React.FC<PostDetailTemplateProps> = ({ post }) => {
               </div>
             ))}
 
-          <div className="absolute hidden bg-white border border-gray-200 lg:flex p-0.5 top-3 right-[10%] lg:right-4 rounded-xl shadow-sm lg:w-96 w-[80%]">
-            <div
-              className="relative w-20 h-20 rounded-xl aspect-square"
-              onClick={() => setPlaceDetailModal(true)}
+          {/* PLACE CARD */}
+          {/* visible only on PC */}
+          <div
+            className="absolute hidden bg-white border border-zinc-200 dark:bg-zinc-800
+            dark:border-zinc-900 lg:flex p-0.5 top-3 right-[10%] lg:right-4 rounded-xl shadow-sm lg:w-96 w-[80%]"
+          >
+            {/* PLACE PREVIEW */}
+            <Link
+              href={`/?lat=${post.place.latitude}&lng=${post.place.longitude}&zoom=19&place=${post.place.id}`}
+              passHref
             >
-              <Blurhash
-                hash={post.place.preview!.blurhash}
-                height="100%"
-                width="100%"
-                className="rounded-xl blurhash"
-                punch={1}
-              />
-              <Image
-                src={UrlPrefix + post.place.preview?.hash}
-                layout="fill"
-                objectFit="cover"
-                className="rounded-xl"
-                alt="Image of the place"
-              />
-            </div>
+              <div className="relative w-20 h-20 rounded-xl aspect-square">
+                <Blurhash
+                  hash={post.place.preview!.blurhash}
+                  height="100%"
+                  width="100%"
+                  className="rounded-xl blurhash"
+                  punch={1}
+                />
+                <Image
+                  src={UrlPrefix + post.place.preview?.hash}
+                  layout="fill"
+                  objectFit="cover"
+                  className="rounded-xl"
+                  alt="Image of the place"
+                />
+              </div>
+            </Link>
+
             <div className="flex flex-col items-center w-full h-20 overflow-y-hidden p-1.5">
+              {/* PLACE NAME */}
               <a className="font-semibold">{post.place.name}</a>
               <div className="flex justify-center py-2 gap-2">
+                {/* SHOW ON MAP */}
                 <Link
-                  href={`/?lat=${post.place.latitude}&lng=${post.place.longitude}&zoom=28.5&place=${post.place.id}`}
+                  href={`/?lat=${post.place.latitude}&lng=${post.place.longitude}&zoom=19&place=${post.place.id}`}
                 >
                   <a className="flex items-center px-2 py-1 rounded-lg gap-1.5 hover:bg-gray-100">
                     <HiOutlineLocationMarker /> {t('show_on_map')}
                   </a>
                 </Link>
+                {/* ADD PHOTO */}
                 {meContext.data?.me && (
                   <Link href={`/create/post?placeID=${post.place.id}`}>
                     <a className="flex items-center px-2 py-1 rounded-lg gap-1.5 hover:bg-gray-100">
@@ -120,10 +123,12 @@ const PostDetailTemplate: React.FC<PostDetailTemplateProps> = ({ post }) => {
               </div>
             </div>
           </div>
-        </div>
-        <div className="w-full lg:max-w-md">
+        </main>
+
+        {/* COMMENTS */}
+        <section className="w-full lg:max-w-md">
           <PostDetailCommentSection post={post} />
-        </div>
+        </section>
       </div>
     </main>
   );

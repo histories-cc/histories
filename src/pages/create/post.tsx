@@ -535,6 +535,7 @@ const CreatePostPage: React.FC<CreatePostPageProps> = ({
                 register={register}
                 name="description"
                 options={{}}
+                type="textarea"
               />
 
               <br />
@@ -609,6 +610,3 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   } else return SSRRedirect('/login');
 };
 export default CreatePostPage;
-function uesCreatePostMapPlacesQuery() {
-  throw new Error('Function not implemented.');
-}

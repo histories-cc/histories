@@ -130,7 +130,7 @@ const Place: React.FC<PlaceProps> = ({ id }) => {
         )}
 
         <div className="absolute bottom-0 left-0 z-20 w-full h-full text-center bg-gradient-to-t from-[#000000ee] via-transparent to-transparent">
-          <a className="absolute w-full px-2 text-4xl font-bold bottom-8 -translate-x-1/2 text-white">
+          <a className="absolute w-full px-2 text-4xl font-bold text-white bottom-8 -translate-x-1/2">
             {placeQuery.data?.place.name ?? 'Place detail'}
           </a>
         </div>

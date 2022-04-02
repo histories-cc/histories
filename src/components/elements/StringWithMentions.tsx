@@ -34,6 +34,10 @@ const StringWithMentions: React.FC<ITextWithMentionsProps> = ({ text }) => {
             <span className="font-semibold">
               {' ' + word.substring(1, word.length - 1) + ' '}
             </span>
+          ) : word[0] === '_' && word.at(-1) === '_' ? (
+            <span className="italic">
+              {' ' + word.substring(1, word.length - 1) + ' '}
+            </span>
           ) : (
             // else just return word
             ' ' + word + ' '

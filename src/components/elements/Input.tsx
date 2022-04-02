@@ -55,7 +55,7 @@ const Input: React.FC<InputProps> = ({
         <span className="font-semibold text-base"> {label}</span>
       </label>
 
-      <div className="relative text-gray-700 flex bg-marble font-semibold rounded-lg  ">
+      <div className="relative flex bg-marble dark:bg-zinc-800 font-semibold rounded-lg  ">
         {/* LEFT ICON */}
         {hasLeftIcon && (
           <span className="absolute inset-y-0 right-0 flex items-center pr-3">
@@ -68,7 +68,7 @@ const Input: React.FC<InputProps> = ({
             id={name}
             disabled={disabled}
             placeholder={placeholder}
-            className="w-full h-auto form-control block rounded-lg bg-transparent border-none"
+            className="block w-full h-auto bg-transparent border-none rounded-lg form-control max-h-[20vh]"
             {...register(name, options)}
           />
         ) : (

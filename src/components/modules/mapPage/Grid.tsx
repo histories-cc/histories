@@ -11,7 +11,7 @@ const MapPageGrid: React.FC = () => {
 
   return (
     <div
-      className="w-full text-black bg-[#FAFBFB] dark:bg-[#171716] dark:text-white"
+      className="w-full text-black bg-[#FAFBFB] dark:bg-zinc-900 dark:text-white"
       style={{ height: 'calc(100vh - 56px)' }}
     >
       <AnimatePresence>

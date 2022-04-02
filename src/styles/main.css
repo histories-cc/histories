@@ -30,7 +30,7 @@
 }
 
 .formInputLabel {
-  @apply block text-sm font-medium text-gray-900;
+  @apply block text-sm font-medium;
 }
 
 .formInput {
