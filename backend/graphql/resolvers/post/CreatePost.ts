@@ -96,9 +96,7 @@ async function CreatePost({
   });
 
   const driver = DbConnector();
-  const session = driver.session();
 
-  const postID = result.records[0].get('post').id;
   /*
   await session.run(`WITH ${hashtags} AS tags
   MATCH (user:User), (post:Post)

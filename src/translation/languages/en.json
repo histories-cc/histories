@@ -127,5 +127,8 @@
   "photos": "Photos",
   "continue_without_account": "Continue without account",
   "add_photo_of_place": "Add photo of place",
-  "login_with_google":"Log in with Google"
+  "login_with_google": "Log in with Google",
+  "selected_place": "Selected place",
+  "back_to_place_selection": "Back to place list",
+  "select_place": "Select place"
 }

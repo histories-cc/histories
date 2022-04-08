@@ -321,13 +321,9 @@ const CreatePostPage: React.FC<CreatePostPageProps> = ({
           <h1 className="pb-1 text-3xl font-bold tracking-tight">
             {t('Create post')}
           </h1>
-          {selectedPlaceId !== null && (
-            <>
-              {`${t('add_photo_of_place')}: `}
-              <span className="text-xl font-semibold">
-                {selectedPlaceQuery.data?.place.name}
-              </span>
-              <div className="relative w-32 h-32 rounded-md">
+          {selectedPlaceId !== null ? (
+            <div className="flex gap-4">
+              <div className="relative w-48 h-48 rounded-md">
                 {!selectedPlaceQuery.loading &&
                 selectedPlaceQuery.data !== undefined ? (
                   <>
@@ -351,45 +347,109 @@ const CreatePostPage: React.FC<CreatePostPageProps> = ({
                       height="100%"
                       alt={t('place_preview')}
                     />
+                    {selectedPlaceQuery.data?.place?.name && (
+                      <div className="absolute left-0 z-10 flex items-center justify-center w-full p-2 font-semibold text-center text-white break-words bottom-1/4 h-1/4 bg-black/40 rounded-t-md">
+                        {selectedPlaceQuery.data?.place?.name}
+                      </div>
+                    )}
+                    <div className="absolute bottom-0 left-0 z-10 flex items-center justify-center w-full p-2 font-semibold text-center text-white break-all h-1/4 bg-brand rounded-b-md">
+                      {t('selected_place')}
+                    </div>
                   </>
                 ) : (
                   <div className="w-full h-full rounded-lg bg-zinc-200 dark:bg-zinc-800/80 animate-pulse" />
                 )}
               </div>
-              <Button onClick={() => setSelectedPlaceId(null)} type="button">
-                {t('i_dont_want_to_add_photo_of_this_place')}
-              </Button>
-            </>
-          )}
-          {t('places')}
-          <div className="w-full h-24 overflow-x-auto gap-2">
-            <div className="flex w-auto">
-              <Suspense
-                condition={!mapPlacesQuery.loading}
-                fallback={<div>loading</div>}
+              <div
+                className="relative w-48 h-48 rounded-md grayscale"
+                onClick={() => setSelectedPlaceId(null)}
               >
-                {mapPlacesQuery.data?.places.map((place, index) => (
-                  <div
-                    key={index}
-                    className=" h-11 rounded-md"
-                    onClick={() => setSelectedPlaceId(place.id)}
-                  >
-                    <div className="relative w-12 h-12">
-                      <Image
-                        src={UrlPrefix + place.preview?.hash}
-                        layout="fill"
-                        objectFit="cover"
-                        objectPosition="center"
-                        alt=""
-                        quality={60}
-                      />
+                {!selectedPlaceQuery.loading &&
+                selectedPlaceQuery.data !== undefined ? (
+                  <>
+                    <Blurhash
+                      className="blurhash"
+                      hash={
+                        mapPlacesQuery.data?.places[0].preview?.blurhash ??
+                        selectedPlaceQuery.data!.place!.preview!.blurhash
+                      }
+                      width="100%"
+                      height="100%"
+                      punch={1}
+                    />
+                    <Image
+                      layout="fill"
+                      objectFit="cover"
+                      objectPosition="center"
+                      className="rounded-md"
+                      src={
+                        UrlPrefix +
+                        (mapPlacesQuery.data?.places[0].preview?.hash ??
+                          selectedPlaceQuery!.data!.place!.preview!.hash)
+                      }
+                      width="100%"
+                      height="100%"
+                      alt={t('place_preview')}
+                    />
+
+                    <div className="absolute top-0 left-0 z-10 flex items-center justify-center w-full h-full p-2 font-semibold text-center text-white break-all cursor-pointer bg-black/40 rounded-md">
+                      {t('back_to_place_selection')}
                     </div>
-                    <button type="button">{place.name}</button>
-                  </div>
-                ))}
-              </Suspense>
+                  </>
+                ) : (
+                  <div className="w-full h-full rounded-lg bg-zinc-200 dark:bg-zinc-800/80 animate-pulse" />
+                )}
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="w-full overflow-x-auto gap-2">
+              <div className="flex gap-4">
+                <Suspense
+                  condition={!mapPlacesQuery.loading}
+                  fallback={[null, null, null, null].map((_, index) => (
+                    <div key={index}>
+                      <div className="relative w-48 h-48 rounded-md bg-zinc-300 animate-pulse"></div>
+                    </div>
+                  ))}
+                >
+                  {mapPlacesQuery.data?.places.map((place, index) => (
+                    <div key={index}>
+                      <div
+                        className="relative w-48 h-48 rounded-md"
+                        onClick={() => setSelectedPlaceId(place.id)}
+                      >
+                        <Blurhash
+                          className="blurhash"
+                          hash={place.preview!.blurhash}
+                          width="100%"
+                          height="100%"
+                          punch={1}
+                        />
+                        <Image
+                          layout="fill"
+                          objectFit="cover"
+                          objectPosition="center"
+                          className="rounded-md"
+                          src={UrlPrefix + place.preview?.hash}
+                          width="100%"
+                          height="100%"
+                          alt={t('place_preview')}
+                        />
+                        {place?.name && (
+                          <div className="absolute left-0 z-10 flex items-center justify-center w-full p-2 font-semibold text-center text-white break-words bottom-[20%] bg-black/40 rounded-t-md">
+                            {place?.name}
+                          </div>
+                        )}
+                        <div className="absolute bottom-0 left-0 z-10 flex items-center justify-center w-full p-2 font-semibold text-center text-white break-all cursor-pointer h-1/5 bg-brand rounded-b-md">
+                          {t('select_place')}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </Suspense>
+              </div>
+            </div>
+          )}
           <div className="w-full max-w-4xl px-6 m-auto xl:px-0">
             <label>Photo date</label>
             <Tab.Group
