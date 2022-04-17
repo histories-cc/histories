@@ -1,77 +1,76 @@
-import CityImage from '@public/assets/city.png';
-import LogoBlack from '@public/logo/big-black.svg';
+import { Button } from '@components/elements';
+import Wave from '@components/elements/Wave';
+import Main from '@components/layouts/Main';
+import PhonesImage from '@public/assets/phones.png';
+import LogoImage from '@public/logo/big.svg';
 import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
-
-import NavbarItem from '../components/modules/navbar/NavbarItem';
+import { useTranslation } from 'react-i18next';
 
 const AboutPage: React.FC = () => {
-  return (
-    <div>
-      <nav className="fixed z-40 w-full bg-white border-b border-gray-200 dark:text-white dark:bg-[#171716] dark:border-gray-800">
-        <div className="flex items-center justify-between h-full max-w-4xl px-4 pt-4 m-auto">
-          <NavbarItem text="Home" href="/" active={false} />
-        </div>
-      </nav>
-      <div className="absolute left-0 w-full h-screen z-[-10]">
-        <Image
-          src={CityImage}
-          alt="city"
-          placeholder="blur"
-          layout="fill"
-          objectFit="cover"
-          className="m-auto"
-        />
-      </div>
+  const { t } = useTranslation();
 
-      <div className="max-w-6xl p-12 m-auto pt-36">
-        <div className="relative flex justify-center h-16">
+  return (
+    <Main
+      head={{
+        title: `Map | HiStories`,
+        description: `HiStorical map of the world with stories and timeline`,
+        canonical: 'https://www.histories.cc/',
+        openGraph: {
+          title: `Map | HiStories`,
+          type: 'website',
+          url: 'https://www.histories.cc/',
+          description: `HiStorical map of the world with stories and timeline`,
+          site_name: 'Map',
+        },
+      }}
+    >
+      {/* BACKGROUND */}
+      <div
+        className="absolute top-0 left-0 w-full h-full"
+        style={{
+          backgroundImage: `url(/assets/about-page-bg.svg)`,
+        }}
+      />
+
+      {/* CONTENT */}
+      <main className="absolute top-0 z-20 w-full h-full left-1/2 -translate-x-1/2 max-w-screen-2xl">
+        <div className="absolute z-20 w-4/5 lg:w-1/3 left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-[127px] top-1/2 -translate-y-1/2 h-1/2">
+          <div className="pb-2 text-lg font-semibold text-subtle">
+            {t('welcome_to')}
+          </div>
+          {/* LOGO */}
           <Image
-            src={LogoBlack}
-            alt="Histories logo"
-            layout="fill"
-            objectFit="contain"
+            src={LogoImage}
+            alt={t('about_page_phones_alt')}
+            width="473px"
+            height="120px"
+          />
+
+          {/* PARAGRAPH */}
+          <p className="py-8">{t('about_page_paragraph')}</p>
+
+          {/* START DISCOVERING BUTTON */}
+          <div className="flex flex-col gap-6 w-fit">
+            <Button>{t('start_discovering')}</Button>
+            <Button style="ghost">{t('sign_up')}</Button>
+          </div>
+        </div>
+
+        {/* PHONES */}
+        <div className="absolute z-10 w-4/5 lg:w-[789px] right-1/2 translate-x-1/2 lg:translate-x-0 lg:right-[60px] transition-all ease-in-out duration-500 top-[100vh] lg:top-1/2 translate-y-0 lg:-translate-y-1/2">
+          <Image
+            src={PhonesImage}
+            alt={t('about_page_phones_alt')}
+            width="789px"
+            height="670px"
           />
         </div>
-
-        {/* ABOUT */}
-        <div className="flex flex-col items-center pt-20 text-6xl gap-6 pt-[50vh]">
-          <h1 className="text-6xl font-semibold">About</h1>
-        </div>
-        <p className="pt-4 text-xl">
-          Histories is a platform for sharing historical photos with advanced
-          search and filtering. But we are not just a photo sharing platform. We
-          are the community. If you want to explore amazing history of your
-          city, let's join us! Also feel free to check out{' '}
-          <Link href="/">
-            <a className="text-brand">map</a>
-          </Link>
-          . If you have more questions about this project you can also check a{' '}
-          <Link href="https://docs-histories.netlify.app/docs/intro/">
-            <a className="text-brand">documentation</a>
-          </Link>
-          .
-        </p>
-
-        {/* ABOUT */}
-        <div className="flex flex-col items-center pt-20 text-6xl gap-6">
-          <h1 className="text-6xl font-semibold">Source code</h1>
-        </div>
-        <p className="pt-4 text-xl">
-          Histories is entirely open source. You can find the{' '}
-          <Link href="https://github.com/histories-cc/histories">
-            <a className="text-brand">source code</a>
-          </Link>{' '}
-          on Github. If you want to report bug or request some feature, you can
-          do it{' '}
-          <Link href="https://github.com/histories-cc/histories/issues/new/choose">
-            <a className="text-brand">here</a>
-          </Link>
-          .
-        </p>
+      </main>
+      <div className="absolute bottom-0 w-full translate-y-1/2">
+        <Wave />
       </div>
-    </div>
+    </Main>
   );
 };
 

@@ -4,6 +4,7 @@ import { Loading } from '..';
 
 export type Styles =
   | 'primary_solid'
+  | 'ghost'
   | 'transparent'
   | 'transparent_secondary'
   | 'warning_solid'
@@ -28,7 +29,9 @@ export type ButtonProps = {
 
 export const ButtonStyles = {
   primary_solid:
-    'bg-brand hover:bg-brand border border-brand text-white text-center flex items-center justify-center font-semibold',
+    'bg-brand hover:bg-brand/90 border border-brand text-white text-center flex items-center justify-center font-semibold',
+  ghost:
+    'bg-transparent hover:bg-zinc-100 border border-transparent hover:border-zinc-100 text-zinc-800 text-center flex items-center justify-center font-semibold',
   transparent:
     'bg-transparent text-erie text-center flex items-center justify-center font-semibold',
   transparent_secondary:

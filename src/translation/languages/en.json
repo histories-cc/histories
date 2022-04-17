@@ -130,5 +130,10 @@
   "login_with_google": "Log in with Google",
   "selected_place": "Selected place",
   "back_to_place_selection": "Back to place list",
-  "select_place": "Select place"
+  "select_place": "Select place",
+  "about_page_paragraph": "Discover the places around you through historical pictures!",
+  "welcome": "Welcome",
+  "welcome_to": "Welcome to",
+  "start_discovering": "Start discovering",
+  "sign_up": "Sign up"
 }
