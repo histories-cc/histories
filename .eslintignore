@@ -1,0 +1,8 @@
+*.d.ts 
+node_modules
+lib/stories-static
+dist
+.next
+yarn.lock
+package-lock.json
+public

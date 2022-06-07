@@ -1,0 +1,28 @@
+{
+  "extends": [
+    "next",
+    "next/core-web-vitals",
+    "plugin:react/recommended",
+    "plugin:tailwind/recommended"
+  ],
+  "plugins": [
+    "@typescript-eslint",
+    "unused-imports",
+    "simple-import-sort",
+    "prettier"
+  ],
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx, **/*.mdx"]
+    }
+  ],
+  "rules": {
+    "react/no-unescaped-entities": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "no-unused-vars": "warn",
+    "unused-imports/no-unused-imports": "error",
+    "simple-import-sort/imports": "warn",
+    "simple-import-sort/exports": "warn",
+    "prettier/prettier": ["warn"]
+  }
+}

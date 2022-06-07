@@ -1,0 +1,10 @@
+
+mutation CreateUser($input: CreateUserInput!) {
+  createUser(input: $input)
+}
+
+
+mutation DeleteUser($password: String!){
+    deleteUser(password: $password)
+}
+
