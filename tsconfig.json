@@ -23,12 +23,6 @@
     "removeComments": true,
     "incremental": true
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "src/database/driver.ts",
-    "server.js"
-, "../src/components/Button.tsx"  ],
-  "exclude": ["node_modules", ".cache", "**/stories", "**/stories-static"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", ".cache", "**/stories", "**/stories-static", "v1"]
 }
