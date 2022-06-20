@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://github.com/histories-cc/histories/blob/main/public/logo/big-white.svg" alt="Histories" />
+    <img src="https://github.com/histories-cc/histories/blob/main/src/public/logo/big-white.svg" alt="Histories" />
 </div>
 
 <div align="center">
