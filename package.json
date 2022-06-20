@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild":"graphql-codegen --config codegen.yml",
     "build": "next build",
     "start": "next start",
     "test": "jest",
@@ -30,8 +31,7 @@
     "react-icons": "^4.4.0",
     "react-map-gl": "^7.0.15"
   },
-  "devDependencies": {
-    "@graphql-codegen/cli": "2.6.2",
+  "devDependencies": { 
     "@graphql-codegen/introspection": "^2.1.1",
     "@graphql-codegen/typescript": "2.4.11",
     "@graphql-codegen/typescript-operations": "^2.4.0",
