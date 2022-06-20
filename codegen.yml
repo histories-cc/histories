@@ -1,5 +1,5 @@
 overwrite: true
-schema: "http://localhost:4000"
+schema: "https://api.histories.cc"
 documents: "src/**/*.graphql"
 generates:
   src/graphql/index.tsx:
