@@ -1,3 +1,7 @@
 mutation Login($input: LoginInput!) {
   login(input: $input)
 }
+
+mutation deleteSession($session: String!) {
+  deleteSession(id: $session)
+}

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import LogoImage from '../../../public/logo/big.svg';
 import Image from 'next/image';
 import Link from 'next/link';
 import { HiOutlineHome, HiOutlineLocationMarker } from 'react-icons/hi';
 import { FiCompass, FiPlusSquare } from 'react-icons/fi';
 import { CgProfile } from 'react-icons/cg';
+import MeContext from '@src/contexts/MeContext';
 
 interface INavbarButtonProps {
   children?: React.ReactNode;
@@ -19,7 +20,11 @@ const NavbarButton: React.FC<INavbarButtonProps> = ({
 }) => {
   return (
     <Link href={href} passHref>
-      <button className="sm:py-[18px] sm:w-32 text-sm text-dark font-bold uppercase rounded-md sm:hover:bg-zinc-100 transition-all ease-in-out duration-500">
+      <button
+        className={`sm:py-[18px] ${
+          children ? 'sm:w-32' : ''
+        } text-sm text-dark font-bold uppercase rounded-md sm:hover:bg-zinc-100 transition-all ease-in-out duration-500`}
+      >
         <div className="hidden sm:block">{children}</div>
         <div className="block sm:hidden">{icon}</div>
       </button>
@@ -28,11 +33,11 @@ const NavbarButton: React.FC<INavbarButtonProps> = ({
 };
 
 const Navbar: React.FC = () => {
-  const isLoggedIn = false;
+  const { me } = useContext(MeContext);
 
   return (
     <nav className="w-full fixed top-full -translate-y-full sm:translate-y-0 sm:top-0  bg-[#FAFCFE] sm:drop-shadow-sm flex items-center justify-between sm:py-[10px] sm:pr-11">
-      <div className="flex w-full sm:w-auto">
+      <div className="flex sm:w-auto">
         <Link href="/" passHref>
           <div className="hidden sm:flex px-11 items-center cursor-pointer">
             <Image
@@ -59,13 +64,15 @@ const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {isLoggedIn ? (
+      {me ? (
         <div className="hidden sm:flex gap-2">
           <Link href="/create/post">
             <button className="py-[18px] px-4 text-sm text-white bg-brand font-bold uppercase rounded-md transition-all ease-in-out duration-500 ">
               vytvořit příspěvek
             </button>
           </Link>
+
+          <NavbarButton href={`/u/${me.username}`}>{me.firstName}</NavbarButton>
         </div>
       ) : (
         <NavbarButton href="/login">přihlásit se</NavbarButton>

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild":"graphql-codegen --config codegen.yml",
+    "prebuild": "graphql-codegen --config codegen.yml",
     "build": "next build",
     "start": "next start",
     "test": "jest",
@@ -14,6 +14,7 @@
   "dependencies": {
     "@apollo/client": "^3.6.6",
     "@graphql-codegen/cli": "^2.6.2",
+    "@headlessui/react": "^1.6.5",
     "@tailwindcss/forms": "^0.5.2",
     "graphql": "^15.8.0",
     "graphql-codegen": "^0.4.0",
@@ -31,7 +32,7 @@
     "react-icons": "^4.4.0",
     "react-map-gl": "^7.0.15"
   },
-  "devDependencies": { 
+  "devDependencies": {
     "@graphql-codegen/introspection": "^2.1.1",
     "@graphql-codegen/typescript": "2.4.11",
     "@graphql-codegen/typescript-operations": "^2.4.0",
