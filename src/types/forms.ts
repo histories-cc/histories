@@ -11,3 +11,7 @@ export interface IRegisterFormInput {
   password: string;
   email: string;
 }
+
+export interface IDeleteAccountFormInput {
+  password: string;
+}
