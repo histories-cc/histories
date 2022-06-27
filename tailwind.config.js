@@ -13,19 +13,8 @@ module.exports = {
         subtle: '#9EA3B0',
         marble: '#F4F4F6',
         erie: '#201E1F',
+        dark: '#201E1F',
 
-        dark: {
-          text: {
-            primary: '#FFFFFF',
-            secondary: '#7A7A7B',
-            highlight: '#0066F9',
-          },
-          background: {
-            primary: '#18181B',
-            secondary: '#252527',
-            tertiary: '#0E0E10',
-          },
-        },
         light: {
           text: {
             primary: '#000000',
