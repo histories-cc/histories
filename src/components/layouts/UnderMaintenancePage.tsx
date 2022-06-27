@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import PhonesImage from '../../public/assets/maintenance.png';
+import Illustration from '../../../public/assets/maintenance.png';
 
 const UnderMaintenance = () => {
   return (
@@ -22,7 +22,7 @@ const UnderMaintenance = () => {
 
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4">
           <Image
-            src={PhonesImage}
+            src={Illustration}
             alt=""
             layout="responsive"
             objectFit="scale-down"
