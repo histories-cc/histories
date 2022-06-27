@@ -1,7 +1,7 @@
 import { ApolloError, ApolloQueryResult } from '@apollo/client';
-import { MeQuery } from '@graphql';
+import { MeQuery, UserQuery } from '@graphql';
 
-interface IMeContext {
+export interface IMeContext {
   isLoggedIn: boolean;
   me: MeQuery['me'] | undefined;
   data: MeQuery | undefined;
@@ -10,4 +10,10 @@ interface IMeContext {
   refetch: (() => Promise<ApolloQueryResult<MeQuery>>) | undefined;
 }
 
-export default IMeContext;
+export interface IUserContext {
+  user: UserQuery['user'] | undefined;
+  data: UserQuery | undefined;
+  loading: boolean;
+  error: ApolloError | undefined;
+  refetch: (() => Promise<ApolloQueryResult<UserQuery>>) | undefined;
+}

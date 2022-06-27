@@ -8,9 +8,10 @@ import { ThemeProvider } from 'next-themes';
 import NextNprogress from 'nextjs-progressbar';
 import React, { useEffect } from 'react';
 import { orange_main } from '@src/constants/constants';
-import UnderMaintenancePage from '@components/layouts/UnderMaintenancePage';
+import UnderMaintenancePage from '@components/templates/UnderMaintenance';
 import { useMeQuery } from '@graphql';
 import MeContext from '@src/contexts/MeContext';
+import { Toaster } from 'react-hot-toast';
 
 function MyApp({ Component, pageProps, router }: AppProps): JSX.Element {
   if (process.env.NEXT_PUBLIC_UNDER_MAINTENANCE)
@@ -31,6 +32,8 @@ function MyApp({ Component, pageProps, router }: AppProps): JSX.Element {
       }
       <ThemeProvider attribute="class" defaultTheme="light">
         <MeProvider>
+          <Toaster position="top-center" reverseOrder={true} />
+
           <Component {...pageProps} />
         </MeProvider>
       </ThemeProvider>

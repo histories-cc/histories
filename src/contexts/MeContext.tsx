@@ -1,4 +1,4 @@
-import IMeContext from '@src/types/contexts';
+import { IMeContext } from '@src/types/contexts';
 import { createContext } from 'react';
 
 const MeContext = createContext<IMeContext>({
