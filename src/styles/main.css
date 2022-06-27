@@ -18,3 +18,11 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.label {
+  @apply font-semibold text-base;
+}
+
+.text-input {
+  @apply border border-gray-300 rounded-lg py-2 px-4;
+}

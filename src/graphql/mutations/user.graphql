@@ -1,10 +1,7 @@
-
-mutation CreateUser($input: CreateUserInput!) {
+mutation Register($input: CreateUserInput!) {
   createUser(input: $input)
 }
 
-
-mutation DeleteUser($password: String!){
-    deleteUser(password: $password)
+mutation DeleteUser($password: String!) {
+  deleteUser(password: $password)
 }
-
