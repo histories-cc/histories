@@ -66,8 +66,8 @@ const Navbar: React.FC = () => {
   }
 
   return (
-    <nav className="w-full fixed top-full -translate-y-full sm:translate-y-0 sm:top-0  bg-[#FAFCFE] sm:drop-shadow-sm flex items-center justify-between sm:py-[10px] sm:pr-11">
-      <div className="flex sm:w-auto">
+    <nav className="w-full fixed z-30 top-full -translate-y-full sm:translate-y-0 sm:top-0  bg-[#FAFCFE] sm:drop-shadow-sm flex items-center justify-between sm:py-[10px] sm:pr-11">
+      <div className="flex sm:w-auto w-full">
         <Link href="/" passHref>
           <div className="hidden sm:flex px-11 items-center cursor-pointer">
             <Image
