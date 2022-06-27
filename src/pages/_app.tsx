@@ -16,10 +16,6 @@ function MyApp({ Component, pageProps, router }: AppProps): JSX.Element {
 
   return (
     <ApolloProvider client={client}>
-      {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-      <script
-        src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&libraries=places`}
-      />
       {
         // don't show progress bar on map page, because of often changing url query params
         !(router.pathname === '/') && (
