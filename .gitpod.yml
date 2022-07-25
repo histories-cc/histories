@@ -4,9 +4,22 @@ tasks:
       yarn install --frozen-lockfile --silent --network-timeout 100000;
       cp .env.example .env.local;
       yarn build;
+      gp sync-done setup;
     command: yarn dev
   - name: Storybook
+    init: gp sync-await setup
     command: yarn sb
+
+github:
+  prebuilds:
+    master: true
+    branches: true
+    pullRequests: true
+    pullRequestsFromForks: true
+    addCheck: false
+    addComment: false
+    addBadge: true
+
 ports:
   - port: 3000 # Web app
     onOpen: notify
