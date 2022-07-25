@@ -1,6 +1,5 @@
 tasks:
-  - name: Setup
-    before: redis-server &
+  - name: Setup 
     init: |
       yarn install --frozen-lockfile --silent --network-timeout 100000;
       cp .env.example .env.local;
