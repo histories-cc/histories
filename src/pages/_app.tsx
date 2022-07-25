@@ -14,7 +14,7 @@ import MeContext from '@src/contexts/MeContext';
 import { Toaster } from 'react-hot-toast';
 
 function MyApp({ Component, pageProps, router }: AppProps): JSX.Element {
-  if (process.env.NEXT_PUBLIC_UNDER_MAINTENANCE)
+  if (process.env.NEXT_PUBLIC_UNDER_MAINTENANCE && router.pathname !== "/storybook")
     return <UnderMaintenancePage />;
 
   return (
