@@ -3,26 +3,25 @@
     "baseUrl": "./",
     "paths": {
       "@components/*": ["src/components/*"],
-      "@graphql": ["src/graphql/index"],
+      "@graphql": ["src/graphql/generated"],
       "@src/*": ["src/*"],
       "@public/*": ["public/*"]
     },
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
     "isolatedModules": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "resolveJsonModule": true,
     "jsx": "preserve",
-    "removeComments": true,
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "lib": ["dom", "dom.iterable", "esnext"],
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", ".cache", "**/stories", "**/stories-static", "v1"]
+  "exclude": ["node_modules", ".next", "out", "storybook-static"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

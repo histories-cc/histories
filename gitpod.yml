@@ -1,0 +1,23 @@
+tasks:
+  - name: Setup 
+    init: |
+      yarn install --frozen-lockfile --silent --network-timeout 100000;
+      cp .env.example .env.local;
+      yarn build;
+    command: yarn dev
+  - name: Prisma Studio
+    command: yarn sb
+ports:
+  - port: 3000 # Web app
+    onOpen: notify
+    visibility: public
+  - port: 6006 # Storybook
+
+vscode:
+  extensions:
+    - dbaeumer.vscode-eslint
+    - mikestead.dotenv
+    - graphql.vscode-graphql
+    - esbenp.prettier-vscode
+    - wix.vscode-import-cost
+    - pkief.material-icon-theme

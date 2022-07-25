@@ -1,7 +1,0 @@
-mutation deleteUser($username: String!, $password: String!) {
-  deleteUser(input: { username: $username, password: $password })
-}
-
-mutation updateProfile($input: UpdateProfileInput!) {
-  updateProfile(input: $input)
-}

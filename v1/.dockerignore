@@ -1,9 +1,0 @@
-.next
-.dist
-.cache
-node_modules
-LICENSE
-.env.example
-.env.local
-README.md
-Dockerfile

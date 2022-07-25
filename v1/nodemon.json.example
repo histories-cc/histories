@@ -1,9 +1,0 @@
-{
-  "watch": [
-    "backend/",
-    "shared/"
-  ],
-  "env": {
-    "JWT_SECRET": "xxxxxxxxxxxxxxxxxxxxxxx"
-  }
-}

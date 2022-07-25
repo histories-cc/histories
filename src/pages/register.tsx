@@ -1,16 +1,16 @@
-import { Input } from '@components/elements';
-import Button from '@components/elements/buttons/Button';
-import AuthLayout from '@components/layouts/Auth';
-import { useLoginMutation, useRegisterMutation } from '@graphql';
-import { ILoginFormInput, IRegisterFormInput } from '../types/forms';
-import Cookie from 'js-cookie';
-import Link from 'next/link';
-import Router from 'next/router';
-import React, { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { toast } from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
-import { FiUser } from 'react-icons/fi';
+import { Input } from "@components/elements";
+import { Button } from "@components/elements";
+import AuthLayout from "@components/layouts/Auth";
+import { useLoginMutation, useRegisterMutation } from "@graphql";
+import { ILoginFormInput, IRegisterFormInput } from "../types/forms";
+import Cookie from "js-cookie";
+import Link from "next/link";
+import Router from "next/router";
+import React, { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
+import { useTranslation } from "react-i18next";
+import { FiUser } from "react-icons/fi";
 
 const Login: React.FC = () => {
   // states
@@ -29,10 +29,10 @@ const Login: React.FC = () => {
           input: data,
         },
       });
-      if (result.data?.createUser !== 'error') {
+      if (result.data?.createUser !== "error") {
         // login successful
-        Cookie.set('session', result.data?.createUser as string, {
-          sameSite: 'strict',
+        Cookie.set("session", result.data?.createUser as string, {
+          sameSite: "strict",
         });
         Router.reload();
       }
@@ -54,33 +54,33 @@ const Login: React.FC = () => {
             {/* USERNAME */}
             <label className="label">username</label>
             <input
-              {...register('username', { required: true })}
+              {...register("username", { required: true })}
               className="text-input"
             />
             {/* EMAIL */}
             <label className="label">email</label>
             <input
               type="email"
-              {...register('email', { required: true })}
+              {...register("email", { required: true })}
               className="text-input"
             />
             {/* FIRST NAME */}
             <label className="label">first name</label>
             <input
-              {...register('firstName', { required: true })}
+              {...register("firstName", { required: true })}
               className="text-input"
             />
             {/* LAST NAME */}
             <label className="label">last name</label>
             <input
-              {...register('lastName', { required: false })}
+              {...register("lastName", { required: false })}
               className="text-input"
             />
             {/* PASSWORD */}
             <label className="label">password</label>
             <input
               type="password"
-              {...register('password', { required: true })}
+              {...register("password", { required: true })}
               className="text-input"
             />
           </div>
@@ -93,16 +93,12 @@ const Login: React.FC = () => {
                 // <GoogleAuthButton />
               }
             </div>
-            <Button style="primary_solid" loading={loading}>
-              {t('register')}
-            </Button>
+            <Button disabled={loading}>{t("register")}</Button>
             <Link href="/login" passHref>
-              <Button style="transparent">{t('log in')}</Button>
+              <Button>{t("log in")}</Button>
             </Link>
             <Link href="/" passHref>
-              <Button style="transparent_secondary">
-                {t('continue_without_account')}
-              </Button>
+              <Button>{t("continue_without_account")}</Button>
             </Link>
           </div>
         </div>

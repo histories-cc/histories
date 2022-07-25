@@ -1,83 +1,43 @@
-<div align="center">
-    <img src="https://github.com/histories-cc/histories/blob/main/src/public/logo/big-white.svg" alt="Histories" />
-</div>
+# Example app with Storybook
 
-<div align="center">
-    <a href="https://www.histories.cc"><b>histories.cc</b></a>
-    •
-    <a href="https://gitpod.io/#https://github.com/histories-cc/histories"><b>Gitpod</b></a>
-</div>
-<br>
-<div align="center">
-    <img src="https://github.com/histories-cc/histories/actions/workflows/CI-and-deploy.yml/badge.svg" alt="CI and build"/> 
-    <img src="https://github.com/hiStories-cc/histories/actions/workflows/test-node.yml/badge.svg" alt="test"/>
-    <a href="https://gitpod.io/#https://github.com/histories-cc/histories"><img src="https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod" alt="Gitpod Ready-to-Code"/></a>
-</div>
+This example shows a default set up of Storybook using [storybook-addon-next](https://github.com/RyanClementsHax/storybook-addon-next). Included in this example are stories that demonstrate the ability to use Next.js features in Storybook.
 
-## About
+### TypeScript
 
-Histories is a social site for sharing historical photos of places, so anyone can see, how the place has changed over time.
-And it also is my high school final project.
+As of v6.0, Storybook has built-in TypeScript support, so no configuration is needed. If you want to customize the default configuration, refer to the [TypeScript docs](https://storybook.js.org/docs/react/configure/typescript).
 
-## Setup
+## Deploy your own
 
-[![Edit with Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/histories-cc/histories)
+Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-storybook)
 
-1. copy `.env.example` to `.env.local` and change values
-2. copy `nodemon.json.example` to `nodemon.json` and change values
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-storybook&project-name=with-storybook&repository-name=with-storybook)
 
-### Docker:
+## How to use
+
+Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
 
 ```bash
-docker build . -t histories
-docker run -p 80:3000 --env-file ./.env.local histories:latest
+npx create-next-app --example with-storybook with-storybook-app
+# or
+yarn create next-app --example with-storybook with-storybook-app
+# or
+pnpm create next-app --example with-storybook with-storybook-app
 ```
 
-### Setup dev server:
+### Run Storybook
 
 ```bash
-yarn
-docker-compose up -d
-yarn dev
+npm run storybook
+# or
+yarn storybook
 ```
 
-## Tech stack
+### Build Static Storybook
 
-- [Next.js](https://nextjs.org/)
-- [TypeScript](https://github.com/microsoft/TypeScript)
-- [GraphQL](https://graphql.org/)
-- [Neo4j](https://neo4j.com/)
-- [IPFS](https://ipfs.io/)
-
-## Project structure
-
-```
-hiStories/
-├── backend
-│   ├── database
-│   ├── email
-│   ├── IPFS
-│   └── graphql
-│       ├── resolvers (resolver functions)
-│       └── utils
-│           ├── apolloServer
-│           ├── schema
-│           └── type-defs
-├── dist (compiled backend)
-├── shared (used by backend and frontend)
-├── src (frontend)
-│   ├── graphql
-│   ├── hooks
-│   ├── tranlation (i18n)
-│   ├── pages (using nextjs routing)
-│   └── components (inspired by atomic design principles)
-│   │   ├── elements (small building blocks)
-│   │   ├── layouts (wrappers for templates)
-│   │   ├── modules (more building blocks together)
-│   │   └── templates (page specific content)
-└── public
+```bash
+npm run build-storybook
+# or
+yarn build-storybook
 ```
 
-# License
-
-Histories is open-sourced software licensed under the [MIT license](https://github.com/hiStories-cc/hiStories/blob/main/LICENSE.md).
+You can use [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) to deploy Storybook. Specify `storybook-static` as the output directory.

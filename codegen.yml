@@ -1,8 +1,8 @@
 overwrite: true
-schema: "https://api.histories.cc"
+schema: "https://4000-historiescc-backend-okexg6e89af.ws-eu54.gitpod.io/"
 documents: "src/**/*.graphql"
 generates:
-  src/graphql/index.tsx:
+  src/graphql/generated.ts:
     plugins:
       - "typescript"
       - "typescript-operations"
