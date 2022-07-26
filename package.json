@@ -19,6 +19,7 @@
     "js-cookie": "^3.0.1",
     "mapbox-gl": "^2.9.2",
     "next": "latest",
+    "next-seo": "^5.5.0",
     "next-themes": "^0.2.0",
     "nextjs-progressbar": "^0.0.14",
     "react": "^17.0.2",

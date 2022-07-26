@@ -1,8 +1,10 @@
 import Navbar from '@components/modules/Navbar';
 import { useRouter } from 'next/router';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useTransition } from 'react';
 import { useUserQuery } from '@graphql';
 import UserContext from '@src/contexts/UserContext';
+import { NextSeo } from 'next-seo';
+import { useTranslation } from 'react-i18next';
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -11,6 +13,7 @@ interface MainLayoutProps {
 
 const UserLayout: React.FC<MainLayoutProps> = ({ children, username }) => {
   // hooks
+  const { t } = useTranslation();
   const { data, loading, error, refetch } = useUserQuery({
     variables: { username },
   });
@@ -25,6 +28,14 @@ const UserLayout: React.FC<MainLayoutProps> = ({ children, username }) => {
         refetch,
       }}
     >
+      <NextSeo
+        title={
+          loading
+            ? t('loading')
+            : `${data?.user?.firstName} ${data?.user?.lastName}`
+        }
+      />
+
       <Navbar />
 
       <main className="sm:pt-20">{children}</main>

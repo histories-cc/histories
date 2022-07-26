@@ -38,17 +38,25 @@ const Avatar: React.FC<IAvatarProps> = ({
     );
   } else {
     return (
-      <Image
-        src={src}
-        width={size}
-        height={size}
+      <div
         style={{
-          borderRadius: '50%',
+          height: size,
+          width: size,
         }}
-        className="bg-disabled"
-        layout="fixed"
-        alt={t('translation:avatar:alt')}
-      />
+        className="relative"
+      >
+        <Image
+          src={src}
+          style={{
+            borderRadius: '50%',
+          }}
+          className="bg-disabled"
+          layout="fill"
+          objectFit="cover"
+          objectPosition="center"
+          alt={t('translation:avatar:alt')}
+        />
+      </div>
     );
   }
 };

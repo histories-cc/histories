@@ -2,6 +2,7 @@ module.exports = {
   reactStrictMode: true,
 
   images: {
-    domains: ['i.pravatar.cc'],
+    minimumCacheTTL: 60,
+    domains: ['i.pravatar.cc', 'external-content.duckduckgo.com'],
   },
 };

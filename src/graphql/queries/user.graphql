@@ -21,3 +21,9 @@ query User($username: String!) {
     isAdmin
   }
 }
+
+query UserProfile($username: String!) {
+  user(input: { username: $username }) {
+    id
+  }
+}

@@ -8,5 +8,6 @@
   },
   "avatar": {
     "alt": "User's profile image"
-  }
+  },
+  "loading": "Loading"
 }
