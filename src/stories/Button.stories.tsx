@@ -1,30 +1,34 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import React from 'react';
+import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import Button from "./Button";
+import { Button } from '../components/elements';
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "Example/Button",
+  title: 'Elements/Button',
   component: Button,
 } as ComponentMeta<typeof Button>;
 
 const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 
+const defaultValues = {
+  disabled: false,
+  children: 'Button',
+};
+
 export const Primary = Template.bind({});
 Primary.args = {
-  variant: "primary",
-  label: "Button",
+  ...defaultValues,
+  variant: 'primary',
 };
 
 export const Secondary = Template.bind({});
 Secondary.args = {
-  variant: "secondary",
-  label: "Button",
+  ...defaultValues,
+  variant: 'secondary',
 };
 
 export const Tertiary = Template.bind({});
 Tertiary.args = {
-  variant: "tertiary",
-  label: "Button",
+  ...defaultValues,
+  variant: 'tertiary',
 };

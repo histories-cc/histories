@@ -9,3 +9,52 @@ body {
     font-family: Poppins, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans,
         Droid Sans, Helvetica Neue, sans-serif;
 }
+
+/* HEADINGS */
+
+h1 {
+    font-weight: 700;
+    font-size: 72px;
+    line-height: 72px;
+    padding-bottom: 12px;
+}
+
+h2 {
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 40px;
+    padding-bottom: 8px;
+}
+
+h3 {
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 36px;
+    padding-bottom: 6px;
+}
+
+h4 {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 32px;
+    padding-bottom: 4px;
+}
+
+h5 {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 28px;
+    padding-bottom: 2px;
+}
+
+h6 {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 28px;
+}
+
+p {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+}

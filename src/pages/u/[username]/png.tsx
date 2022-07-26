@@ -1,14 +1,15 @@
-import React from "react";
-import Layout from "@components/layouts/User";
-import UsersPostsTemplate from "@components/templates/UserPostsTemplate";
-import { GetServerSidePropsContext } from "next";
+import React from 'react';
+import { GetServerSidePropsContext } from 'next';
+import { useTranslation } from 'react-i18next';
 
 interface IUserPageProps {
   username: string;
 }
 
 const UserPage: React.FC<IUserPageProps> = ({ username }) => {
-  return <div>{username}.png</div>;
+  const { t } = useTranslation();
+
+  return <img src="https://i.pravatar.cc" />;
 };
 
 export default UserPage;
