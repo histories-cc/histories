@@ -17,6 +17,7 @@
     "graphql": "^16.5.0",
     "i18next": "^21.8.14",
     "js-cookie": "^3.0.1",
+    "kbar": "^0.1.0-beta.36",
     "mapbox-gl": "^2.9.2",
     "next": "latest",
     "next-seo": "^5.5.0",
