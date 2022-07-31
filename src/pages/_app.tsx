@@ -14,7 +14,7 @@ import MeContext from '@src/contexts/MeContext';
 import { Toaster } from 'react-hot-toast';
 import { KBarProvider } from "kbar";
 import { KBarActions } from '@src/constants';
-import KBar from '@components/modules/kbar/KBar';
+import KBar from '@components/molecules/kbar/KBar';
 
 function MyApp({ Component, pageProps, router }: AppProps): JSX.Element {
   if (process.env.NEXT_PUBLIC_UNDER_MAINTENANCE && router.pathname !== "/storybook")

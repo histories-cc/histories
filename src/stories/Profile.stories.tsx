@@ -3,10 +3,10 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import {
   Profile as ProfileComponent,
   ProfileStats,
-} from '../components/modules/profile';
+} from '../components/molecules/profile';
 
 export default {
-  title: 'Modules/Profile',
+  title: 'Molecules/Profile',
   component: ProfileStats,
 } as ComponentMeta<typeof ProfileStats>;
 

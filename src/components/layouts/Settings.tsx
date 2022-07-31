@@ -1,5 +1,5 @@
-import Navbar from '@components/modules/Navbar';
-import SettingsNavigation from '@components/modules/SettingsNavigation';
+import Navbar from '@components/molecules/Navbar';
+import SettingsNavigation from '@components/molecules/SettingsNavigation';
 import MeContext from '@src/contexts/MeContext';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect } from 'react';

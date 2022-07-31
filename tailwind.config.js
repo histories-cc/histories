@@ -11,6 +11,7 @@ module.exports = {
         erie: '#201E1F',
         dark: '#201E1F',
         disabled: '#D2D7DF',
+        light: "#F4F4F6"
       },
       borderRadius: {
         classic: '8px',

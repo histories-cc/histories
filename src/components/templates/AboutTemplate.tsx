@@ -1,7 +1,7 @@
 import Image from "next/image";
-import { Button } from "@components/elements";
+import { Button } from "@components/atoms";
 
-import Wave from "@components/elements/svgs/Wave";
+import Wave from "@components/atoms/svgs/Wave";
 import React from "react";
 import { useTranslation } from "react-i18next";
 

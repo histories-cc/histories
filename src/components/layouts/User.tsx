@@ -1,4 +1,4 @@
-import Navbar from '@components/modules/Navbar';
+import Navbar from '@components/molecules/Navbar';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useTransition } from 'react';
 import { useUserQuery } from '@graphql';

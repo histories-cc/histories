@@ -1,4 +1,4 @@
-import { Avatar } from '../../elements';
+import { Avatar } from '../../atoms';
 import Link from 'next/link';
 import React from 'react';
 import ProfileStats, { IProfileStatsProps } from './Stats';

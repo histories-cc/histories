@@ -1,4 +1,4 @@
-import { Button } from "@components/elements";
+import { Button } from "@components/atoms";
 import Layout from "@components/layouts/Main";
 import Link from "next/link";
 import { useTheme } from "next-themes";

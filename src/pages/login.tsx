@@ -1,5 +1,5 @@
-import { Input } from "@components/elements";
-import { Button } from "@components/elements";
+import { Input } from "@components/atoms";
+import { Button } from "@components/atoms";
 
 import AuthLayout from "@components/layouts/Auth";
 import { useLoginMutation } from "@graphql";

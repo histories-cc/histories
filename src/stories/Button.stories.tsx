@@ -1,10 +1,10 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { Button } from '../components/elements';
+import { Button } from '../components/atoms';
 
 export default {
-  title: 'Elements/Button',
+  title: 'Atoms/Button',
   component: Button,
 } as ComponentMeta<typeof Button>;
 

@@ -1,4 +1,4 @@
-import { DeleteAccountModal } from '@components/modules/modals';
+import { DeleteAccountModal } from '@components/molecules/modals';
 import React, { useState } from 'react';
 
 const AccountSettingsTemplate: React.FC = () => {

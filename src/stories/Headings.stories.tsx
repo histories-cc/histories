@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { HeadingsList } from './lists';
 
 export default {
-  title: 'Elements/Headings',
+  title: 'Atoms/Headings',
   component: HeadingsList,
 } as ComponentMeta<typeof HeadingsList>;
 

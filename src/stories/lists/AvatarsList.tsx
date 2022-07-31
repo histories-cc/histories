@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar } from '../../components/elements';
+import { Avatar } from '../../components/atoms';
 
 interface IHeadingsProps {
   loading?: boolean;

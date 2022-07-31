@@ -1,4 +1,4 @@
-import Splash from '@components/elements/svgs/Splash';
+import Splash from '@components/atoms/svgs/Splash';
 import Head from 'next/head';
 
 import Image from 'next/image';

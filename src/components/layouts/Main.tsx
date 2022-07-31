@@ -1,4 +1,4 @@
-import Navbar from '@components/modules/Navbar';
+import Navbar from '@components/molecules/Navbar';
 import React, { useContext, useEffect } from 'react';
 
 interface MainLayoutProps {
