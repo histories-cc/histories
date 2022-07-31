@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { HeartIcon } from "@heroicons/react/solid"
-import { Avatar } from "@components/atoms"
+import { Avatar } from "../atoms"
 
 interface ICommentProps {
     id: string
