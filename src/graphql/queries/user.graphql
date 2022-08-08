@@ -22,8 +22,13 @@ query User($username: String!) {
   }
 }
 
-query UserProfile($username: String!) {
+query UserProfilePicture($username: String!) {
   user(input: { username: $username }) {
-    id
+    firstName
+    lastName
+    profileRel{
+      url
+    }
   }
 }
+

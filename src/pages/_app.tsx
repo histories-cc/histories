@@ -6,7 +6,7 @@ import client from '../services/apollo';
 import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'next-themes';
 import NextNprogress from 'nextjs-progressbar';
-import React, { useEffect } from 'react';
+import React, {   } from 'react';
 import { orange_main } from '@src/constants/constants';
 import UnderMaintenancePage from '@components/templates/UnderMaintenance';
 import { useMeQuery } from '@graphql';

@@ -13,7 +13,7 @@ module.exports = {
 
   images: {
     minimumCacheTTL: 60,
-    domains: ['i.pravatar.cc', 'external-content.duckduckgo.com'],
+    domains: ['i.pravatar.cc', 'avatars.dicebear.com'],
   },
 
 

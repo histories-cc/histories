@@ -23,7 +23,7 @@ const Profile: React.FC<IProfileProps> = ({
       {/* PROFILE PICTURE */}
       <Link href={`/u/${username}/png`} passHref>
         <div>
-          <Avatar src="https://i.pravatar.cc" size="4xl" loading={loading} />
+          <Avatar src={`https://avatars.dicebear.com/api/initials/${firstName}-${lastName||""}.svg`} size="4xl" loading={loading} />
         </div>
       </Link>
 

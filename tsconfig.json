@@ -23,5 +23,5 @@
     "incremental": true
   },
   "exclude": ["node_modules", ".next", "out", "storybook-static"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/u/[username]/png.tsx"]
 }
