@@ -26,7 +26,7 @@ export interface IProfileStatsProps {
   followers: number;
   following: number;
   posts: number;
-  loading: boolean;
+  loading?: boolean;
 }
 
 const ProfileStats: React.FC<IProfileStatsProps> = ({

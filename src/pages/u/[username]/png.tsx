@@ -19,10 +19,9 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     variables: { username: ctx.query.username }
   })
 
-
-  return {
+   return {
     props: {
-      url: res.data.profileRel?.url ?? `https://avatars.dicebear.com/api/initials/${res.data.firstName}-${res.data.lastName ?? ""}.svg`
+      url: res.data.user.profileRel?.url || `https://avatars.dicebear.com/api/initials/${res.data.user.firstName}-${res.data.user.lastName ?? ""}.svg`
     },
   };
 };

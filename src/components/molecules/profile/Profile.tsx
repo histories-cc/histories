@@ -19,7 +19,7 @@ const Profile: React.FC<IProfileProps> = ({
   loading,
 }) => {
   return (
-    <section className="grid justify-items-center w-[400px]">
+    <div className="grid justify-items-center w-[400px]">
       {/* PROFILE PICTURE */}
       <Link href={`/u/${username}/png`} passHref>
         <div>
@@ -45,7 +45,7 @@ const Profile: React.FC<IProfileProps> = ({
       {/* SPACING */}
       <div className="h-6" />
       <ProfileStats {...{ followers, following, posts, loading }} />
-    </section>
+    </div>
   );
 };
 export default Profile;

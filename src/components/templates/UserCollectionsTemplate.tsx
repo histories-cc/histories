@@ -2,10 +2,10 @@
 import UserContext from '@src/contexts/UserContext';
 import React, { useContext } from 'react';
 
-const UsersPostsTemplate: React.FC = () => {
+const UsersCollectionsTemplate: React.FC = () => {
   return <div className='w-full'>
-    posts
+    collections
   </div>;
 };
 
-export default UsersPostsTemplate;
+export default UsersCollectionsTemplate;
