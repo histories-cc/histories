@@ -2137,26 +2137,9 @@
     prop-types "^15.7.2"
     regenerator-runtime "^0.13.7"
 
-"@storybook/addons@6.5.9", "@storybook/addons@^6.4.10":
+"@storybook/addons@6.5.9", "@storybook/addons@^6.4.10", "@storybook/addons@^6.5.9":
   version "6.5.9"
   resolved "https://registry.npmjs.org/@storybook/addons/-/addons-6.5.9.tgz"
-  integrity sha512-adwdiXg+mntfPocLc1KXjZXyLgGk7Aac699Fwe+OUYPEC5tW347Rm/kFatcE556d42o5czcRiq3ZSIGWnm9ieQ==
-  dependencies:
-    "@storybook/api" "6.5.9"
-    "@storybook/channels" "6.5.9"
-    "@storybook/client-logger" "6.5.9"
-    "@storybook/core-events" "6.5.9"
-    "@storybook/csf" "0.0.2--canary.4566f4d.1"
-    "@storybook/router" "6.5.9"
-    "@storybook/theming" "6.5.9"
-    "@types/webpack-env" "^1.16.0"
-    core-js "^3.8.2"
-    global "^4.4.0"
-    regenerator-runtime "^0.13.7"
-
-"@storybook/addons@^6.5.9":
-  version "6.5.9"
-  resolved "https://registry.yarnpkg.com/@storybook/addons/-/addons-6.5.9.tgz#5a9d7395c579a9cbc44dfc122362fb3c95dfb9d5"
   integrity sha512-adwdiXg+mntfPocLc1KXjZXyLgGk7Aac699Fwe+OUYPEC5tW347Rm/kFatcE556d42o5czcRiq3ZSIGWnm9ieQ==
   dependencies:
     "@storybook/api" "6.5.9"
@@ -2826,19 +2809,9 @@
     read-pkg-up "^7.0.1"
     regenerator-runtime "^0.13.7"
 
-"@storybook/theming@6.5.9":
+"@storybook/theming@6.5.9", "@storybook/theming@^6.5.9":
   version "6.5.9"
   resolved "https://registry.npmjs.org/@storybook/theming/-/theming-6.5.9.tgz"
-  integrity sha512-KM0AMP5jMQPAdaO8tlbFCYqx9uYM/hZXGSVUhznhLYu7bhNAIK7ZVmXxyE/z/khM++8eUHzRoZGiO/cwCkg9Xw==
-  dependencies:
-    "@storybook/client-logger" "6.5.9"
-    core-js "^3.8.2"
-    memoizerific "^1.11.3"
-    regenerator-runtime "^0.13.7"
-
-"@storybook/theming@^6.5.9":
-  version "6.5.9"
-  resolved "https://registry.yarnpkg.com/@storybook/theming/-/theming-6.5.9.tgz#13f60a3a3cd73ceb5caf9f188e1627e79f1891aa"
   integrity sha512-KM0AMP5jMQPAdaO8tlbFCYqx9uYM/hZXGSVUhznhLYu7bhNAIK7ZVmXxyE/z/khM++8eUHzRoZGiO/cwCkg9Xw==
   dependencies:
     "@storybook/client-logger" "6.5.9"

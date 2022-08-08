@@ -1,5 +1,5 @@
 overwrite: true
-schema: "https://4000-historiescc-backend-okexg6e89af.ws-eu54.gitpod.io/"
+schema: "https://4000-historiescc-backend-okexg6e89af.ws-eu59.gitpod.io/"
 documents: "src/**/*.graphql"
 generates:
   src/graphql/generated.ts:
