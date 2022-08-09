@@ -1,0 +1,1 @@
+export { default as IndexPageMap} from './indexPageMap/IndexPageMap'

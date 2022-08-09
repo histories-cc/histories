@@ -1,16 +1,22 @@
 import Layout from '@components/layouts/Main';
+import { IndexPageMap } from '@components/molecules/maps';
 import MeContext from '@src/contexts/MeContext';
-import Head from 'next/head';
-import Image from 'next/image';
-import { useContext } from 'react';
-import styles from '../styles/Home.module.css';
+import React, { useContext, } from 'react';
+import { MapProvider } from 'react-map-gl';
 
-export default function Home() {
+const IndexPage: React.FC = () => {
   const { me } = useContext(MeContext);
 
+
   return (
-    <Layout>
-      <div>{JSON.stringify(me)}</div>
-    </Layout>
+    <MapProvider>
+      <Layout>
+        <IndexPageMap />
+      </Layout>
+    </MapProvider>
   );
 }
+
+
+
+export default IndexPage

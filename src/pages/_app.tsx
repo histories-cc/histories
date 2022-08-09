@@ -1,5 +1,6 @@
 import '../translation/i18n';
 import '../styles/main.css';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 import { ApolloProvider } from '@apollo/client';
 import client from '../services/apollo';

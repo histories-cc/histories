@@ -17,3 +17,6 @@ export interface IUserContext {
   error: ApolloError | undefined;
   refetch: (() => Promise<ApolloQueryResult<UserQuery>>) | undefined;
 }
+
+
+ 
