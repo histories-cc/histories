@@ -56,7 +56,7 @@ export const loggedActions:Action[] = [
         name: "Log out", 
         keywords: "logout signout",
         icon: <LogoutIcon className="w-5" />,
-        perform: () => (window.location.pathname = "/logout"),
+        perform: () => (window.location.pathname = "/auth/logout"),
     },
     {
         id: "createpost",
