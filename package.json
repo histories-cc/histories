@@ -21,6 +21,7 @@
     "kbar": "^0.1.0-beta.36",
     "mapbox-gl": "^2.9.2",
     "next": "latest",
+    "next-pwa": "^5.5.5",
     "next-seo": "^5.5.0",
     "next-themes": "^0.2.0",
     "nextjs-progressbar": "^0.0.14",
@@ -31,7 +32,8 @@
     "react-i18next": "^11.18.1",
     "react-icons": "^4.4.0",
     "react-map-gl": "^7.0.18",
-    "sass": "^1.49.0"
+    "sass": "^1.49.0",
+    "sharp": "^0.30.7"
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",

@@ -32,10 +32,7 @@ yarn-error.log*
 
 # vercel
 .vercel
-
-# storybook
-public/storybook
-
+ 
 # typescript
 *.tsbuildinfo
 

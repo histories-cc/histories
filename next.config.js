@@ -1,4 +1,14 @@
-module.exports = {
+const withPWA = require("next-pwa");
+
+module.exports = withPWA({
+  pwa: {
+    dest: "public",
+    register: true,
+    skipWaiting: true,
+    disable:process.env.NODE_ENV === 'development'
+  },
+
+
   reactStrictMode: true,
 
   async redirects() {
@@ -12,9 +22,12 @@ module.exports = {
   },
 
   images: {
-    minimumCacheTTL: 60,
+    minimumCacheTTL: 345600,
     domains: ['i.pravatar.cc', 'avatars.dicebear.com'],
+    formats: ['image/avif', 'image/webp'],
+    deviceSizes: [ 640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384, 512, 1080, 1200, 1920, 2048, 3840],
   },
 
 
-};
+});

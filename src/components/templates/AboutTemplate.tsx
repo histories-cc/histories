@@ -4,6 +4,7 @@ import { Button } from "@components/atoms";
 import Wave from "@components/atoms/svgs/Wave";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import PhonesImage from "../../../public/assets/phones.png"
 
 const AboutTemplate: React.FC = () => {
   const { t } = useTranslation();
@@ -45,7 +46,7 @@ const AboutTemplate: React.FC = () => {
         {/* PHONES */}
         <div className="absolute z-10 w-4/5 lg:w-[789px] right-1/2 translate-x-1/2 lg:translate-x-0 lg:right-[60px] transition-all ease-in-out duration-500 top-[100vh] lg:top-1/2 translate-y-0 lg:-translate-y-1/2">
           <Image
-            src="/assets/phones.png"
+            src={PhonesImage} 
             alt={t("about_page_phones_alt")}
             width="789px"
             height="670px"
