@@ -6,8 +6,8 @@
       "posts": "Posts"
     }
   },
-  "avatar": {
-    "alt": "User's profile image"
-  },
-  "loading": "Loading"
+  "500": {
+    "error": "...",
+    "refresh": "Refresh"
+  }
 }

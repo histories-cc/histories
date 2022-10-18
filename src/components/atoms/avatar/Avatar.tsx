@@ -1,6 +1,5 @@
 import React from 'react';
 import Image from 'next/image';
-import { useTranslation } from 'react-i18next';
 
 interface IAvatarProps {
   src: string;
@@ -13,8 +12,6 @@ const Avatar: React.FC<IAvatarProps> = ({
   size: argSize = 'md',
   loading,
 }) => {
-  const { t } = useTranslation();
-
   const sizes = {
     '4xl': '200px',
     '3xl': '160px',
@@ -54,7 +51,6 @@ const Avatar: React.FC<IAvatarProps> = ({
           layout="fill"
           objectFit="cover"
           objectPosition="center"
-          alt={t('translation:avatar:alt')}
         />
       </div>
     );

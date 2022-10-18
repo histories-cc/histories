@@ -1,0 +1,10 @@
+{
+  "links": {
+    "forgot_password": "Zapomenuté heslo"
+  },
+  "buttons": {
+    "log_in": "Přihlásit se",
+    "register": "Registrace",
+    "continue_without_account": "Pokračovat bez přihlášení"
+  }
+}

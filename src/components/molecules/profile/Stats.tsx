@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import useTranslation from 'next-translate/useTranslation';
 
 // COLUMN
 interface IColumnProps {
@@ -35,16 +35,16 @@ const ProfileStats: React.FC<IProfileStatsProps> = ({
   posts,
 }) => {
   // hooks
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
 
   // variables
-  const translationPrefix = 'translation:profile:stats';
+  const translationPrefix = 'profile.stats';
 
   return (
     <div className="flex justify-between w-[300px]">
-      <Column value={followers} title={t(`${translationPrefix}:followers`)} />
-      <Column value={following} title={t(`${translationPrefix}:following`)} />
-      <Column value={posts} title={t(`${translationPrefix}:posts`)} />
+      <Column value={followers} title={t(`${translationPrefix}.followers`)} />
+      <Column value={following} title={t(`${translationPrefix}.following`)} />
+      <Column value={posts} title={t(`${translationPrefix}.posts`)} />
     </div>
   );
 };
