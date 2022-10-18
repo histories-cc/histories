@@ -1,5 +1,4 @@
 import '../src/styles/main.css';
-import '../src/translation/i18n';
 
 import * as nextImage from 'next/image';
 
