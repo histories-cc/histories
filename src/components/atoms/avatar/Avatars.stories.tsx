@@ -1,12 +1,13 @@
 import React from 'react';
-import { Avatar } from '../../components/atoms';
+import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { Avatar } from '..';
 
-interface IHeadingsProps {
+interface IAvatarsList {
   loading?: boolean;
   src?: string;
 }
 
-const HeadingsList: React.FC<IHeadingsProps> = ({
+const AvatarsList: React.FC<IAvatarsList> = ({
   loading,
   src = 'https://i.pravatar.cc',
 }) => {
@@ -29,4 +30,17 @@ const HeadingsList: React.FC<IHeadingsProps> = ({
   );
 };
 
-export default HeadingsList;
+export default {
+  title: 'Atoms/Avatars',
+  component: AvatarsList,
+} as ComponentMeta<typeof AvatarsList>;
+
+const Template: ComponentStory<typeof AvatarsList> = (args) => (
+  <AvatarsList {...args} />
+);
+
+export const All = Template.bind({});
+All.args = {
+  src: '',
+  loading: false,
+};

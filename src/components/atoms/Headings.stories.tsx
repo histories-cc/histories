@@ -1,4 +1,5 @@
 import React from 'react';
+import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 interface IHeadingsProps {
   showSizes?: boolean;
@@ -18,4 +19,17 @@ const HeadingsList: React.FC<IHeadingsProps> = ({ showSizes, text }) => {
   );
 };
 
-export default HeadingsList;
+export default {
+  title: 'Atoms/Headings',
+  component: HeadingsList,
+} as ComponentMeta<typeof HeadingsList>;
+
+const Template: ComponentStory<typeof HeadingsList> = (args) => (
+  <HeadingsList {...args} />
+);
+
+export const All = Template.bind({});
+All.args = {
+  showSizes: true,
+  text: 'The quick brown fox jumps over the lazy dog.',
+};

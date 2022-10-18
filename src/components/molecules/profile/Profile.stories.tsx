@@ -1,9 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import {
-  Profile as ProfileComponent,
-  ProfileStats,
-} from '../components/molecules/profile';
+import { Profile as ProfileComponent, ProfileStats } from './index';
 
 export default {
   title: 'Molecules/Profile',

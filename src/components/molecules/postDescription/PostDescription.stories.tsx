@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import PostDescriptionComponent from '../components/molecules/PostDescription';
+import { PostDescription as PostDescriptionComponent } from '../index';
 
 export default {
   title: 'Molecules/Post/Description',
@@ -8,19 +8,21 @@ export default {
 } as ComponentMeta<typeof PostDescriptionComponent>;
 
 const Template: ComponentStory<typeof PostDescriptionComponent> = (args) => (
-  <div className='bg-light h-[80vh] p-10'><PostDescriptionComponent {...args} /></div>
+  <div className="bg-light h-[80vh] p-10">
+    <PostDescriptionComponent {...args} />
+  </div>
 );
 
 export const Description = Template.bind({});
 Description.args = {
-  id: "id",
+  id: 'id',
   author: {
-    firstName: "Kryštof",
-    lastName: "Krátký",
-    username: "krystxf",
-    profile: "https://i.pravatar.cc"
+    firstName: 'Kryštof',
+    lastName: 'Krátký',
+    username: 'krystxf',
+    profile: 'https://i.pravatar.cc',
   },
   createdAt: new Date(),
   iLike: false,
-  likes: 32
-}; 
+  likes: 32,
+};

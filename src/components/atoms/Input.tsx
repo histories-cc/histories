@@ -62,6 +62,7 @@ const Input: React.FC<InputProps> = ({
             {leftIcon}
           </span>
         )}
+
         {/* INPUT */}
         {type === 'textarea' ? (
           <textarea
@@ -81,30 +82,29 @@ const Input: React.FC<InputProps> = ({
             disabled={disabled}
             placeholder={placeholder}
             className={`${
-              type === 'checkbox' ? '' : 'h-14 w-full font-semibold rounded-lg'
+              type === 'checkbox'
+                ? ''
+                : 'h-14 w-full px-4 mt-1 font-semibold rounded-lg bg-marble relative focus:outline-none focus:ring focus:ring-brand'
             }
             ${error === undefined ? 'border-gray-300 ' : 'border-red-500'} ${
               hasLeftIcon ? 'pl-8' : ''
             } ${hasRightIcon ? 'pr-8' : ''}`}
-            {...register(name, options)}
             autoComplete={autoComplete}
           />
         )}
 
         {/* RIGHT ICON */}
-        {hasRightIcon && (
-          <span className="flex items-center pr-3">
-            {type === 'password' ? (
-              showPassword ? (
-                <HiOutlineEyeOff onClick={() => setShowPassword(false)} />
-              ) : (
-                <HiOutlineEye onClick={() => setShowPassword(true)} />
-              )
+        <span className="flex items-center absolute right-5 top-1/2 -translate-y-1/2">
+          {type === 'password' ? (
+            showPassword ? (
+              <HiOutlineEyeOff onClick={() => setShowPassword(false)} />
             ) : (
-              rightIcon
-            )}
-          </span>
-        )}
+              <HiOutlineEye onClick={() => setShowPassword(true)} />
+            )
+          ) : (
+            rightIcon
+          )}
+        </span>
       </div>
       <span className="text-red-500"> {error}</span>
     </div>

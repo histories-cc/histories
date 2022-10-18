@@ -1,14 +1,18 @@
 tasks:
-  - name: Setup 
+  - name: Setup
     init: |
       yarn install --frozen-lockfile --silent --network-timeout 100000;
       cp .env.example .env.local;
       yarn build;
       gp sync-done setup;
     command: yarn dev
+
   - name: Storybook
     init: gp sync-await setup
     command: yarn sb
+
+  - name: Docker compose
+    command: docker-compose up
 
 github:
   prebuilds:
@@ -28,7 +32,6 @@ ports:
     onOpen: notify
     visibility: public
 
-
 vscode:
   extensions:
     - dbaeumer.vscode-eslint
@@ -37,4 +40,3 @@ vscode:
     - esbenp.prettier-vscode
     - wix.vscode-import-cost
     - pkief.material-icon-theme
-
