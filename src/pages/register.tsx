@@ -1,16 +1,16 @@
-import { Input } from "@components/atoms";
-import { Button } from "@components/atoms";
-import AuthLayout from "@components/layouts/Auth";
-import { useLoginMutation, useRegisterMutation } from "@graphql";
-import { ILoginFormInput, IRegisterFormInput } from "../types/forms";
-import Cookie from "js-cookie";
-import Link from "next/link";
-import Router from "next/router";
-import React, { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "react-hot-toast";
-import { useTranslation } from "react-i18next";
-import { FiUser } from "react-icons/fi";
+import { Input } from '@components/atoms';
+import { Button } from '@components/atoms';
+import AuthLayout from '@components/layouts/Auth';
+import { useLoginMutation, useRegisterMutation } from '@graphql';
+import { ILoginFormInput, IRegisterFormInput } from '../types/forms';
+import Cookie from 'js-cookie';
+import Link from 'next/link';
+import Router from 'next/router';
+import React, { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
+import { FiUser } from 'react-icons/fi';
 
 const Login: React.FC = () => {
   // states
@@ -29,10 +29,10 @@ const Login: React.FC = () => {
           input: data,
         },
       });
-      if (result.data?.createUser !== "error") {
+      if (result.data?.createUser !== 'error') {
         // login successful
-        Cookie.set("session", result.data?.createUser as string, {
-          sameSite: "strict",
+        Cookie.set('session', result.data?.createUser as string, {
+          sameSite: 'strict',
         });
         Router.reload();
       }
@@ -52,53 +52,67 @@ const Login: React.FC = () => {
         <div className="w-full">
           <div className="flex flex-col max-w-2xl m-auto">
             {/* USERNAME */}
-            <label className="label">username</label>
-            <input
-              {...register("username", { required: true })}
-              className="text-input"
+            <Input
+              label={t('username')}
+              register={register}
+              name="username"
+              options={{ required: true }}
             />
+
             {/* EMAIL */}
-            <label className="label">email</label>
-            <input
+            <Input
+              label={t('emai')}
+              register={register}
+              name="email"
               type="email"
-              {...register("email", { required: true })}
-              className="text-input"
+              options={{ required: true }}
             />
-            {/* FIRST NAME */}
-            <label className="label">first name</label>
-            <input
-              {...register("firstName", { required: true })}
-              className="text-input"
-            />
-            {/* LAST NAME */}
-            <label className="label">last name</label>
-            <input
-              {...register("lastName", { required: false })}
-              className="text-input"
-            />
+
+            <div className="flex gap-2 flex-col md:flex-row">
+              {/* FIRST NAME */}
+              <Input
+                label={t('first_name')}
+                register={register}
+                name="firstName"
+                options={{ required: true }}
+              />
+
+              {/* LAST NAME */}
+              <Input
+                label={t('last_name')}
+                register={register}
+                name="lastName"
+                options={{ required: false }}
+              />
+            </div>
+
             {/* PASSWORD */}
-            <label className="label">password</label>
-            <input
+            <Input
+              label={t('password')}
               type="password"
-              {...register("password", { required: true })}
-              className="text-input"
+              register={register}
+              name="password"
+              options={{ required: true, minLength: 8 }}
+              autoComplete="password"
             />
           </div>
         </div>
 
         <div className="w-full">
-          <div className="flex flex-col justify-center max-w-lg m-auto">
+          <div className="flex flex-col justify-center max-w-lg m-auto gap-2">
             <div className="flex items-center justify-center pb-4">
               {
                 // <GoogleAuthButton />
               }
             </div>
-            <Button disabled={loading}>{t("register")}</Button>
+            <Button disabled={loading}>{t('register')}</Button>
             <Link href="/login" passHref>
-              <Button>{t("log in")}</Button>
+              <Button variant="secondary">{t('log in')}</Button>
             </Link>
             <Link href="/" passHref>
-              <Button>{t("continue_without_account")}</Button>
+              <Button variant="secondary">
+                {t('continue_without_account')}
+              </Button>
             </Link>
           </div>
         </div>
