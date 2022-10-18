@@ -4,6 +4,7 @@
     "dev": "next dev",
     "build": "next build",
     "onlybuild": "next build",
+    "prebuild":"yarn codegen",
     "postbuild": "yarn sb:build",
     "start": "next start",
     "sb": "start-storybook -p 6006",
