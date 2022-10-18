@@ -11,8 +11,9 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { FiUser } from 'react-icons/fi';
 import useTranslation from 'next-translate/useTranslation';
+import { NextPage } from 'next';
 
-const Register: React.FC = () => {
+const Register: NextPage = () => {
   // states
   const [loading, setLoading] = useState(false); // loading after submiting
 
@@ -61,7 +62,7 @@ const Register: React.FC = () => {
 
             {/* EMAIL */}
             <Input
-              label={t('forms:emai')}
+              label={t('forms:email')}
               register={register}
               name="email"
               type="email"

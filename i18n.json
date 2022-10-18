@@ -6,7 +6,6 @@
     "*": ["common", "forms"],
     "/login": ["login"],
     "/register": ["register"],
-    "/about": ["about"],
-    "/404": ["404"]
+    "/about": ["about"]
   }
 }

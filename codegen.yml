@@ -1,12 +1,12 @@
 overwrite: true
-schema: "https://4000-historiescc-backend-okexg6e89af.ws-eu59.gitpod.io/"
-documents: "src/**/*.graphql"
+schema: 'https://4000-historiescc-backend-rjexi52999c.ws-eu71.gitpod.io/'
+documents: 'src/**/*.graphql'
 generates:
   src/graphql/generated.ts:
     plugins:
-      - "typescript"
-      - "typescript-operations"
-      - "typescript-react-apollo"
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-react-apollo'
   ./graphql.schema.json:
     plugins:
-      - "introspection"
+      - 'introspection'

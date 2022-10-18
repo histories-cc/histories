@@ -5,8 +5,9 @@ import { useTheme } from 'next-themes';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import ReactMapGL from 'react-map-gl';
+import { NextPage } from 'next';
 
-const Error500Page: React.FC = () => {
+const Error500Page: NextPage = () => {
   const { t } = useTranslation('common');
   const { resolvedTheme } = useTheme();
 

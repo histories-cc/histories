@@ -6,17 +6,18 @@ import { useTheme } from 'next-themes';
 import React from 'react';
 import ReactMapGL from 'react-map-gl';
 import useTranslation from 'next-translate/useTranslation';
+import { NextPage } from 'next';
 
-const Error404Page: React.FC = () => {
-  const { t } = useTranslation('404');
+const Error404Page: NextPage = () => {
+  const { t } = useTranslation('common');
   const { resolvedTheme } = useTheme();
 
   return (
     <Layout>
       <div className="absolute top-0 left-0 z-10 flex flex-col items-center justify-center w-full h-full bg-white/60 dark:bg-black/60 gap-6">
-        <h1 className="text-3xl font-semibold">{t('page_not_found')}</h1>
+        <h1 className="text-3xl font-semibold">{t('404.page_not_found')}</h1>
         <Link href="/" passHref>
-          <Button>{t('go_to_map')}</Button>
+          <Button>{t('404.go_to_map')}</Button>
         </Link>
       </div>
       <div className="absolute top-0 left-0 w-full h-full bg-gray-200">

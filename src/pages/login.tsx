@@ -12,8 +12,9 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import useTranslation from 'next-translate/useTranslation';
 import { FiUser } from 'react-icons/fi';
+import { NextPage } from 'next';
 
-const Login: React.FC = () => {
+const Login: NextPage = () => {
   const [login] = useLoginMutation(); // login mutation
   const [loading, setLoading] = useState(false); // loading after submiting
   const { t } = useTranslation('login'); // translation

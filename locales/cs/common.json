@@ -5,9 +5,13 @@
       "following": "Sleduje",
       "posts": "Příspěvky"
     }
-  }, 
+  },
   "500": {
     "error": "...",
     "refresh": "Znovu načíst stránku"
+  },
+  "404": {
+    "page_not_found": "Stránka nenalezena",
+    "go_to_map": "Na mapu"
   }
 }
