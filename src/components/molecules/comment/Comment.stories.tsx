@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import CommentComponent from '../components/molecules/Comment';
+import CommentComponent from './Comment';
 
 export default {
   title: 'Molecules/Post/Comment',
@@ -13,14 +13,14 @@ const Template: ComponentStory<typeof CommentComponent> = (args) => (
 
 export const Comment = Template.bind({});
 Comment.args = {
-  id: "id",
+  id: 'id',
   author: {
-    firstName: "Kryštof",
-    lastName: "Krátký",
-    username: "krystxf",
-    profile: "https://i.pravatar.cc"
+    firstName: 'Kryštof',
+    lastName: 'Krátký',
+    username: 'krystxf',
+    profile: 'https://i.pravatar.cc',
   },
   createdAt: new Date(),
   iLike: false,
-  likes: 32
-}; 
+  likes: 32,
+};

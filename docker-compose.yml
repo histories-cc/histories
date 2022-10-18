@@ -1,0 +1,59 @@
+version: '3.2'
+
+services:
+  postgres:
+    image: 'postgres:latest'
+
+    restart: unless-stopped
+
+    ports:
+      - 5432:5432
+
+    environment:
+      POSTGRES_USER: histories
+      POSTGRES_PASSWORD: histories
+      POSTGRES_DB: histories
+
+    volumes:
+      - PostgresData:/data
+
+  minio:
+    image: 'bitnami/minio:latest'
+
+    restart: unless-stopped
+
+    ports:
+      - 9000:9000
+      - 9001:9001
+
+    environment:
+      MINIO_ROOT_USER: histories
+      MINIO_ROOT_PASSWORD: histories
+      MINIO_DEFAULT_BUCKETS: histories
+
+    volumes:
+      - MinioData:/data
+  redis:
+    image: 'redis:alpine'
+    command: redis-server
+    restart: unless-stopped
+
+    expose:
+      - '6379'
+
+  backend:
+    image: 'krystofex/histories-backend:alpha'
+
+    restart: unless-stopped
+
+    ports:
+      - 4000:4000
+
+    environment:
+      MINIO_ROOT_USER: 'postgresql://histories:histories@localhost:5432/histories?schema=public'
+
+volumes:
+  PostgresData:
+    driver: local
+  MinioData:
+    driver: local
