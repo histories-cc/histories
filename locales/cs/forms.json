@@ -1,0 +1,8 @@
+{
+  "username": "Uřivatelské jméno",
+  "first_name": "Křestní jméno",
+  "last_name": "Příjmení",
+  "email": "Email",
+  "password": "Heslo",
+  "username_or_email": "Uživatelské jméno, nebo email"
+}

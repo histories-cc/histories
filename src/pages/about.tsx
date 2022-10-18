@@ -1,11 +1,9 @@
 import Main from '@components/layouts/Main';
 import AboutTemplate from '@components/templates/AboutTemplate';
+import { NextPage } from 'next';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
-const AboutPage: React.FC = () => {
-  const { t } = useTranslation();
-
+const AboutPage: NextPage = () => {
   return (
     <Main>
       <AboutTemplate />

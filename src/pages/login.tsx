@@ -10,13 +10,14 @@ import Router from 'next/router';
 import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
+import useTranslation from 'next-translate/useTranslation';
 import { FiUser } from 'react-icons/fi';
+import { NextPage } from 'next';
 
-const Login: React.FC = () => {
+const Login: NextPage = () => {
   const [login] = useLoginMutation(); // login mutation
   const [loading, setLoading] = useState(false); // loading after submiting
-  const { t } = useTranslation(); // translation
+  const { t } = useTranslation('login'); // translation
 
   const { register, handleSubmit } = useForm<ILoginFormInput>();
 
@@ -53,14 +54,14 @@ const Login: React.FC = () => {
         <div className="w-full">
           <div className="flex flex-col max-w-2xl m-auto gap-4">
             <Input
-              label={t('username_or_email')}
+              label={t('forms:username_or_email')}
               register={register}
               name="login"
               options={{ required: true, minLength: 2, maxLength: 256 }}
               autoComplete="username"
             />
             <Input
-              label={t('password')}
+              label={t('forms:password')}
               type="password"
               register={register}
               name="password"
@@ -69,7 +70,7 @@ const Login: React.FC = () => {
             />
             <div className="flex justify-end">
               <Link href="/forgot-password">
-                <a className="pl-2 underline">{t('forgot_password')}</a>
+                <a className="pl-2 underline">{t('links.forgot_password')}</a>
               </Link>
             </div>
           </div>
@@ -81,13 +82,13 @@ const Login: React.FC = () => {
                 // <GoogleAuthButton />
               }
             </div>
-            <Button loading={loading}>{t('login')}</Button>
+            <Button loading={loading}>{t('buttons.login')}</Button>
             <Link href="/register" passHref>
-              <Button variant="secondary">{t('register')}</Button>
+              <Button variant="secondary">{t('buttons.register')}</Button>
             </Link>
             <Link href="/" passHref>
               <Button variant="secondary">
-                {t('continue_without_account')}
+                {t('buttons.continue_without_account')}
               </Button>
             </Link>
           </div>

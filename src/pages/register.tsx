@@ -9,15 +9,16 @@ import Router from 'next/router';
 import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
 import { FiUser } from 'react-icons/fi';
+import useTranslation from 'next-translate/useTranslation';
+import { NextPage } from 'next';
 
-const Login: React.FC = () => {
+const Register: NextPage = () => {
   // states
   const [loading, setLoading] = useState(false); // loading after submiting
 
   // hooks
-  const { t } = useTranslation(); // translation
+  const { t } = useTranslation('register'); // translation
   const [registerMutation] = useRegisterMutation();
   const { register, handleSubmit } = useForm<IRegisterFormInput>();
 
@@ -53,7 +54,7 @@ const Login: React.FC = () => {
           <div className="flex flex-col max-w-2xl m-auto">
             {/* USERNAME */}
             <Input
-              label={t('username')}
+              label={t('forms:username')}
               register={register}
               name="username"
               options={{ required: true }}
@@ -61,7 +62,7 @@ const Login: React.FC = () => {
 
             {/* EMAIL */}
             <Input
-              label={t('emai')}
+              label={t('forms:email')}
               register={register}
               name="email"
               type="email"
@@ -71,7 +72,7 @@ const Login: React.FC = () => {
             <div className="flex gap-2 flex-col md:flex-row">
               {/* FIRST NAME */}
               <Input
-                label={t('first_name')}
+                label={t('forms:first_name')}
                 register={register}
                 name="firstName"
                 options={{ required: true }}
@@ -79,7 +80,7 @@ const Login: React.FC = () => {
 
               {/* LAST NAME */}
               <Input
-                label={t('last_name')}
+                label={t('forms:last_name')}
                 register={register}
                 name="lastName"
                 options={{ required: false }}
@@ -88,7 +89,7 @@ const Login: React.FC = () => {
 
             {/* PASSWORD */}
             <Input
-              label={t('password')}
+              label={t('forms:password')}
               type="password"
               register={register}
               name="password"
@@ -105,13 +106,13 @@ const Login: React.FC = () => {
                 // <GoogleAuthButton />
               }
             </div>
-            <Button disabled={loading}>{t('register')}</Button>
+            <Button disabled={loading}>{t('buttons.register')}</Button>
             <Link href="/login" passHref>
-              <Button variant="secondary">{t('log in')}</Button>
+              <Button variant="secondary">{t('buttons.log_in')}</Button>
             </Link>
             <Link href="/" passHref>
               <Button variant="secondary">
-                {t('continue_without_account')}
+                {t('buttons.continue_without_account')}
               </Button>
             </Link>
           </div>
@@ -121,4 +122,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default Register;

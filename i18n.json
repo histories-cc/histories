@@ -1,0 +1,11 @@
+{
+  "locales": ["cs", "en"],
+  "defaultLocale": "cs",
+  "logBuild": false,
+  "pages": {
+    "*": ["common", "forms"],
+    "/login": ["login"],
+    "/register": ["register"],
+    "/about": ["about"]
+  }
+}

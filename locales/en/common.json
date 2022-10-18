@@ -1,0 +1,17 @@
+{
+  "profile": {
+    "stats": {
+      "followers": "Followers",
+      "following": "Following",
+      "posts": "Posts"
+    }
+  },
+  "500": {
+    "error": "...",
+    "refresh": "Refresh"
+  },
+  "404": {
+    "page_not_found": "Page not found",
+    "go_to_map": "Go to map"
+  }
+}

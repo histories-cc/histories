@@ -1,4 +1,3 @@
-import '../translation/i18n';
 import '../styles/main.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
@@ -7,18 +6,21 @@ import client from '../services/apollo';
 import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'next-themes';
 import NextNprogress from 'nextjs-progressbar';
-import React, {   } from 'react';
+import React from 'react';
 import { orange_main } from '@src/constants/constants';
 import UnderMaintenancePage from '@components/templates/UnderMaintenance';
 import { useMeQuery } from '@graphql';
 import MeContext from '@src/contexts/MeContext';
 import { Toaster } from 'react-hot-toast';
-import { KBarProvider } from "kbar";
+import { KBarProvider } from 'kbar';
 import { KBarActions } from '@src/constants';
 import KBar from '@components/molecules/kbar/KBar';
 
 function MyApp({ Component, pageProps, router }: AppProps): JSX.Element {
-  if (process.env.NEXT_PUBLIC_UNDER_MAINTENANCE && router.pathname !== "/storybook")
+  if (
+    process.env.NEXT_PUBLIC_UNDER_MAINTENANCE &&
+    router.pathname !== '/storybook'
+  )
     return <UnderMaintenancePage />;
 
   return (
@@ -38,7 +40,7 @@ function MyApp({ Component, pageProps, router }: AppProps): JSX.Element {
         <MeProvider>
           <Toaster position="top-center" reverseOrder={true} />
           <KBarProvider actions={KBarActions}>
-            <KBar/>
+            <KBar />
             <Component {...pageProps} />
           </KBarProvider>
         </MeProvider>
