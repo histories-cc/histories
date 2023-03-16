@@ -31,7 +31,7 @@
     "react-hot-toast": "^2.3.0",
     "react-icons": "^4.4.0",
     "react-map-gl": "^7.0.18",
-    "sass": "^1.49.0",
+    "sass": "^1.58.3",
     "sharp": "^0.30.7"
   },
   "devDependencies": {
